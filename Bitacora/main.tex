@@ -1,0 +1,112 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \documentclass[12pt,papel,twoside]{ibtesis}
+\documentclass[12pt,screen,twoside,pagebackref]{ibtesis}
+% \documentclass[12pt,papel,singlespace,oneside]{ibtesis}
+% \documentclass[12pt,papel,preprint,singlespace,oneside]{ibtesis}
+
+
+%%%%%%%%%%%%%%%%%%%%% Paquetes extra %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Por conveniencia: aqu\'{\i} puede cargar todos los paquetes y definir los %comandos que necesite
+\usepackage{ibextra}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}%Cambio el titulo del entorno algoritmo por %el idioma.
+\makeatother
+\usepackage[noend]{algpseudocode}
+\usepackage[dvipsnames]{xcolor}
+%\usepackage[chapter]{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% Informacion sobre la tesis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\title{Titulo de la tesis}
+%\author{}
+%\director{}
+%\codirector{}
+%\carrera{Tesis Carrera de Maestr\'{\i}a en F\'isica/Ingenier'{\ia}
+%\grado{Maestrando}
+%\laboratorio{F\'{i}sica Estad\'{i}stica e Interdisciplinaria -- Centro At\'{o}mico Bariloche}
+%\jurado{}
+%\palabrasclave{}
+%\keywords{}
+% Si queremos poner la fecha manualmente:
+%\date{Diciembre de 2099}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\titlepagefalse % Si no quiere compilar la portada descomente esta linea
+%\includeonly{apendices} % Compilar s\'{o}lo estos archivos 
+%\graphicspath{{includes/}} % Lugar donde encontrar las figuras generales (se puede poner uno en cada cap{\'{\i}}tulo)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\renewcommand{\i}{\italic{i}}
+\begin{document}
+%\maketitle
+\section*{Bitácora - Maestría IB Marco Madile Hjelt- }
+
+Este template sirve a su vez como plantilla del formato Oficial de tesis de maestría IB, cuando se descomenta lo que está comentado y se completa en los campos correspondientes tal como está indicado.\\ 
+
+Reunión 12 de Agosto de 2022\\
+
+KARINA: En esta primera reunión, Marco nos mostró la distribución de links obtenida para los encuentros en espacio y tiempo de las tortugas que veniamos monitoreando hasta ahora con tortugometro.\\
+Creamos un proyecto en Github MaestriaIBMarco, donde agregué el libro de modelos para datos de telemetría de Hooten et. al. y un artículo que encontré sobre redes de interacción social de tortugas y también los nuevos datos de los 6 IgotoGPS que estuvieron monitoreando desde Enero hasta ahora.\\
+Quedamos en que Marco comenzaría a hacer:\\
+1) Con Igraph o networkx la matriz de adyacencia a partir de los datos. Los nodos son las tortugas y los links indicas quien se encontró con quien.\\ 
+2) Aumentar el grosor de links indicando cuantas veces se repitió el encuentro.\\
+3) Hacer el mismo análisis con los nuevos datos de Igoto (15 días) para comparar resultados con los datos de tortugometro que están en una ventana temporal más chica (4 días).\\
+4) Importante: Marco, fijate que hay una hoja que dice radiotransmisores10y30, son datos de gps medidos a mano, luego de rastrear a la tortuga con antena Yagui. Entonces seria importante verificar que esas coordenadas coinciden (dentro de cierto error) con las reportadas por en Igotu. Veo que no están ordenadas las fechas...lo que puede complicar la comparación....pero bueno hagamoslo esta vez para convencernos de que coinciden (por ejemplo yo dibujaria los puntos de tx de otro color arriba de los otros para ver si coinciden o no). Los datos de T10b.csv y T30b.csv deberían ser los mismos que los T10.csv y T30.csv de la otra carpeta.\\ 
+
+5) Armar la red con las madrigueras nocturnas (esto lo acabo de agregar je).\\
+
+Cosas curiosas que encontramos: la cantidad de conexiones a partir de 7 (?) sube cuando relajo el tiempo en el que cuento los eventos de encuentros espaciotemporales.\\
+Adjunto un .bib pero ojo! que se que tiene muchos errores, igual sirve a modo de guía bibliográfica, no lo corrijan porque ya lo tengo corregido por ahi, luego se los paso.\\
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%lo siguiente va debajo de begindocument y antes de comenzar la introduccion de la tesis.
+% Dentro del environment 'preliminary' va:
+% la dedicatoria, resumen, abstract, indices
+
+%\begin{preliminary}
+  
+    % Escriba su dedicatoria
+    %\dedicatoria{}
+
+    %%% \'{I}ndices %%%%
+
+   %\begin{abreviaturas}
+                                %Abreviaturas
+    %                                 GPU: Unidad de Procesamiento Gr\'afico %(Graphics Processing Unit)\\
+    %\end{abreviaturas}
+    
+    %\tableofcontents                %\'{I}ndice
+    
+    %\listoffigures                  %Figuras
+    
+    %\listoftables                   %Tablas
+    
+    %\include{resumen} //si quiero incluir un archivo resumen.tex que esté en este mismo directorio
+
+%\end{preliminary}
+
+% Podemos usar cualquiera de los dos comandos: \input o \include para incluir el texto
+%\input{cap1}
+%\include{cap2}
+
+%\appendix
+%\include{apend1}
+
+
+\begin{biblio}
+\nocite{*}
+\bibliography{referencestortoises}
+\end{biblio}
+
+%\begin{postliminary}
+
+    %\begin{seccion}{Agradecimientos}
+    
+    %\end{seccion}
+
+%\end{postliminary}
+
+\end{document}
