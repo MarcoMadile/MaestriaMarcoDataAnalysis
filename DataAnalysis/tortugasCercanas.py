@@ -9,6 +9,7 @@ import ipdb
 from datetime import datetime
 from datetime import timedelta
 
+
 #fixing time because some files have time=8 when i want time= 0008 (so then i have it in same format)
 def fixing_time(x):
     x=str(x)
@@ -27,6 +28,12 @@ def fixing_dates(x):
         return aux[2]+"/"+aux[1]+"/"+aux[0]
     else:
         return x
+
+#returns all cordinates
+def get_all_coordinates(df):
+    points=zip(df.loc[:]["lat"],df.loc[:]["lon"])
+    points=np.array(list(points))
+    return points
 
 #getting all files in folder 
 def get_files_and_dates(folder):
@@ -180,16 +187,45 @@ def check_near_spacedays_points(df1,df2,mindistdays,day,mindistspace,dfout,tname
                     dict={"day":str(day),"daydif":str(day1),"space distance":str(dx),"sex one":str(g1),"sex two":str(g2),"name one":str(tname1),"name two":str(tname2)}
                     dfaux=pd.DataFrame(dict,dtype=str,index=[0])
                     dfout=pd.concat([dfout,dfaux],ignore_index=True)
-    
     return dfout
 
+def check_space_encounters_any_day(df,mindistspace,tnames):
+    columnnames=["day","daydif","space distance","sex one", "sex two","name one", "name two"]
+    dfout=pd.DataFrame(columns=columnnames,dtype=str)
+    for i in range(len(df)):
+            for j in range(i+1,len(df)):
+                if not tnames[i]==tnames[j]:
+                    dfout=check_near_space_points(df[i],df[j],mindistspace,dfout,tnames[i],tnames[j])
+    dfout.to_csv("encuentroscompleto_only_space.csv",index=False,sep=";")
 
+def check_near_space_points(df1,df2,mindistspace,dfout,tname1,tname2):
+    points1=get_all_coordinates(df1)
+    points2=get_all_coordinates(df2)
+    dates1=list(df1["date"])
+    dates2=list(df2["date"])
+    g1=df1["sexo"][3]
+    g2=df2["sexo"][3]
+    if ((len(points1)>0) and (len(points2)>0)):
+        for h in range(len(points1)):
+            point1=points1[h]
+            distances=np.array([(distance.distance(x,point1).m) for x in points2]).astype(int)
+            indexes=np.where(distances<mindistspace)#where the distance is smaller from min distance
+            for k in indexes[0]:                
+                    dx=distances[k]
+                    x2=points2[k]
+                    dict={"day":str(dates1[h]),"daydif":str(dates2[k]),"space distance":str(dx),"sex one":str(g1),"sex two":str(g2),"name one":str(tname1),"name two":str(tname2)}
+                    dfaux=pd.DataFrame(dict,dtype=str,index=[0])
+                    dfout=pd.concat([dfout,dfaux],ignore_index=True)
+    print("done "+tname1+"-"+tname2)
+    return dfout
+                
 folder="todaslascampanas" #folder where the files are
 df,dates,tnames=get_files_and_dates(folder)
 
 mindistspace=20 #minimun distance in space to filter points that were close
 mindisttime=20  #minimun distance in time to filter points that were close
 mindistdays=2 #minimun distance in days to filter points that were close
-check_spacetime_encounters_neardays(df,dates,mindistspace,mindistdays,tnames)
+#check_spacetime_encounters_neardays(df,dates,mindistspace,mindistdays,tnames)
 #check_encounters(df,dates,mindistspace)
 #check_spacetime_encounters(df,dates,mindistspace,mindisttime,tnames)
+check_space_encounters_any_day(df,mindistspace,tnames)
