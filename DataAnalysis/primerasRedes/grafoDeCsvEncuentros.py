@@ -1,3 +1,4 @@
+from turtle import width
 import numpy as np 
 import pandas as pd 
 import matplotlib.pyplot as plt
@@ -76,10 +77,14 @@ def plot_weighted_graph(encuentrosCsv):
     G.add_nodes_from(names)
     for i in range(len(t1)):
         if G.has_edge(t1[i],t2[i]):
-            G[t1[i]][t2[i]]['weight']+=1
+            G[t1[i]][t2[i]]['weight']+=0.05
         else:
-            G.add_edge(t1[i],t2[i],weight=1)
-    nx.draw(G, with_labels=True)
+            G.add_edge(t1[i],t2[i],weight=0.1)
+    edges = G.edges()
+    weights = [G[u][v]['weight'] for u,v in edges]
+    weights=np.array(weights)
+    weights=20*weights/np.max(weights)+np.ones(len(weights))*0.1
+    nx.draw(G, with_labels=True,width=weights)
     plt.show()    
     return G
 
