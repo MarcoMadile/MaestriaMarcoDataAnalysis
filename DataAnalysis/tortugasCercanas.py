@@ -47,6 +47,8 @@ def get_files_and_dates(folder):
         tort=tort.replace(folder,"")
         tort=tort.replace("\\","")
         tort=tort.split("_", 1)[0]
+        if tort[1]=="0":
+            tort=tort[0]+tort[2:]
         tnames.append(str(tort))
     dates=[]
     for j in range(len(df)):
@@ -188,6 +190,7 @@ def check_near_spacedays_points(df1,df2,mindistdays,day,mindistspace,dfout,tname
                     dfaux=pd.DataFrame(dict,dtype=str,index=[0])
                     dfout=pd.concat([dfout,dfaux],ignore_index=True)
     return dfout
+    
 
 def check_space_encounters_any_day(df,mindistspace,tnames):
     columnnames=["day","daydif","space distance","sex one", "sex two","name one", "name two"]
@@ -229,3 +232,4 @@ mindistdays=2 #minimun distance in days to filter points that were close
 #check_encounters(df,dates,mindistspace)
 #check_spacetime_encounters(df,dates,mindistspace,mindisttime,tnames)
 check_space_encounters_any_day(df,mindistspace,tnames)
+
