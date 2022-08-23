@@ -72,7 +72,8 @@ def plot_weighted_graph(encuentrosCsv):
     t1=(df["name one"].values).tolist() 
     t2=(df["name two"].values).tolist()
     names=np.unique(t1+t2)
-    
+    sex_dict = get_sex_dict(encuentrosCsv,return_colors=True)
+
     G=nx.Graph()
     G.add_nodes_from(names)
     for i in range(len(t1)):
@@ -84,7 +85,32 @@ def plot_weighted_graph(encuentrosCsv):
     weights = [G[u][v]['weight'] for u,v in edges]
     weights=np.array(weights)
     weights=20*weights/np.max(weights)+np.ones(len(weights))*0.1
-    nx.draw(G, with_labels=True,width=weights)
+    nx.draw(G, with_labels=True,width=weights,node_color=sex_dict.values())
     plt.show()    
     return G
 
+def get_sex_dict(encuentros_csv,return_colors=False):
+    df = pd.read_csv(encuentros_csv,sep=";")
+    t1= (df["name one"].values).tolist()
+    t2= (df["name two"].values).tolist()
+    sex1 = (df["sex one"].values).tolist()
+    sex2 = (df["sex two"].values).tolist()
+    if return_colors:
+        for i in range(len(sex1)):
+            if sex1[i]== "macho":
+                sex1[i]="blue"
+            elif sex1[i]== "hembra":
+                sex1[i]= "pink"
+            else: 
+                sex1[i]= "grey"
+
+            if sex2[i]== "macho":
+                sex2[i]="blue"
+            elif sex2[i]== "hembra":
+                sex2[i]= "pink"
+            else: 
+                sex2[i]= "grey"      
+            
+    dict_sexs = dict(zip(t1+t2, sex1+sex2))
+    return dict_sexs
+    # make dict from uniques values of t1+t2 to sex1 and sex2 
