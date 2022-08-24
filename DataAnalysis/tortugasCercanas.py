@@ -42,7 +42,7 @@ def get_files_and_dates(folder):
     df=[]
     tnames=[]
     for a in files:
-        df.append(pd.read_csv(a,sep=";"))
+        df.append(pd.read_csv(a,sep=";",encoding='latin-1'))
         tort=a.replace(".csv","")
         tort=tort.replace(folder,"")
         tort=tort.replace("\\","")
@@ -112,27 +112,17 @@ def get_delta_time(df1,df2,day,point1,point2):
     return np.abs(dt/60),t1[0]
 
 #if tortugues were close in time and space on same day, it prints then in map and saves one map for each day, it also saves in a csv file some relevant data from that pair of points
-def check_spacetime_encounters(df,dates,mindistspace,mindisttime,tnames):
-    colors=["red","green","yellow","grey","pink","aqua","purple","white","black","brown","lime","beige"] 
-    colors=colors*10 #to have enough colors beacause the code is being used for a diferent thing and colors was older
+def check_spacetime_encounters(df,dates,mindistspace,mindisttime,tnames,path=""):
     columnnames=["day","time distance","space distance","sex one", "sex two","time" ,"name one", "name two"]
     dfout=pd.DataFrame(columns=columnnames,dtype=str)
-    print("lengh df ",len(df))
-    print("lengh colors ",len(colors))
-    print("leng tnames ",len(tnames))
     for day in dates: 
-        map1=get_map()
         for i in range(len(df)):
             for j in range(i+1,len(df)):
-                dfout=draw_near_spacetime_points(df[i],df[j],colors[i],colors[j],map1,mindisttime,day,mindistspace,dfout,tnames[i],tnames[j])
-        name=str(day)+"_nearspacetime"+".html"
-        name=name.replace("/","_")
-        #map1.save(name)
-        print("guardado dia ",day)
-    dfout.to_csv("encuentroscompleto_tiempo_largo.csv",index=False,sep=";")
+                dfout=draw_near_spacetime_points(df[i],df[j],mindisttime,day,mindistspace,dfout,tnames[i],tnames[j])
+    dfout.to_csv(path+"encuentroscompleto_tiempo_largo.csv",index=False,sep=";")
 
 #makes drawing in maps and saves data in df 
-def draw_near_spacetime_points(df1,df2,color1,color2,map1,mindisttime,day,mindistspace,dfout,tname1,tname2):
+def draw_near_spacetime_points(df1,df2,mindisttime,day,mindistspace,dfout,tname1,tname2):
     points1=get_cordinates_from_day(df1,day)
     points2=get_cordinates_from_day(df2,day)
     if ((len(points1)>0) and (len(points2)>0)):
@@ -149,9 +139,6 @@ def draw_near_spacetime_points(df1,df2,color1,color2,map1,mindisttime,day,mindis
                     dict={"day":str(day),"time distance":str(dt),"space distance":str(dx),"sex one":str(g1),"sex two":str(g2),"time":str(t),"name one":str(tname1),"name two":str(tname2)}
                     dfaux=pd.DataFrame(dict,dtype=str,index=[0])
                     dfout=pd.concat([dfout,dfaux],ignore_index=True)
-                    #folium.PolyLine([x2,point1],color=color1,weight=3, opacity=0.5,popup="dt = "+str(dt)+" and dr ="+str(dx)+"  "+g1+"-"+g2).add_to(map1)
-                    #folium.CircleMarker([x2[0],x2[1]],radius=3,stroke=False,fill=True,fill_color=color2,fill_opacity=1,popup=str(g2)+ tname2).add_to(map1)
-                    #folium.CircleMarker([point1[0],point1[1]],radius=3,stroke=False,fill=True,fill_color=color1,fill_opacity=1,popup=str(g1)+ tname1).add_to(map1)
     return dfout
                 
         
@@ -192,14 +179,14 @@ def check_near_spacedays_points(df1,df2,mindistdays,day,mindistspace,dfout,tname
     return dfout
     
 
-def check_space_encounters_any_day(df,mindistspace,tnames):
+def check_space_encounters_any_day(df,mindistspace,tnames,path=""):
     columnnames=["day","daydif","space distance","sex one", "sex two","name one", "name two"]
     dfout=pd.DataFrame(columns=columnnames,dtype=str)
     for i in range(len(df)):
             for j in range(i+1,len(df)):
                 if not tnames[i]==tnames[j]:
                     dfout=check_near_space_points(df[i],df[j],mindistspace,dfout,tnames[i],tnames[j])
-    dfout.to_csv("encuentroscompleto_only_space.csv",index=False,sep=";")
+    dfout.to_csv(path+"encuentroscompleto_only_space.csv",index=False,sep=";")
 
 def check_near_space_points(df1,df2,mindistspace,dfout,tname1,tname2):
     points1=get_all_coordinates(df1)
@@ -228,8 +215,9 @@ df,dates,tnames=get_files_and_dates(folder)
 mindistspace=20 #minimun distance in space to filter points that were close
 mindisttime=20  #minimun distance in time to filter points that were close
 mindistdays=2 #minimun distance in days to filter points that were close
+path_csv="MaestriaMarco\DataAnalysis\encuentros_csv\\" #path to save the csv files
 #check_spacetime_encounters_neardays(df,dates,mindistspace,mindistdays,tnames)
 #check_encounters(df,dates,mindistspace)
-#check_spacetime_encounters(df,dates,mindistspace,mindisttime,tnames)
-check_space_encounters_any_day(df,mindistspace,tnames)
+check_spacetime_encounters(df,dates,mindistspace,mindisttime,tnames,path=path_csv)
+#check_space_encounters_any_day(df,mindistspace,tnames,path="MaestriaMarco\DataAnalysis\encuentros_csv")
 

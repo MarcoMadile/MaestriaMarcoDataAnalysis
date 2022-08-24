@@ -73,9 +73,12 @@ def plot_weighted_graph(encuentrosCsv):
     t2=(df["name two"].values).tolist()
     names=np.unique(t1+t2)
     sex_dict = get_sex_dict(encuentrosCsv,return_colors=True)
-
     G=nx.Graph()
     G.add_nodes_from(names)
+    nodes=G.nodes()
+    list_colors=[]
+    for node in nodes:
+        list_colors.append(sex_dict[node])
     for i in range(len(t1)):
         if G.has_edge(t1[i],t2[i]):
             G[t1[i]][t2[i]]['weight']+=0.05
@@ -85,7 +88,7 @@ def plot_weighted_graph(encuentrosCsv):
     weights = [G[u][v]['weight'] for u,v in edges]
     weights=np.array(weights)
     weights=20*weights/np.max(weights)+np.ones(len(weights))*0.1
-    nx.draw(G, with_labels=True,width=weights,node_color=sex_dict.values())
+    nx.draw(G, with_labels=True,width=weights,node_color=list_colors)
     plt.show()    
     return G
 
@@ -114,3 +117,9 @@ def get_sex_dict(encuentros_csv,return_colors=False):
     dict_sexs = dict(zip(t1+t2, sex1+sex2))
     return dict_sexs
     # make dict from uniques values of t1+t2 to sex1 and sex2 
+
+
+file="D:\\facultad\\IB5toCuatri\\Tesis\\encuentroscompleto2.csv"
+plt.title("Red de interacción, 20 min")
+G=plot_weighted_graph(file)
+plt.savefig("D:\facultad\IB5toCuatri\Tesis\MaestriaMarco\DataAnalysis\primerasRedes\red_interaccion_20min.pdf")
