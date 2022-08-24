@@ -67,12 +67,15 @@ def plot_grades(names,conectionsForName):
     plt.show()
 
 #from encuentros csv it makes agraph of the connections between turtles adding weights to the edges depending on the number of meetings
-def plot_weighted_graph(encuentrosCsv,title,save=False,save_name=""):
+def plot_weighted_graph(encuentrosCsv,title,save=False,save_name="",get_sex_from_file=False,file_for_sex=""):
     df=pd.read_csv(encuentrosCsv,sep=";")
     t1=(df["name one"].values).tolist() 
     t2=(df["name two"].values).tolist()
     names=np.unique(t1+t2)
-    sex_dict = get_sex_dict(encuentrosCsv,return_colors=True)
+    if not get_sex_from_file:
+        sex_dict = get_sex_dict(encuentrosCsv,return_colors=True)
+    else:
+        sex_dict= get_sex_dict(file_for_sex,return_colors=True)
     G=nx.Graph()
     G.add_nodes_from(names)
     nodes=G.nodes()
@@ -95,12 +98,12 @@ def plot_weighted_graph(encuentrosCsv,title,save=False,save_name=""):
     plt.show()  
     return G
 
-def get_sex_dict(encuentros_csv,return_colors=False):
-    df = pd.read_csv(encuentros_csv,sep=";")
-    t1= (df["name one"].values).tolist()
-    t2= (df["name two"].values).tolist()
-    sex1 = (df["sex one"].values).tolist()
-    sex2 = (df["sex two"].values).tolist()
+def get_sex_dict(file_for_sex,return_colors=False):
+    df_sexs = pd.read_csv(file_for_sex,sep=";")
+    t1= (df_sexs["name one"].values).tolist()
+    t2= (df_sexs["name two"].values).tolist()
+    sex1 = (df_sexs["sex one"].values).tolist()
+    sex2 = (df_sexs["sex two"].values).tolist()
     if return_colors:
         for i in range(len(sex1)):
             if sex1[i]== "macho":
@@ -122,8 +125,8 @@ def get_sex_dict(encuentros_csv,return_colors=False):
     
 
 
-file="MaestriaMarco\DataAnalysis\encuentros_csv\encuentros_Igoto_all_day.csv"
-name_file=r"D:\facultad\IB5toCuatri\Tesis\MaestriaMarco\DataAnalysis\primerasRedes\red_interaccion_mismo_dia_IGOTO.pdf"
-
-title="Red de interacción, mismo dia con datos IGOTO"
-G=plot_weighted_graph(file,title,save=True,save_name=name_file)
+file="MaestriaMarco\DataAnalysis\encuentros_csv\encuentros_Igoto_20min.csv"
+name_file=r"D:\facultad\IB5toCuatri\Tesis\MaestriaMarco\DataAnalysis\primerasRedes\red_interaccion_20min_IGOTO.pdf"
+file_for_sex="MaestriaMarco\DataAnalysis\encuentros_csv\encuentroscompleto_neardays2.csv"
+title="Red de interacción, 20 minutos con datos IGOTO"
+G=plot_weighted_graph(file,title,save=True,save_name=name_file,get_sex_from_file=True,file_for_sex=file_for_sex)
