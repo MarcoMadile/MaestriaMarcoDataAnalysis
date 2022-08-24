@@ -92,7 +92,7 @@ def plot_weighted_graph(encuentrosCsv,title,save=False,save_name="",get_sex_from
     weights=np.array(weights)
     weights=20*weights/np.max(weights)+np.ones(len(weights))*0.1
     plt.title(title)
-    nx.draw(G, with_labels=True,width=weights,node_color=list_colors)
+    nx.draw(G, with_labels=True,width=weights,node_color=list_colors,font_size=9)
     if save:
         plt.savefig(save_name)  
     plt.show()  
@@ -107,26 +107,26 @@ def get_sex_dict(file_for_sex,return_colors=False):
     if return_colors:
         for i in range(len(sex1)):
             if sex1[i]== "macho":
-                sex1[i]="blue"
+                sex1[i]="lightblue"
             elif sex1[i]== "hembra":
                 sex1[i]= "pink"
             else: 
-                sex1[i]= "grey"
+                sex1[i]= "silver"
 
             if sex2[i]== "macho":
-                sex2[i]="blue"
+                sex2[i]="lightblue"
             elif sex2[i]== "hembra":
                 sex2[i]= "pink"
             else: 
-                sex2[i]= "grey"      
+                sex2[i]= "silver"      
             
     dict_sexs = dict(zip(t1+t2, sex1+sex2))# make dict from uniques values of t1+t2 to sex1 and sex2 
     return dict_sexs
     
 
 
-file="MaestriaMarco\DataAnalysis\encuentros_csv\encuentros_Igoto_near_days2.csv"
-name_file=r"D:\facultad\IB5toCuatri\Tesis\MaestriaMarco\DataAnalysis\primerasRedes\red_interaccion_2_dias_dif_IGOTO.pdf"
+file="MaestriaMarco\DataAnalysis\encuentros_csv\encuentroscompleto_only_space.csv"
+name_fig=r"D:\facultad\IB5toCuatri\Tesis\MaestriaMarco\DataAnalysis\primerasRedes\red_interaccion_sin_restriccion_temporal.pdf"
 file_for_sex="MaestriaMarco\DataAnalysis\encuentros_csv\encuentroscompleto_neardays2.csv"
-title="Red de interacción, dif temporal <=2 dias, datos IGOTO"
-G=plot_weighted_graph(file,title,save=True,save_name=name_file,get_sex_from_file=True,file_for_sex=file_for_sex)
+title="Red de interacción,sin restriccion temporal, datos campanas"
+G=plot_weighted_graph(file,title,save=True,save_name=name_fig,get_sex_from_file=False,file_for_sex=file_for_sex)
