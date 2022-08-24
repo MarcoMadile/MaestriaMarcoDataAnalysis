@@ -67,7 +67,7 @@ def plot_grades(names,conectionsForName):
     plt.show()
 
 #from encuentros csv it makes agraph of the connections between turtles adding weights to the edges depending on the number of meetings
-def plot_weighted_graph(encuentrosCsv):
+def plot_weighted_graph(encuentrosCsv,title,save=False,save_name=""):
     df=pd.read_csv(encuentrosCsv,sep=";")
     t1=(df["name one"].values).tolist() 
     t2=(df["name two"].values).tolist()
@@ -88,8 +88,11 @@ def plot_weighted_graph(encuentrosCsv):
     weights = [G[u][v]['weight'] for u,v in edges]
     weights=np.array(weights)
     weights=20*weights/np.max(weights)+np.ones(len(weights))*0.1
+    plt.title(title)
     nx.draw(G, with_labels=True,width=weights,node_color=list_colors)
-    plt.show()    
+    if save:
+        plt.savefig(save_name)  
+    plt.show()  
     return G
 
 def get_sex_dict(encuentros_csv,return_colors=False):
@@ -114,12 +117,13 @@ def get_sex_dict(encuentros_csv,return_colors=False):
             else: 
                 sex2[i]= "grey"      
             
-    dict_sexs = dict(zip(t1+t2, sex1+sex2))
+    dict_sexs = dict(zip(t1+t2, sex1+sex2))# make dict from uniques values of t1+t2 to sex1 and sex2 
     return dict_sexs
-    # make dict from uniques values of t1+t2 to sex1 and sex2 
+    
 
 
-file="D:\\facultad\\IB5toCuatri\\Tesis\\encuentroscompleto2.csv"
-plt.title("Red de interacción, 20 min")
-G=plot_weighted_graph(file)
-plt.savefig("D:\facultad\IB5toCuatri\Tesis\MaestriaMarco\DataAnalysis\primerasRedes\red_interaccion_20min.pdf")
+file="MaestriaMarco\DataAnalysis\encuentros_csv\encuentros_Igoto_all_day.csv"
+name_file=r"D:\facultad\IB5toCuatri\Tesis\MaestriaMarco\DataAnalysis\primerasRedes\red_interaccion_mismo_dia_IGOTO.pdf"
+
+title="Red de interacción, mismo dia con datos IGOTO"
+G=plot_weighted_graph(file,title,save=True,save_name=name_file)

@@ -142,14 +142,14 @@ def draw_near_spacetime_points(df1,df2,mindisttime,day,mindistspace,dfout,tname1
     return dfout
                 
         
-def check_spacetime_encounters_neardays(df,dates,mindistspace,mindistdays,tnames):
+def check_spacetime_encounters_neardays(df,dates,mindistspace,mindistdays,tnames,path=""):
     columnnames=["day","daydif","space distance","sex one", "sex two","name one", "name two"]
     dfout=pd.DataFrame(columns=columnnames,dtype=str)
     for day in dates: 
         for i in range(len(df)):
             for j in range(i+1,len(df)):
                 dfout=check_near_spacedays_points(df[i],df[j],mindistdays,day,mindistspace,dfout,tnames[i],tnames[j])
-    dfout.to_csv("encuentroscompleto_neardaysreal2.csv",index=False,sep=";")
+    dfout.to_csv(path+"encuentroscompleto_neardays2.csv",index=False,sep=";")
             
                 
 
@@ -216,8 +216,8 @@ mindistspace=20 #minimun distance in space to filter points that were close
 mindisttime=20  #minimun distance in time to filter points that were close
 mindistdays=2 #minimun distance in days to filter points that were close
 path_csv="MaestriaMarco\DataAnalysis\encuentros_csv\\" #path to save the csv files
-#check_spacetime_encounters_neardays(df,dates,mindistspace,mindistdays,tnames)
 #check_encounters(df,dates,mindistspace)
-check_spacetime_encounters(df,dates,mindistspace,mindisttime,tnames,path=path_csv)
-#check_space_encounters_any_day(df,mindistspace,tnames,path="MaestriaMarco\DataAnalysis\encuentros_csv")
+#check_spacetime_encounters_neardays(df,dates,mindistspace,mindistdays,tnames,path_csv)
+#check_spacetime_encounters(df,dates,mindistspace,mindisttime,tnames,path=path_csv)
+check_space_encounters_any_day(df,mindistspace,tnames,path="path_csv")
 

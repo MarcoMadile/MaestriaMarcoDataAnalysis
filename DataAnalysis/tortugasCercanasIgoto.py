@@ -4,6 +4,7 @@ import numpy as np
 from geopy import distance 
 import ipdb
 import datetime
+from datetime import timedelta
 
 
 
@@ -29,10 +30,8 @@ def get_files_and_dates(folder):
         df[j].dropna(subset=['Date'], inplace=True)
         df[j]["Date"]=df[j]["Date"].apply(fixing_dates)
         df[j][" Time"]=df[j][" Time"].apply(fixing_time)
-        dates.append(np.unique(df[j]["Date"]))
-    
+        dates.append(np.unique(df[j]["Date"]))    
     dates=np.unique(np.concatenate(dates).ravel())
-
     return df,dates,t_names
 
 
@@ -45,7 +44,6 @@ def fixing_dates(x):
 
 #some times are in format "8:57" and need to be in format "8:57:00"
 def fixing_time(x):
-    
     x=str(x)
     if len(x)>9:
         x=x.split(" ")[1]
@@ -57,14 +55,14 @@ def fixing_time(x):
         return x
 
 #if tortugues were close in time and space on same day, it prints then in map and saves one map for each day, it also saves in a csv file some relevant data from that pair of points
-def save_spacetime_encounters(df,dates,min_dist_space,min_dist_time,t_names,file_out="encuentros_Igoto_20min.csv"):
+def save_spacetime_encounters(df,dates,min_dist_space,min_dist_time,t_names,file_out="encuentros_Igoto_20min.csv",path=""):
     colum_names=["day","time distance","space distance","time" ,"name one", "name two"]
     df_out=pd.DataFrame(columns=colum_names,dtype=str)
     for day in dates: 
         for i in range(len(df)):
             for j in range(i+1,len(df)):
-                dfout=find_near_spacetime_points(df[i],df[j],min_dist_time,day,min_dist_space,df_out,t_names[i],t_names[j])
-    dfout.to_csv(file_out,index=False,sep=";")
+                df_out=find_near_spacetime_points(df[i],df[j],min_dist_time,day,min_dist_space,df_out,t_names[i],t_names[j])
+    df_out.to_csv(path+file_out,index=False,sep=";")
 
 #finds all points that are close in time and space on a day
 def find_near_spacetime_points(df1,df2,min_dist_time,day,min_dist_space,df_out,t_name1,t_name2):
@@ -80,7 +78,9 @@ def find_near_spacetime_points(df1,df2,min_dist_time,day,min_dist_space,df_out,t
                     dx=distances[k]
                     dict={"day":str(day),"time distance":str(dt),"space distance":str(dx),"time":str(t),"name one":str(t_name1),"name two":str(t_name2)}
                     df_aux=pd.DataFrame(dict,dtype=str,index=[0])
-                    df_out=pd.concat([df_out,df_aux],ignore_index=True)
+                    df_aux=pd.concat([df_out,df_aux],ignore_index=True)
+                    df_out=df_aux
+                 
     return df_out
 
 def get_cordinates_from_day(df,day):
@@ -97,14 +97,47 @@ def get_delta_time(df1,df2,day,point1,point2):
     dt=((t1[0]-t2[0]).astype('timedelta64[s]')).astype("int")
     return np.abs(dt/60),t1[0]
 
+def save_spacetime_encounters_neardays(df,dates,min_dist_space,min_dist_days,t_names,csv_name="encuentroscompleto_neardaysreal2.csv",path=""):
+    columnnames=["day","daydif","space distance","name one", "name two"]
+    dfout=pd.DataFrame(columns=columnnames,dtype=str)
+    for day in dates: 
+        for i in range(len(df)):
+            for j in range(i+1,len(df)):
+                dfout=find_near_spacedays_points(df[i],df[j],min_dist_days,day,min_dist_space,dfout,t_names[i],t_names[j])
+    dfout.to_csv(path+csv_name,index=False,sep=";")
+            
+                
+
+def find_near_spacedays_points(df1,df2,mindistdays,day,mindistspace,dfout,tname1,tname2):
+    points1=get_cordinates_from_day(df1,day)
+    dayDatetime=datetime.datetime.strptime(day,"%Y/%m/%d")
+    daystocheck=[day]
+    for h in range(1,mindistdays+1):
+        auxday=dayDatetime+timedelta(days=h)
+        daystocheck.append(auxday.strftime("%Y/%m/%d"))
+        auxday=dayDatetime-timedelta(days=h)
+        daystocheck.append(auxday.strftime("%Y/%m/%d"))
+    for day1 in daystocheck:
+        points2=get_cordinates_from_day(df2,day1)
+        if ((len(points1)>0) and (len(points2)>0)):
+            for point1 in points1:
+                distances=np.array([(distance.distance(x,point1).m) for x in points2]).astype(int)
+                indexes=np.where(distances<mindistspace)#where the distance is smaller from min distance
+                for k in indexes[0]:                
+                    dx=distances[k]
+                    dict={"day":str(day),"daydif":str(day1),"space distance":str(dx),"name one":str(tname1),"name two":str(tname2)}
+                    dfaux=pd.DataFrame(dict,dtype=str,index=[0])
+                    dfout=pd.concat([dfout,dfaux],ignore_index=True)
+    return dfout
 
 
-
-folder="DataAnalysis\DatosIgoto2022Todos" #folder where the files are
+folder="MaestriaMarco\DataAnalysis\DatosIgoto2022Todos" #folder where the files are
 df,dates,t_names=get_files_and_dates(folder)
 
-min_dist_space=20 #minimun distance in space to filter points that were close
-min_dist_time=20  #minimun distance in time to filter points that were close
+min_dist_space=20 #minimun distance in space to filter points that were close, in meters
+min_dist_time= 1440 #minimun distance in time to filter points that were close, in minutes
 min_dist_days=2 #minimun distance in days to filter points that were close
-
-save_spacetime_encounters(df,dates,min_dist_space,min_dist_time,t_names)
+path_csv="MaestriaMarco\\DataAnalysis\\encuentros_csv\\" #path to save csv files
+csv_name="encuentros_Igoto_near_days2.csv" #name of the csv file
+#save_spacetime_encounters(df,dates,min_dist_space,min_dist_time,t_names,file_out=csv_name,path=path_csv)
+save_spacetime_encounters_neardays(df,dates,min_dist_space,min_dist_days,t_names,csv_name=csv_name,path=path_csv)
