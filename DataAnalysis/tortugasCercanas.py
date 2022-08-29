@@ -219,5 +219,5 @@ path_csv="MaestriaMarco\DataAnalysis\encuentros_csv\\" #path to save the csv fil
 #check_encounters(df,dates,mindistspace)
 #check_spacetime_encounters_neardays(df,dates,mindistspace,mindistdays,tnames,path_csv)
 #check_spacetime_encounters(df,dates,mindistspace,mindisttime,tnames,path=path_csv)
-check_space_encounters_any_day(df,mindistspace,tnames,path="path_csv")
+check_space_encounters_any_day(df,mindistspace,tnames,path=path_csv)
 
