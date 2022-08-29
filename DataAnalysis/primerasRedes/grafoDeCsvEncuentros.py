@@ -90,9 +90,9 @@ def plot_weighted_graph(encuentrosCsv,title,save=False,save_name="",get_sex_from
     edges = G.edges()
     weights = [G[u][v]['weight'] for u,v in edges]
     weights=np.array(weights)
-    weights=20*weights/np.max(weights)+np.ones(len(weights))*0.1
+    weights=15*weights/np.max(weights)+np.ones(len(weights))*0.1
     plt.title(title)
-    nx.draw(G, with_labels=True,width=weights,node_color=list_colors,font_size=9)
+    nx.draw(G, with_labels=True,width=weights,node_color=list_colors,font_size=8)
     if save:
         plt.savefig(save_name)  
     plt.show()  
@@ -125,8 +125,8 @@ def get_sex_dict(file_for_sex,return_colors=False):
     
 
 
-file="MaestriaMarco\DataAnalysis\encuentros_csv\encuentroscompleto_only_space.csv"
-name_fig=r"D:\facultad\IB5toCuatri\Tesis\MaestriaMarco\DataAnalysis\primerasRedes\red_interaccion_sin_restriccion_temporal.pdf"
-file_for_sex="MaestriaMarco\DataAnalysis\encuentros_csv\encuentroscompleto_neardays2.csv"
-title="Red de interacción,sin restriccion temporal, datos campanas"
-G=plot_weighted_graph(file,title,save=True,save_name=name_fig,get_sex_from_file=False,file_for_sex=file_for_sex)
+file="DataAnalysis\encuentros_csv\encuentroscompleto_only_space.csv"
+name_fig=r"D:\facultad\IB5toCuatri\Tesis\MaestriaMarco\DataAnalysis\primerasRedes\red_interaccion_2_dias_dif_campanas.pdf"
+file_for_sex="DataAnalysis\encuentros_csv\encuentroscompleto_only_space.csv"
+title="Interaction Network, only space encounters"
+G=plot_weighted_graph(file,title,save=False,save_name=name_fig,get_sex_from_file=True,file_for_sex=file_for_sex)

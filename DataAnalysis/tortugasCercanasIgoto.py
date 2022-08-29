@@ -131,13 +131,13 @@ def find_near_spacedays_points(df1,df2,mindistdays,day,mindistspace,dfout,tname1
     return dfout
 
 
-folder="MaestriaMarco\DataAnalysis\DatosIgoto2022Todos" #folder where the files are
+folder="DataAnalysis\DatosIgoto2022Todos" #folder where the files are
 df,dates,t_names=get_files_and_dates(folder)
 
 min_dist_space=20 #minimun distance in space to filter points that were close, in meters
 min_dist_time= 1440 #minimun distance in time to filter points that were close, in minutes
-min_dist_days=2 #minimun distance in days to filter points that were close
-path_csv="MaestriaMarco\\DataAnalysis\\encuentros_csv\\" #path to save csv files
-csv_name="encuentros_Igoto_near_days2.csv" #name of the csv file
+min_dist_days=15 #minimun distance in days to filter points that were close
+path_csv="DataAnalysis\\encuentros_csv\\" #path to save csv files
+csv_name="encuentros_Igoto_all_days.csv" #name of the csv file
 #save_spacetime_encounters(df,dates,min_dist_space,min_dist_time,t_names,file_out=csv_name,path=path_csv)
 save_spacetime_encounters_neardays(df,dates,min_dist_space,min_dist_days,t_names,csv_name=csv_name,path=path_csv)

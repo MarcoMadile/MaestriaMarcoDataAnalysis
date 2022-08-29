@@ -59,4 +59,4 @@ df_igotos=df_coincidencia[df_coincidencia["turtles"].isin(["T10","T12","T6","T30
 df_igotos.index=range(len(df_igotos))
 df_igotos=df_igotos.replace(0,np.nan).dropna(axis=1,thresh=2)
 df_igotos=df_igotos.replace(np.nan,0)
-df_igotos.to_csv("tortugas_igoto_coincidencias.csv",sep=";")
+df_igotos.to_csv("DataAnalysis\\tortugas_igoto_coincidencias.csv",sep=";")
