@@ -135,11 +135,8 @@ def make_gif(folder="",duration_frame=100,remove_pngs=True):
     frames = []
     for i in files:
         new_frame = Image.open(i)
-<<<<<<< HEAD
         new_size = (int(new_frame.width/4),int( new_frame.height/4))
         new_frame = new_frame.resize(new_size) 
-=======
->>>>>>> 9ad47dcda3cb04abc265d1ca3db81b0a3ab9b59b
         frames.append(new_frame)
         # Save into a GIF file that loops forever
         if remove_pngs:
