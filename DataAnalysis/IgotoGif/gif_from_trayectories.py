@@ -103,10 +103,82 @@ def save_maps(undf,days,colors,hour_start=" 08:00:00",end_hour=" 20:00:00",freq_
                             <h3 align="left" style="font-size:22px"><b>{}</b></h3>
                             '''.format("Day and Hour:" + str(time[j]))   
             m_ij.get_root().html.add_child(folium.Element(title_html))
-            for k in range(len(df_turtles)):
+            
+           
+        
+            for k in range(len(df_turtles)):        
                 if time[j] in df_turtles[k].index:
                     folium.CircleMarker(location=[df_turtles[k].loc[time[j]]["Latitude"],df_turtles[k].loc[time[j]]["Longitude"]],color=colors[turtles[k]],fill_color=colors[turtles[k]],fill_opacity=0.3).add_to(m_ij)
             m_ij.save(time[j].strftime("%m_%d_%Y_%H_%M")+".html")
+            
+
+    return
+
+
+def save_maps_with_prev_points(undf,days,colors,hour_start=" 08:00:00",end_hour=" 20:00:00",freq_points="15min"):
+    coords=[-40.585390,-64.996220]
+    time=[]
+    turtles=list(colors.keys())
+    df_turtles=[pd.DataFrame(columns=["Time","Latitude","Longitude","Turtle"]) for i in range(len(turtles))]
+    for i in range(len(days)):
+        df_day=undf[undf["Time"].dt.date==days[i]]
+        df_day=df_day.reset_index(drop=True)
+        df_day.index=df_day["Time"]
+        
+        for j in range(len(turtles)):
+            df_aux= df_day[df_day["Turtle"]==turtles[j]]
+            df_aux=df_aux.loc[~df_aux.index.duplicated(), :]
+            df_aux= df_aux.asfreq("1min",method="pad")
+            df_turtles[j]=pd.concat([df_turtles[j],df_aux])
+        start_time=pd.to_datetime(str(days[i])+hour_start)
+        end_time=pd.to_datetime(str(days[i])+end_hour)
+        time.append(pd.date_range(start_time,end_time,freq=freq_points))
+    time=time[0].union_many(time[0:])
+    # add numerical column to each df_turtles[i] with integer values from 0 to len(df_turtles[i])
+    # column is name "place"
+    for i in range(len(df_turtles)):
+        # get save only in df_turtles[i] the rows that have the same index as time
+        
+        df_turtles[i]=df_turtles[i].loc[df_turtles[i].index.isin(time)]
+        df_turtles[i]["place"]=np.arange(len(df_turtles[i]))
+    for j in range(len(time)):
+        m_ij = folium.Map(location = coords,zoom_start=16)
+        folium.TileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",attr="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community").add_to(m_ij)
+
+        # Add year label to the map
+        title_html = '''
+                        <h3 align="left" style="font-size:22px"><b>{}</b></h3>
+                        '''.format("Day and Hour:" + str(time[j]))   
+        m_ij.get_root().html.add_child(folium.Element(title_html))
+        
+
+        for k in range(len(df_turtles)):
+            long_df=len(df_turtles[k][:time[j]])
+
+            df_turtles[k].loc[:time[j]].apply(lambda row: folium.CircleMarker(
+            location=[row["Latitude"],
+            row["Longitude"]],
+            radius=5,
+            color=colors[row["Turtle"]],
+            fill=True,
+            fill_color=colors[row["Turtle"]],
+            opacity=0.6*(row["place"]+1)/long_df,
+            fill_opacity=0.2*(row["place"]+1)/long_df
+            ).add_to(m_ij) if row["place"]+1<long_df 
+            
+            else folium.CircleMarker(
+            location=[row["Latitude"],
+            row["Longitude"]],
+            radius=5,
+            color=colors[row["Turtle"]],
+            fill=True,
+            fill_color=colors[row["Turtle"]],
+            opacity=1,
+            fill_opacity=0.3
+            ).add_to(m_ij),axis=1)
+        
+        m_ij.save(time[j].strftime("%m_%d_%Y_%H_%M")+"prev_points"+".html")
+            
 
     return
 
@@ -151,18 +223,14 @@ def make_gif(folder="",duration_frame=100,remove_pngs=True):
     return
 
 
+""" folder="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos" 
+dfs,t_names=get_files_and_dates(folder)
+unifydf, dates, colors= get_df_days_colors(dfs,t_names)
+dates_for_loop= dates.value_counts()[:50].index
+dates_for_loop=dates_for_loop.sort_values()
+save_maps_with_prev_points(unifydf,dates_for_loop[0:2],colors)
+ """
 
-
-#def interpol_trayectories(df):
-    df.index=df["Time"]
-    df_aux=df.loc[~df.index.duplicated(), :]
-    #if datetime distance is less than 20 minutes, interpolate time and lat and long. Time is interpolates so that there is a gap of 1 minute between each row.
-    # using groupby functions separarte between rows where the time distance is greather than 20 minutes. Then apply interpolate function to each group.
-    df_aux["Time_diff"]=df_aux["Time"].diff()
-    where_greater_than_20=df_aux["Time_diff"]>timedelta(minutes=20)
-    
-
-                
 
 
         
