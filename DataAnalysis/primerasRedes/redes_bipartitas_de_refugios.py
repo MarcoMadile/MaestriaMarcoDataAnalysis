@@ -231,10 +231,10 @@ def get_colors_turtles(df_ref,t_uniq_names):
     return t_colors
 
 
-folder_to_Igoto="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos"
+"""folder_to_Igoto="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos"
 dfsI,datesI,t_namesI=get_files_and_dates_IGOTO(folder_to_Igoto)
 file_to_sex= "D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\encuentros_csv\\encuentroscompleto_only_space.csv"
-df_refugiosI=save_refugies_data(dfsI,datesI,t_namesI,cutoff_time=2000,distance_refugies=0,data_is_Igoto=True,file_for_sex=file_to_sex)
+df_refugiosI=save_refugies_data(dfsI,datesI,t_namesI,cutoff_time=2000,distance_refugies=0,data_is_Igoto=True,file_for_sex=file_to_sex)"""
 
 #dfs,dates,t_names=get_files_and_dates_IGOTO("D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos")
 #df_coincidencia=save_refugies_data(dfs,dates,t_names,distance_refugies=200)
