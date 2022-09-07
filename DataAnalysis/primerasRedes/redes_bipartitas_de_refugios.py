@@ -89,8 +89,8 @@ def fixing_time_Igoto(x):
 def save_refugies_data(dfs,dates,t_names,cutoff_time=2000,distance_refugies=10,data_is_Igoto=False,file_for_sex="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysisDataAnalysis\\encuentros_csv\\encuentroscompleto_only_space.csv"):
     df_out=pd.DataFrame(columns=["lat","lon","date","t_name","sex","refugie_label"])
     refugies=[]
-    if data_is_Igoto:
-        sex_dict= get_sex_dict(file_for_sex)
+    
+    sex_dict= get_sex_dict(file_for_sex)
     for date in dates:
         for j in range(len(dfs)):
             if data_is_Igoto:
@@ -104,7 +104,7 @@ def save_refugies_data(dfs,dates,t_names,cutoff_time=2000,distance_refugies=10,d
                     if data_is_Igoto:
                         dict={"lat":str(refugie[0]),"lon":str(refugie[1]),"date":str(date),"t_name":str(t_names[j]),"sex":sex_dict[t_names[j]],"refugie_label":str(index_refugie)}
                     else:
-                        dict={"lat":str(refugie[0]),"lon":str(refugie[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(str(dfs[j]["sexo"][3])),"refugie_label":str(index_refugie)}
+                        dict={"lat":str(refugie[0]),"lon":str(refugie[1]),"date":str(date),"t_name":str(t_names[j]),"sex":sex_dict[t_names[j]],"refugie_label":str(index_refugie)}
                     df_line=pd.DataFrame(dict,dtype=str,index=[0])
                     df_out=pd.concat([df_out,df_line],ignore_index=True)
                 else:
@@ -113,7 +113,7 @@ def save_refugies_data(dfs,dates,t_names,cutoff_time=2000,distance_refugies=10,d
                     if  data_is_Igoto:
                         dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":sex_dict[t_names[j]],"refugie_label":str(index_refugie)}
                     else: 
-                        dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(dfs[j]["sexo"][3]),"refugie_label":str(index_refugie)}
+                        dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":sex_dict[t_names[j]],"refugie_label":str(index_refugie)}
                     df_line=pd.DataFrame(dict,dtype=str,index=[0])
                     df_out=pd.concat([df_out,df_line],ignore_index=True)
            
@@ -152,9 +152,9 @@ def get_sex_dict(file_for_sex):
     sex2 = (df_sexs["sex two"].values).tolist()
     dict_sexs = dict(zip(t1+t2, sex1+sex2))# make dict from uniques values of t1+t2 to sex1 and sex2 
     dict_sexs["T6"]="hembra"
-    dict_sexs["184"]="hembra"
+    dict_sexs["T184"]="hembra"
     dict_sexs["T54"]= "macho"
-    dict_sexs["128"]="macho"
+    dict_sexs["T128"]="macho"
     return dict_sexs
     
 def make_map_from_refuguies(df_ref):
@@ -187,7 +187,7 @@ def get_adjacency_matrix(df_ref):
             adjacency_matrix[i,t_uniq_names.tolist().index(t_name)]=len(df_aux[df_aux["t_name"]==t_name])
     return adjacency_matrix,np.linspace(0,len(refugies)-1,num=len(refugies)),t_uniq_names
 
-def get_bigraph(df_ref,plot=False):
+def get_bigraph(df_ref,plot=False,k=0.5):
     refugies=np.unique(df_ref[["lat","lon"]].values.astype("<U22"),axis=0)
     refugies=np.unique(df_ref[["lat","lon"]].values.astype("<U22"),axis=0)
     t_uniq_names=np.unique(df_ref["t_name"].values)
@@ -206,7 +206,7 @@ def get_bigraph(df_ref,plot=False):
     if plot:
         colors_refugies=["sandybrown"]*len(refugies)
         colors_t_names=get_colors_turtles(df_ref,t_uniq_names)
-        pos=nx.spring_layout(B,k=0.5,iterations=100)
+        pos=nx.spring_layout(B,k)
         edges = B.edges()
         weights = [B[u][v]['weight'] for u,v in edges]
         weights=np.array(weights)
