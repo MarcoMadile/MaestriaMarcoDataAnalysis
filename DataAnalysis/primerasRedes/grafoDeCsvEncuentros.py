@@ -121,6 +121,16 @@ def get_sex_dict(file_for_sex,return_colors=False):
                 sex2[i]= "silver"      
             
     dict_sexs = dict(zip(t1+t2, sex1+sex2))# make dict from uniques values of t1+t2 to sex1 and sex2 
+    if not return_colors:
+        dict_sexs["T6"]="hembra"
+        dict_sexs["184"]="hembra"
+        dict_sexs["T54"]= "macho"
+        dict_sexs["128"]="macho"
+    if return_colors:
+        dict_sexs["T6"]="pink"
+        dict_sexs["184"]="pink"
+        dict_sexs["T54"]= "lightblue"
+        dict_sexs["128"]="lightblue"
     return dict_sexs
     
 

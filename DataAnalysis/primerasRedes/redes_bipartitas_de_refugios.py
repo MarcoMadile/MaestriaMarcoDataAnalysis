@@ -9,6 +9,7 @@ from scipy.stats import itemfreq
 import networkx as nx
 import matplotlib.pyplot as plt
 import datetime
+import os
 
 #changing time tu int, so i can compare them with ints 
 def change_int(x):
@@ -59,8 +60,8 @@ def get_files_and_dates_IGOTO(folder):
         df[j][" Time"]=df[j][" Time"].apply(fixing_time_Igoto)
         dates.append(np.unique(df[j]["Date"]))
         #set column names of df[j]
-        df[0]=df[0].rename(columns={" Latitude" : "lat", " Longitude" : "lon",
-        "Date":"date", " Time": "timeGMT"})    
+        df[j]=df[j].rename(columns={" Latitude" : "lat", " Longitude" : "lon",
+        "Date":"date", " Time": "timeGMT"})  
     dates=np.unique(np.concatenate(dates).ravel())
     return df,dates,t_names
 
@@ -84,7 +85,7 @@ def fixing_time_Igoto(x):
     else:
         return x
 
-#start a pandas data frame with column names = lon,lat,date,t_name,sex
+#start a pandas data frame with column names = lon,lat,date,t_name,sex. If data is Igoto then i need sex dict to know the sex of Turtles
 def save_refugies_data(dfs,dates,t_names,cutoff_time=2000,distance_refugies=10,data_is_Igoto=False,file_for_sex="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysisDataAnalysis\\encuentros_csv\\encuentroscompleto_only_space.csv"):
     df_out=pd.DataFrame(columns=["lat","lon","date","t_name","sex"])
     refugies=[]
@@ -99,13 +100,17 @@ def save_refugies_data(dfs,dates,t_names,cutoff_time=2000,distance_refugies=10,d
             if points!=0:
                 is_in_refugies,refugie = poin_in_refuguies(points,refugies,distance_refugies)
                 if  is_in_refugies:
-                    dict={"lat":str(refugie[0]),"lon":str(refugie[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(dfs[j]["sexo"][3])}
-                    df_line=pd.DataFrame(dict,dtype=str,index=[0])
-                    df_out=pd.concat([df_out,df_line],ignore_index=True) 
+                    if data_is_Igoto:
+                        dict={"lat":str(refugie[0]),"lon":str(refugie[1]),"date":str(date),"t_name":str(t_names[j]),"sex":sex_dict[t_names[j]]}
+                        df_line=pd.DataFrame(dict,dtype=str,index=[0])
+                        df_out=pd.concat([df_out,df_line],ignore_index=True) 
+                    else:
+                        dict={"lat":str(refugie[0]),"lon":str(refugie[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(str(dfs[j]["sexo"][3]))}
+                        df_line=pd.DataFrame(dict,dtype=str,index=[0])
                 else:
                     refugies.append(points)
                     if  data_is_Igoto:
-                        dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(dfs[j]["sexo"][3])}
+                        dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":sex_dict[t_names[j]]}
                     else: 
                         dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(dfs[j]["sexo"][3])}
                     df_line=pd.DataFrame(dict,dtype=str,index=[0])
@@ -138,14 +143,17 @@ def poin_in_refuguies(points,refugies,distance_refugies):
             return True,refuguie
     return False,0
 
-def get_sex_dict(file_for_sex,return_colors=False):
+def get_sex_dict(file_for_sex):
     df_sexs = pd.read_csv(file_for_sex,sep=";")
     t1= (df_sexs["name one"].values).tolist()
     t2= (df_sexs["name two"].values).tolist()
     sex1 = (df_sexs["sex one"].values).tolist()
     sex2 = (df_sexs["sex two"].values).tolist()
     dict_sexs = dict(zip(t1+t2, sex1+sex2))# make dict from uniques values of t1+t2 to sex1 and sex2 
-    
+    dict_sexs["T6"]="hembra"
+    dict_sexs["184"]="hembra"
+    dict_sexs["T54"]= "macho"
+    dict_sexs["128"]="macho"
     return dict_sexs
     
 def make_map_from_refuguies(df_ref):
@@ -222,10 +230,11 @@ def get_colors_turtles(df_ref,t_uniq_names):
     return t_colors
 
 
+#path_to_Igoto=os.path.abspath("D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos")
+#dfsI,datesI,t_namesI=get_files_and_dates_IGOTO(path_to_Igoto)
+#df_coincidenciaI=save_refugies_data(dfsI,datesI,t_namesI,cutoff_time=2000,distance_refugies=20,data_is_Igoto=True)
 
 
-
-
-dfs,dates,t_names=get_files_and_dates_IGOTO("D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos")
+#dfs,dates,t_names=get_files_and_dates_IGOTO("D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos")
 #df_coincidencia=save_refugies_data(dfs,dates,t_names,distance_refugies=200)
 #map1=make_map_from_refuguies(df_coincidencia)
