@@ -8,7 +8,7 @@ from geopy import distance
 from scipy.stats import itemfreq
 import networkx as nx
 import matplotlib.pyplot as plt
-
+import datetime
 
 #changing time tu int, so i can compare them with ints 
 def change_int(x):
@@ -37,13 +37,65 @@ def get_files_and_dates(folder):
     return dfs,dates,t_names
 
 
+#getting all files in folder 
+def get_files_and_dates_IGOTO(folder):
+    filenames=folder+"/*.xlsx"
+    files=glob.glob(filenames)
+    df=[]
+    t_names=[]
+    for a in files:
+        df.append(pd.read_excel(a))
+        tort=a.replace(".xls","")
+        tort=tort.replace(folder,"")
+        tort=tort.replace("\\","")
+        tort=tort.replace("x","")
+        if tort[1]=="0":
+            tort=tort[0]+tort[2:]
+        t_names.append(str(tort))
+    dates=[]
+    for j in range(len(df)):
+        df[j].dropna(subset=['Date'], inplace=True)
+        df[j]["Date"]=df[j]["Date"].apply(fixing_dates_Igoto)
+        df[j][" Time"]=df[j][" Time"].apply(fixing_time_Igoto)
+        dates.append(np.unique(df[j]["Date"]))
+        #set column names of df[j]
+        df[0]=df[0].rename(columns={" Latitude" : "lat", " Longitude" : "lon",
+        "Date":"date", " Time": "timeGMT"})    
+    dates=np.unique(np.concatenate(dates).ravel())
+    return df,dates,t_names
+
+
+#some files have dates like: "21:01:2022" (type datetime) and I want all dates in same format: "2022/01/21" type str
+def fixing_dates_Igoto(x):
+    if isinstance(x, datetime.date):
+        return x.strftime("%Y/%m/%d")
+    else:
+        return str(x)
+
+#some times are in format "8:57" and need to be in format "8:57:00"
+def fixing_time_Igoto(x):
+    x=str(x)
+    if len(x)>9:
+        x=x.split(" ")[1]
+    if  " " in x:
+        x=x.replace(" ","")
+    if x.count(":")==1:
+        return x+":00"
+    else:
+        return x
+
 #start a pandas data frame with column names = lon,lat,date,t_name,sex
-def save_refugies_data(dfs,dates,t_names,cutoff_time=2000,distance_refugies=10):
+def save_refugies_data(dfs,dates,t_names,cutoff_time=2000,distance_refugies=10,data_is_Igoto=False,file_for_sex="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysisDataAnalysis\\encuentros_csv\\encuentroscompleto_only_space.csv"):
     df_out=pd.DataFrame(columns=["lat","lon","date","t_name","sex"])
     refugies=[]
+    if data_is_Igoto:
+        sex_dict= get_sex_dict(file_for_sex)
     for date in dates:
         for j in range(len(dfs)):
-            points=get_last_cordinate_from_day(dfs[j],date,cutoff_time)
+            if data_is_Igoto:
+                points=get_last_cordinate_from_day_IGOTO(dfs[j],date,cutoff_time)
+            else:
+                points=get_last_cordinate_from_day(dfs[j],date,cutoff_time)
             if points!=0:
                 is_in_refugies,refugie = poin_in_refuguies(points,refugies,distance_refugies)
                 if  is_in_refugies:
@@ -52,17 +104,30 @@ def save_refugies_data(dfs,dates,t_names,cutoff_time=2000,distance_refugies=10):
                     df_out=pd.concat([df_out,df_line],ignore_index=True) 
                 else:
                     refugies.append(points)
-                    dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(dfs[j]["sexo"][3])}
+                    if  data_is_Igoto:
+                        dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(dfs[j]["sexo"][3])}
+                    else: 
+                        dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(dfs[j]["sexo"][3])}
                     df_line=pd.DataFrame(dict,dtype=str,index=[0])
                     df_out=pd.concat([df_out,df_line],ignore_index=True)
                    
     return df_out
 
 #get the last coordinate from a day, supposed to be the place where the turtle sleeps
-def get_last_cordinate_from_day(df,day,cutoff_time):
+def  get_last_cordinate_from_day(df,day,cutoff_time):
     df_aux=df_aux=df[df["date"]==day]
     if len(df_aux)>=1:
         if df_aux["timeGMT"].iloc[-1]>=cutoff_time:
+            return (df["lat"].iloc[-1],df["lon"].iloc[-1])
+    return 0
+
+#get the last coordinate from a day, supposed to be the place where the turtle sleeps for IGOTO
+def  get_last_cordinate_from_day_IGOTO(df,day,cutoff_time):
+    df_aux=df_aux=df[df["date"]==day]
+    if len(df_aux)>=1:
+        #define hour of cutoff time as 20:00:00
+        hour= 100*int(df_aux.iloc[-1]["timeGMT"].split(":")[0])
+        if hour>=cutoff_time:
             return (df["lat"].iloc[-1],df["lon"].iloc[-1])
     return 0
 
@@ -73,6 +138,15 @@ def poin_in_refuguies(points,refugies,distance_refugies):
             return True,refuguie
     return False,0
 
+def get_sex_dict(file_for_sex,return_colors=False):
+    df_sexs = pd.read_csv(file_for_sex,sep=";")
+    t1= (df_sexs["name one"].values).tolist()
+    t2= (df_sexs["name two"].values).tolist()
+    sex1 = (df_sexs["sex one"].values).tolist()
+    sex2 = (df_sexs["sex two"].values).tolist()
+    dict_sexs = dict(zip(t1+t2, sex1+sex2))# make dict from uniques values of t1+t2 to sex1 and sex2 
+    
+    return dict_sexs
     
 def make_map_from_refuguies(df_ref):
     map_out=get_map()
@@ -149,6 +223,9 @@ def get_colors_turtles(df_ref,t_uniq_names):
 
 
 
-#dfs,dates,t_names=get_files_and_dates("D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\todaslascampanas")
+
+
+
+dfs,dates,t_names=get_files_and_dates_IGOTO("D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos")
 #df_coincidencia=save_refugies_data(dfs,dates,t_names,distance_refugies=200)
 #map1=make_map_from_refuguies(df_coincidencia)
