@@ -78,7 +78,7 @@ def unify_df(dfs,t_names):
     unifyed_df=unifyed_df.sort_values(by=["Time"],ignore_index=True)
     return unifyed_df
 
-def save_maps(undf,days,colors,hour_start=" 08:00:00",end_hour=" 20:00:00",freq_points="15min"):
+def save_maps(undf,days,colors,hour_start=" 08:00:00",end_hour=" 20:00:00",freq_points="15min",save_folder=""):
     coords=[-40.585390,-64.996220]
     for i in range(len(days)):
         df_day=undf[undf["Time"].dt.date==days[i]]
@@ -109,13 +109,13 @@ def save_maps(undf,days,colors,hour_start=" 08:00:00",end_hour=" 20:00:00",freq_
             for k in range(len(df_turtles)):        
                 if time[j] in df_turtles[k].index:
                     folium.CircleMarker(location=[df_turtles[k].loc[time[j]]["Latitude"],df_turtles[k].loc[time[j]]["Longitude"]],color=colors[turtles[k]],fill_color=colors[turtles[k]],fill_opacity=0.3).add_to(m_ij)
-            m_ij.save(time[j].strftime("%m_%d_%Y_%H_%M")+".html")
+            m_ij.save(save_folder+time[j].strftime("%m_%d_%Y_%H_%M")+".html")
             
 
     return
 
 
-def save_maps_with_prev_points(undf,days,colors,hour_start=" 08:00:00",end_hour=" 20:00:00",freq_points="15min"):
+def save_maps_with_prev_points(undf,days,colors,hour_start=" 08:00:00",end_hour=" 20:00:00",freq_points="15min",save_folder=""):
     coords=[-40.585390,-64.996220]
     time=[]
     turtles=list(colors.keys())
@@ -134,11 +134,7 @@ def save_maps_with_prev_points(undf,days,colors,hour_start=" 08:00:00",end_hour=
         end_time=pd.to_datetime(str(days[i])+end_hour)
         time.append(pd.date_range(start_time,end_time,freq=freq_points))
     time=time[0].union_many(time[0:])
-    # add numerical column to each df_turtles[i] with integer values from 0 to len(df_turtles[i])
-    # column is name "place"
     for i in range(len(df_turtles)):
-        # get save only in df_turtles[i] the rows that have the same index as time
-        
         df_turtles[i]=df_turtles[i].loc[df_turtles[i].index.isin(time)]
         df_turtles[i]["place"]=np.arange(len(df_turtles[i]))
     for j in range(len(time)):
@@ -177,7 +173,7 @@ def save_maps_with_prev_points(undf,days,colors,hour_start=" 08:00:00",end_hour=
             fill_opacity=0.3
             ).add_to(m_ij),axis=1)
         
-        m_ij.save(time[j].strftime("%m_%d_%Y_%H_%M")+"prev_points"+".html")
+        m_ij.save(save_folder+time[j].strftime("%m_%d_%Y_%H_%M")+"prev_points"+".html")
             
 
     return
@@ -199,7 +195,7 @@ def make_pngs(folder="",remove_htmls=True):
             os.remove(file)
     return
 
-def make_gif(folder="",duration_frame=100,remove_pngs=True):
+def make_gif(folder="",duration_frame=100,remove_pngs=True,low_quality=True):
     #get all files in folder
     filenames=folder+"/*.png"
     files=glob.glob(filenames)
@@ -207,19 +203,23 @@ def make_gif(folder="",duration_frame=100,remove_pngs=True):
     frames = []
     for i in files:
         new_frame = Image.open(i)
-        new_size = (int(new_frame.width/4),int( new_frame.height/4))
-        new_frame = new_frame.resize(new_size) 
+        if low_quality:
+            new_size = (int(new_frame.width/4),int( new_frame.height/4))
+            new_frame = new_frame.resize(new_size) 
         frames.append(new_frame)
         # Save into a GIF file that loops forever
         if remove_pngs:
             os.remove(i)
-    
-    frames[0].save('gif_trayectorias_IGOTo.gif', format='GIF',
-            append_images=frames[1:],
-            save_all=True,
-            duration=duration_frame, loop=0)
-    
-
+    if low_quality: 
+        frames[0].save('gif_trayectorias_IGOTo.gif', format='GIF',
+                append_images=frames[1:],
+                save_all=True,
+                duration=duration_frame, loop=0)
+    else:  
+        frames[0].save('gif_trayectorias_IGOTo_HD.gif', format='GIF',
+                append_images=frames[1:],
+                save_all=True,
+                duration=duration_frame, loop=0)
     return
 
 
