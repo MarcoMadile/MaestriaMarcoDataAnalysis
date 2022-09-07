@@ -87,7 +87,7 @@ def fixing_time_Igoto(x):
 
 #start a pandas data frame with column names = lon,lat,date,t_name,sex. If data is Igoto then i need sex dict to know the sex of Turtles
 def save_refugies_data(dfs,dates,t_names,cutoff_time=2000,distance_refugies=10,data_is_Igoto=False,file_for_sex="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysisDataAnalysis\\encuentros_csv\\encuentroscompleto_only_space.csv"):
-    df_out=pd.DataFrame(columns=["lat","lon","date","t_name","sex"])
+    df_out=pd.DataFrame(columns=["lat","lon","date","t_name","sex","refugie_label"])
     refugies=[]
     if data_is_Igoto:
         sex_dict= get_sex_dict(file_for_sex)
@@ -100,40 +100,41 @@ def save_refugies_data(dfs,dates,t_names,cutoff_time=2000,distance_refugies=10,d
             if points!=0:
                 is_in_refugies,refugie = poin_in_refuguies(points,refugies,distance_refugies)
                 if  is_in_refugies:
+                    index_refugie=refugies.index(refugie)
                     if data_is_Igoto:
-                        dict={"lat":str(refugie[0]),"lon":str(refugie[1]),"date":str(date),"t_name":str(t_names[j]),"sex":sex_dict[t_names[j]]}
-                        df_line=pd.DataFrame(dict,dtype=str,index=[0])
-                        df_out=pd.concat([df_out,df_line],ignore_index=True) 
+                        dict={"lat":str(refugie[0]),"lon":str(refugie[1]),"date":str(date),"t_name":str(t_names[j]),"sex":sex_dict[t_names[j]],"refugie_label":str(index_refugie)}
                     else:
-                        dict={"lat":str(refugie[0]),"lon":str(refugie[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(str(dfs[j]["sexo"][3]))}
-                        df_line=pd.DataFrame(dict,dtype=str,index=[0])
-                else:
-                    refugies.append(points)
-                    if  data_is_Igoto:
-                        dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":sex_dict[t_names[j]]}
-                    else: 
-                        dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(dfs[j]["sexo"][3])}
+                        dict={"lat":str(refugie[0]),"lon":str(refugie[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(str(dfs[j]["sexo"][3])),"refugie_label":str(index_refugie)}
                     df_line=pd.DataFrame(dict,dtype=str,index=[0])
                     df_out=pd.concat([df_out,df_line],ignore_index=True)
-                   
+                else:
+                    refugies.append(points)
+                    index_refugie=refugies.index(points)
+                    if  data_is_Igoto:
+                        dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":sex_dict[t_names[j]],"refugie_label":str(index_refugie)}
+                    else: 
+                        dict={"lat":str(points[0]),"lon":str(points[1]),"date":str(date),"t_name":str(t_names[j]),"sex":str(dfs[j]["sexo"][3]),"refugie_label":str(index_refugie)}
+                    df_line=pd.DataFrame(dict,dtype=str,index=[0])
+                    df_out=pd.concat([df_out,df_line],ignore_index=True)
+           
     return df_out
 
 #get the last coordinate from a day, supposed to be the place where the turtle sleeps
 def  get_last_cordinate_from_day(df,day,cutoff_time):
-    df_aux=df_aux=df[df["date"]==day]
+    df_aux=df[df["date"]==day]
     if len(df_aux)>=1:
         if df_aux["timeGMT"].iloc[-1]>=cutoff_time:
-            return (df["lat"].iloc[-1],df["lon"].iloc[-1])
+            return (df_aux["lat"].iloc[-1],df_aux["lon"].iloc[-1])
     return 0
 
 #get the last coordinate from a day, supposed to be the place where the turtle sleeps for IGOTO
 def  get_last_cordinate_from_day_IGOTO(df,day,cutoff_time):
-    df_aux=df_aux=df[df["date"]==day]
+    df_aux=df[df["date"]==day]
     if len(df_aux)>=1:
         #define hour of cutoff time as 20:00:00
         hour= 100*int(df_aux.iloc[-1]["timeGMT"].split(":")[0])
         if hour>=cutoff_time:
-            return (df["lat"].iloc[-1],df["lon"].iloc[-1])
+            return (df_aux["lat"].iloc[-1],df_aux["lon"].iloc[-1])
     return 0
 
 #check if the point is considered a new refugie or not        
@@ -230,10 +231,10 @@ def get_colors_turtles(df_ref,t_uniq_names):
     return t_colors
 
 
-#path_to_Igoto=os.path.abspath("D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos")
-#dfsI,datesI,t_namesI=get_files_and_dates_IGOTO(path_to_Igoto)
-#df_coincidenciaI=save_refugies_data(dfsI,datesI,t_namesI,cutoff_time=2000,distance_refugies=20,data_is_Igoto=True)
-
+folder_to_Igoto="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos"
+dfsI,datesI,t_namesI=get_files_and_dates_IGOTO(folder_to_Igoto)
+file_to_sex= "D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\encuentros_csv\\encuentroscompleto_only_space.csv"
+df_refugiosI=save_refugies_data(dfsI,datesI,t_namesI,cutoff_time=2000,distance_refugies=0,data_is_Igoto=True,file_for_sex=file_to_sex)
 
 #dfs,dates,t_names=get_files_and_dates_IGOTO("D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos")
 #df_coincidencia=save_refugies_data(dfs,dates,t_names,distance_refugies=200)
