@@ -157,8 +157,8 @@ def get_sex_dict(file_for_sex):
     dict_sexs["T128"]="macho"
     return dict_sexs
     
-def make_map_from_refuguies(df_ref):
-    map_out=get_map()
+def make_map_from_refuguies(df_ref,topo_map=False):
+    map_out=get_map(topo_map)
     #get unique values of (lat,lon) from df_ref, for each one, save a refuguie name and a list of tnames that are in that refugie
     refugies=np.unique(df_ref[["lat","lon"]].values.astype("<U22"),axis=0)
     for i in range(len(refugies)):
@@ -169,10 +169,13 @@ def make_map_from_refuguies(df_ref):
     
     return map_out
 
-def get_map():
+def get_map(topo_map):
     coords=[-40.585390,-64.996220]
     map1 = folium.Map(location = coords,zoom_start=15)
-    folium.TileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",attr="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community").add_to(map1)
+    if topo_map:
+        folium.TileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', attr= 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)').add_to(map1)
+    else: 
+        folium.TileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",attr="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community").add_to(map1)
     return map1 
 
 def get_adjacency_matrix(df_ref):
