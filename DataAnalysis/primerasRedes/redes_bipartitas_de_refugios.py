@@ -192,7 +192,6 @@ def get_adjacency_matrix(df_ref):
 
 def get_bigraph(df_ref,plot=False,k=0.5):
     refugies=np.unique(df_ref[["lat","lon"]].values.astype("<U22"),axis=0)
-    refugies=np.unique(df_ref[["lat","lon"]].values.astype("<U22"),axis=0)
     t_uniq_names=np.unique(df_ref["t_name"].values)
     B = nx.Graph()
     # Add nodes with the node attribute "bipartite"
@@ -204,7 +203,7 @@ def get_bigraph(df_ref,plot=False,k=0.5):
         refugie=refugies[i]
         df_aux=df_ref[(df_ref["lat"]==refugie[0]) & (df_ref["lon"]==refugie[1])]
         for t_name in t_uniq_names:  
-            if len(df_aux[df_aux["t_name"]==t_name])>0:
+            if len(df_aux[df_aux["t_name"]==t_name])>0: 
                 B.add_edge(t_name,refuguies_nodes[i],weight=len(df_aux[df_aux["t_name"]==t_name]))
     if plot:
         colors_refugies=["sandybrown"]*len(refugies)
