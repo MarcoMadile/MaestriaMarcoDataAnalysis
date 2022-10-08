@@ -234,6 +234,23 @@ def get_colors_turtles(df_ref,t_uniq_names):
     return t_colors
 
 
+def get_mass_center_and_spatialD(df_ref):
+    u_tnames= np.unique(df_ref["t_name"].values)
+    df_space_dist=pd.DataFrame(columns=["t_name","mass_center_lat","mass_center_lon","spatialD","sex"])
+    for t_name in u_tnames:
+        df_aux=df_ref[df_ref["t_name"]==t_name]
+        lat=df_aux["lat"].values.astype(float)
+        lon=df_aux["lon"].values.astype(float)
+        mass_center_lat=np.mean(lat)
+        mass_center_lon=np.mean(lon)
+        # mean of distance to mass_center using distance.distance function in meters
+        spatialD=np.mean([distance.distance((mass_center_lat,mass_center_lon),(lat[i],lon[i])).m for i in range(len(lat))])
+        t_sex= df_aux["sex"].iloc[0]
+        df_aux = pd.DataFrame({"t_name":t_name,"mass_center_lat":mass_center_lat,"mass_center_lon":mass_center_lon,"spatialD":spatialD,
+        "sex":t_sex},index=[0])
+        df_space_dist=pd.concat([df_space_dist,df_aux],ignore_index=True)
+    return df_space_dist
+
 """folder_to_Igoto="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos"
 dfsI,datesI,t_namesI=get_files_and_dates_IGOTO(folder_to_Igoto)
 file_to_sex= "D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\encuentros_csv\\encuentroscompleto_only_space.csv"

@@ -195,28 +195,32 @@ def make_pngs(folder="",remove_htmls=True):
             os.remove(file)
     return
 
-def make_gif(folder="",duration_frame=100,remove_pngs=True,low_quality=True):
+def make_gif(folder="",duration_frame=100,remove_pngs=True,low_quality=True,quantity=0,save_name="gif_trayectorias_IGOTo",crop_images=False,crop_box=(0,0,1000,800)):
     #get all files in folder
     filenames=folder+"/*.png"
     files=glob.glob(filenames)
     #make gif
     frames = []
+    if not quantity==0:
+        files=files[:quantity]
     for i in files:
         new_frame = Image.open(i)
         if low_quality:
             new_size = (int(new_frame.width/4),int( new_frame.height/4))
             new_frame = new_frame.resize(new_size) 
+        if crop_images:
+            new_frame=new_frame.crop(crop_box)
         frames.append(new_frame)
         # Save into a GIF file that loops forever
         if remove_pngs:
             os.remove(i)
     if low_quality: 
-        frames[0].save('gif_trayectorias_IGOTo.gif', format='GIF',
+        frames[0].save(save_name+'.gif', format='GIF',
                 append_images=frames[1:],
                 save_all=True,
                 duration=duration_frame, loop=0)
     else:  
-        frames[0].save('gif_trayectorias_IGOTo_HD.gif', format='GIF',
+        frames[0].save(save_name+'_HD.gif', format='GIF',
                 append_images=frames[1:],
                 save_all=True,
                 duration=duration_frame, loop=0)
