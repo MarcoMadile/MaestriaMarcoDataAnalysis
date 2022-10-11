@@ -134,9 +134,10 @@ def get_sex_dict(file_for_sex,return_colors=False):
     return dict_sexs
     
 
-
+"""
 file="DataAnalysis\encuentros_csv\encuentros20mincampanas.csv"
 name_fig=r"D:\facultad\IB5toCuatri\Tesis\MaestriaMarco\DataAnalysis\primerasRedes\red_interaccion_20min_campanas.pdf"
 file_for_sex="DataAnalysis\encuentros_csv\encuentroscompleto_only_space.csv"
 title=r"Interaction Network, $\Delta t = 20\,$min   $\Delta x= 20\,$m "
 G=plot_weighted_graph(file,title,save=False,save_name=name_fig,get_sex_from_file=True,file_for_sex=file_for_sex)
+"""
