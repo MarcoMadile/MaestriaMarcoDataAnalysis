@@ -33,9 +33,9 @@ def get_files_and_dates(folder):
         t_names.append(str(tort))
     dates=[]
     for j in range(len(dfs)):
-        dfs[j]["date"].apply(fixing_dates)
+        dfs[j]["date"] =  dfs[j]["date"].apply(fixing_dates)
         dates.append(np.unique(dfs[j]["date"]))
-        dfs[j]["timeGMT"]=dfs[j]["timeGMT"].apply(change_int)
+        dfs[j]["timeGMT"] = dfs[j]["timeGMT"].apply(change_int)
     dates=np.unique(np.concatenate(dates).ravel())
     return dfs,dates,t_names
 
@@ -168,7 +168,8 @@ def get_sex_dict(file_for_sex):
     dict_sexs["T54"]= "macho"
     dict_sexs["T128"]="macho"
     return dict_sexs
-    
+
+#makes html map with the refugies   
 def make_map_from_refuguies(df_ref,topo_map=False):
     map_out=get_map(topo_map)
     #get unique values of (lat,lon) from df_ref, for each one, save a refuguie name and a list of tnames that are in that refugie
@@ -178,7 +179,6 @@ def make_map_from_refuguies(df_ref,topo_map=False):
         df_aux=df_ref[(df_ref["lat"]==refugie[0]) & (df_ref["lon"]==refugie[1])]
         t_names=np.unique(df_aux["t_name"].values)
         folium.CircleMarker(location=[refugie[0],refugie[1]],radius=10,color="red",fill_color="red",fill_opacity=0.3,popup="<b>Refugio</b><br>"+"nro"+str(i)+"  "+str(t_names)).add_to(map_out)
-    
     return map_out
 
 def get_map(topo_map):
@@ -202,6 +202,7 @@ def get_adjacency_matrix(df_ref):
             adjacency_matrix[i,t_uniq_names.tolist().index(t_name)]=len(df_aux[df_aux["t_name"]==t_name])
     return adjacency_matrix,np.linspace(0,len(refugies)-1,num=len(refugies)),t_uniq_names
 
+# makes bipartite network from nodes ref and nodes turltes
 def get_bigraph(df_ref,plot=False,k=0.5):
     refugies=np.unique(df_ref[["lat","lon"]].values.astype("<U22"),axis=0)
     t_uniq_names=np.unique(df_ref["t_name"].values)
@@ -244,7 +245,7 @@ def get_colors_turtles(df_ref,t_uniq_names):
             t_colors.append("silver")
     return t_colors
 
-
+# from refugies data it calculates the mass center of refugies for each turtle and the spatial distribution ( similar to moment of inertia)
 def get_mass_center_and_spatialD(df_ref):
     u_tnames= np.unique(df_ref["t_name"].values)
     df_space_dist=pd.DataFrame(columns=["t_name","mass_center_lat","mass_center_lon","spatialD","sex"])
@@ -261,6 +262,90 @@ def get_mass_center_and_spatialD(df_ref):
         "sex":t_sex},index=[0])
         df_space_dist=pd.concat([df_space_dist,df_aux],ignore_index=True)
     return df_space_dist
+
+# from dataframe with ref and df with encounters, it finds min distance in time of nights spend in ref and min dist in time from that two dates to encounter. If no encounter was messaured between those two turtles it saves a nan.
+def nearest_days_in_ref_to_encounters(file_encuentros,df_refugios):
+    df_encounters = pd.read_csv(file_encuentros, sep=';',header=0)
+    df_min_dist= pd.DataFrame(columns=["t_name1","t_name2","day1","day2","refu_label","min_dist_time","date_encounter","min_dist_encounter"])
+    refus_labels = df_refugios["refugie_label"].unique()
+    for refu in refus_labels:
+        df_aux= df_refugios[df_refugios["refugie_label"]==refu]
+        t_in_ref= df_aux["t_name"].unique()
+        if len(t_in_ref)>1:
+            # for each pair of turtles in df_aux find min distance in time and save it. Time is in date column of df_aux
+            for i in range(len(t_in_ref)):
+                for j in range(i+1,len(t_in_ref)):
+                    t1= t_in_ref[i]
+                    t2= t_in_ref[j]
+                    df_t1= df_aux[df_aux["t_name"]==t1]
+                    df_t2= df_aux[df_aux["t_name"]==t2]
+                    # get min distance in time
+                    min_dist= np.inf
+                    for d1 in df_t1["date"]:
+                        for d2 in df_t2["date"]:
+                            day1= datetime.datetime.strptime(d1, '%d/%m/%Y')
+                            day2= datetime.datetime.strptime(d2, '%d/%m/%Y')
+
+                            dist= np.abs((day1-day2).days)
+                            if dist<min_dist:
+                                min_dist=dist
+                                d1_to_save=d1
+                                d2_to_save=d2
+                    # get from df_encounters the part of the encounter between t1 and t2
+                    df_enc_t1_t2= df_encounters[(df_encounters["name one"]==t1) & (df_encounters["name two"]==t2)]
+                    df_enc_t2_t1 = df_encounters[(df_encounters["name one"]==t2) & (df_encounters["name two"]==t1)]
+                    df_enc_ts = pd.concat([df_enc_t1_t2,df_enc_t2_t1])
+                    if len(df_enc_ts)>0:
+                        dates_enc = df_enc_ts["day"].unique()
+                        min_dist_enc= np.inf
+                        for d in dates_enc:
+                            day3= datetime.datetime.strptime(d, '%d/%m/%Y')
+                            dist= np.abs((day1-day3).days) + np.abs((day2-day3).days)
+                            if dist<min_dist_enc:
+                                min_dist_enc=dist
+                                d_encounter_to_save=d
+                    else: 
+                        min_dist_enc= np.nan
+                        d_encounter_to_save= np.nan
+                    dict_to_save={"t_name1":t1,"t_name2":t2,"day1":d1_to_save,"day2":d2_to_save,"refu_label":refu,"min_dist_time":min_dist,"date_encounter":d_encounter_to_save,"min_dist_encounter":min_dist_enc}
+                    pd_to_save= pd.DataFrame(dict_to_save,index=[0])
+                    df_min_dist= pd.concat([df_min_dist,pd_to_save],ignore_index=True)
+    return df_min_dist
+
+# from two Graphs returns TP,FP,FN,TN as if one graph is predicting the edges of the other Graph
+def comparing_two_networks(G_predictor,G_messaured):
+    edges_predicted=[]
+    for u,v in G_predictor.edges():
+        edges_predicted.append((u,v))
+    # get list of edges in G_encuentros
+    edges_messaured=[]
+    for u,v in G_messaured.edges():
+        edges_messaured.append((u,v))
+    # get list of edges not in G_encuentros
+    edges_not_messaured=[]
+    edges_from_prediction_in_messaured=[]
+    for edge in edges_predicted:
+        if edge not in edges_messaured:
+            edges_not_messaured.append(edge)
+        else:
+            edges_from_prediction_in_messaured.append(edge)
+    edges_in_messaured_not_in_prediction=[]
+    for edge in edges_messaured:
+        if edge not in edges_predicted:
+            edges_in_messaured_not_in_prediction.append(edge)
+    # true negative, edges that are not in  G_from_ref and not in G_encuentros
+    true_negative=0
+    for edge in edges_not_messaured:
+        if edge not in edges_in_messaured_not_in_prediction:
+            true_negative+=1
+    TP = len(edges_from_prediction_in_messaured)
+    FP = len(edges_not_messaured) 
+    FN = len(edges_in_messaured_not_in_prediction)
+    TN = true_negative
+    return TP,FP,FN,TN
+
+
+
 
 """folder_to_Igoto="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos"
 dfsI,datesI,t_namesI=get_files_and_dates_IGOTO(folder_to_Igoto)
