@@ -15,6 +15,7 @@ import os
 def change_int(x):
     return int(x)
 
+
 #getting all files in folder 
 def get_files_and_dates(folder):
     filenames=folder+"/*.csv"
@@ -32,11 +33,21 @@ def get_files_and_dates(folder):
         t_names.append(str(tort))
     dates=[]
     for j in range(len(dfs)):
+        dfs[j]["date"].apply(fixing_dates)
         dates.append(np.unique(dfs[j]["date"]))
         dfs[j]["timeGMT"]=dfs[j]["timeGMT"].apply(change_int)
     dates=np.unique(np.concatenate(dates).ravel())
     return dfs,dates,t_names
 
+#some files have dates like: "2022-01-21" and I want all dates in same format: "21/01/2022"
+def fixing_dates(x):
+    x=str(x)
+    if "-" in x:
+        aux=x.split("-")
+        return aux[2]+"/"+aux[1]+"/"+aux[0]
+    else:
+        return x
+        
 
 #getting all files in folder 
 def get_files_and_dates_IGOTO(folder):
@@ -69,9 +80,10 @@ def get_files_and_dates_IGOTO(folder):
 #some files have dates like: "21:01:2022" (type datetime) and I want all dates in same format: "2022/01/21" type str
 def fixing_dates_Igoto(x):
     if isinstance(x, datetime.date):
-        return x.strftime("%Y/%m/%d")
+        return x.strftime("%d/%m/%Y")
     else:
-        return str(x)
+        aux= x.split("/")
+        return aux[2]+"/"+aux[1]+"/"+aux[0]
 
 #some times are in format "8:57" and need to be in format "8:57:00"
 def fixing_time_Igoto(x):
