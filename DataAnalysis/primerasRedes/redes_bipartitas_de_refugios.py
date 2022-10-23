@@ -10,6 +10,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import datetime
 import os
+import mantel
 
 #changing time tu int, so i can compare them with ints 
 def change_int(x):
@@ -181,7 +182,7 @@ def make_map_from_refuguies(df_ref,topo_map=False):
         folium.CircleMarker(location=[refugie[0],refugie[1]],radius=10,color="red",fill_color="red",fill_opacity=0.3,popup="<b>Refugio</b><br>"+"nro"+str(i)+"  "+str(t_names)).add_to(map_out)
     return map_out
 
-def get_map(topo_map):
+def get_map(topo_map=False):
     coords=[-40.585390,-64.996220]
     map1 = folium.Map(location = coords,zoom_start=15)
     if topo_map:
@@ -203,7 +204,7 @@ def get_adjacency_matrix(df_ref):
     return adjacency_matrix,np.linspace(0,len(refugies)-1,num=len(refugies)),t_uniq_names
 
 # makes bipartite network from nodes ref and nodes turltes
-def get_bigraph(df_ref,plot=False,k=0.5):
+def get_bigraph(df_ref,plot=False,k=0.5,return_refugies=False):
     refugies=np.unique(df_ref[["lat","lon"]].values.astype("<U22"),axis=0)
     t_uniq_names=np.unique(df_ref["t_name"].values)
     B = nx.Graph()
@@ -231,6 +232,8 @@ def get_bigraph(df_ref,plot=False,k=0.5):
         nx.draw_networkx_nodes(B, pos=pos, nodelist=refuguies_nodes, node_color=colors_refugies,node_size=200,label=refuguies_nodes)
         nx.draw_networkx_labels(B,pos,font_size=10,font_family='sans-serif')
         plt.show()
+    if return_refugies:
+        return B,refugies
     return B
 
 def get_colors_turtles(df_ref,t_uniq_names):
@@ -345,8 +348,25 @@ def comparing_two_networks(G_predictor,G_messaured):
     return TP,FP,FN,TN
 
 
+def plot_conections_in_map(G_refugies,refugies_loc):
+    map_with_conections = get_map()
+    for u,v in G_refugies.edges():
+        #add circle marker in refugies_loc[int(u)] and refugies_loc[int(v)] and connect them with line. 
+        folium.CircleMarker(location=list(refugies_loc[int(u)].astype(float)),radius=3,color='orange',fill=True,fill_color='orange',fill_opacity=0.81).add_to(map_with_conections)
+        folium.CircleMarker(location=list(refugies_loc[int(v)].astype(float)),radius=3,color='orange',fill=True,fill_color='orange',fill_opacity=0.81).add_to(map_with_conections)
+        folium.PolyLine(locations=[refugies_loc[int(u)].astype(float),refugies_loc[int(v)].astype(float)],color='lightblue',weight=0.71).add_to(map_with_conections)
+    return map_with_conections
 
 
+def matrix_distance_and_adjancency(G_refugies,refugies_loc):
+    Adj_matrix = nx.adjacency_matrix(G_refugies).todense()
+    Adj_matrix = np.array(Adj_matrix)
+    #calculate distance matrix for each pair of nodes in refugies_loc
+    dist_matrix = np.zeros((len(refugies_loc),len(refugies_loc)))
+    for i in range(len(refugies_loc)):
+        for j in range(len(refugies_loc)):
+            dist_matrix[i,j] = distance.distance(refugies_loc[i],refugies_loc[j]).m
+    return Adj_matrix,dist_matrix
 
 """folder_to_Igoto="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos"
 dfsI,datesI,t_namesI=get_files_and_dates_IGOTO(folder_to_Igoto)
