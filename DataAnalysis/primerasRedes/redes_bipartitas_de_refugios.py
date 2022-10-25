@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import datetime
 import os
 import mantel
+import random
 
 #changing time tu int, so i can compare them with ints 
 def change_int(x):
@@ -347,7 +348,7 @@ def comparing_two_networks(G_predictor,G_messaured):
     TN = true_negative
     return TP,FP,FN,TN
 
-
+#plots a graph in a map 
 def plot_conections_in_map(G_refugies,refugies_loc):
     map_with_conections = get_map()
     for u,v in G_refugies.edges():
@@ -357,7 +358,7 @@ def plot_conections_in_map(G_refugies,refugies_loc):
         folium.PolyLine(locations=[refugies_loc[int(u)].astype(float),refugies_loc[int(v)].astype(float)],color='lightblue',weight=0.71).add_to(map_with_conections)
     return map_with_conections
 
-
+# get adjacency matrix of a graph and distances between nodes in meters 
 def matrix_distance_and_adjancency(G_refugies,refugies_loc):
     Adj_matrix = nx.adjacency_matrix(G_refugies).todense()
     Adj_matrix = np.array(Adj_matrix)
@@ -367,6 +368,22 @@ def matrix_distance_and_adjancency(G_refugies,refugies_loc):
         for j in range(len(refugies_loc)):
             dist_matrix[i,j] = distance.distance(refugies_loc[i],refugies_loc[j]).m
     return Adj_matrix,dist_matrix
+
+#it like double_edge swap of nx but for bigraphs
+def swap_conections_in_bigraph(B,swaps,max_trys):
+    B_double_edge_swap = B.copy()
+    for swap in range(swaps):
+        for trys in range(max_trys):
+            edge1 = random.choice(list(B_double_edge_swap.edges()))
+            edge2 = random.choice(list(B_double_edge_swap.edges()))
+            # check if connection exists in B from edge1[0] to edge2[1] and from edge2[0] to edge1[1]
+            if ((edge1[0],edge2[1]) not in B_double_edge_swap.edges()) and ((edge2[0],edge1[1]) not in B_double_edge_swap.edges()):
+                B_double_edge_swap.remove_edge(edge1[0],edge1[1])
+                B_double_edge_swap.remove_edge(edge2[0],edge2[1])
+                B_double_edge_swap.add_edge(edge1[0],edge2[1])
+                B_double_edge_swap.add_edge(edge2[0],edge1[1])
+                break
+    return B_double_edge_swap 
 
 """folder_to_Igoto="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos"
 dfsI,datesI,t_namesI=get_files_and_dates_IGOTO(folder_to_Igoto)
