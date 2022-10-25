@@ -385,6 +385,27 @@ def swap_conections_in_bigraph(B,swaps,max_trys):
                 break
     return B_double_edge_swap 
 
+
+#make map highlighting the path the turtles took from one day in refugie to another
+def turtle_ref_path_map(t_name,df_of_refugies,node_r_norm=7,oppacity_lines= 0.71):
+    map_turtle_path = get_map()
+    df_ref_turtle = df_of_refugies[df_of_refugies["t_name"]==t_name]
+    unique_ref = np.unique(df_ref_turtle[["lat","lon"]].values.astype("<U22"),axis=0)
+    for j in range(1,len(df_ref_turtle)):
+        df_j=df_ref_turtle.iloc[j]
+        df_j_1=df_ref_turtle.iloc[j-1]
+        # make line from df_j_1 to df_j
+        folium.PolyLine(locations=[[float(df_j_1["lat"]),float(df_j_1["lon"])],[float(df_j["lat"]),float(df_j["lon"])]],color="lightblue",weight=oppacity_lines).add_to(map_turtle_path)
+    for i in range(len(unique_ref)):
+        ref = unique_ref[i]
+        nights_on_ref = len(df_ref_turtle[(df_ref_turtle["lat"]==ref[0]) & (df_ref_turtle["lon"]==ref[1])])
+        map_turtle_path.add_child(folium.CircleMarker(location=[ref[0],ref[1]],popup="Nights on refugie: "+str(nights_on_ref),radius = nights_on_ref/node_r_norm,color="orange",fill=True,fill_color="orange",fill_opacity=0.81))
+    
+    return map_turtle_path
+
+
+
+
 """folder_to_Igoto="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos"
 dfsI,datesI,t_namesI=get_files_and_dates_IGOTO(folder_to_Igoto)
 file_to_sex= "D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\encuentros_csv\\encuentroscompleto_only_space.csv"
