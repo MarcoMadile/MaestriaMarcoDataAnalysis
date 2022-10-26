@@ -13,6 +13,8 @@ import os
 import mantel
 import random
 from html2image import Html2Image
+from PIL import Image
+
 
 #changing time tu int, so i can compare them with ints 
 def change_int(x):
@@ -390,6 +392,11 @@ def swap_conections_in_bigraph(B,swaps,max_trys):
 def turtle_ref_path_map(t_name,df_of_refugies,node_r_norm=7,oppacity_lines= 0.71):
     map_turtle_path = get_map()
     df_ref_turtle = df_of_refugies[df_of_refugies["t_name"]==t_name]
+    df_ref_turtle["date"] = pd.to_datetime(df_ref_turtle["date"],format="%d/%m/%Y")
+    df_ref_turtle = df_ref_turtle.sort_values(by="date")
+    df_ref_turtle = df_ref_turtle.reset_index(drop=True)
+    df_ref_turtle["date"] = df_ref_turtle["date"].dt.strftime("%d/%m/%Y")
+
     unique_ref = np.unique(df_ref_turtle[["lat","lon"]].values.astype("<U22"),axis=0)
     for j in range(1,len(df_ref_turtle)):
         df_j=df_ref_turtle.iloc[j]
@@ -407,7 +414,10 @@ def turtle_ref_path_map(t_name,df_of_refugies,node_r_norm=7,oppacity_lines= 0.71
 def make_html_temporal_maps(t_name,df_of_refugies,node_r_norm=3,oppacity_lines=0.71,frames_per_day=5,zoom_in_map=17):
     df_ref_turtle = df_of_refugies[df_of_refugies["t_name"]==t_name]
     # reset index of df_ref_turtle
+    df_ref_turtle["date"] = pd.to_datetime(df_ref_turtle["date"],format="%d/%m/%Y")
+    df_ref_turtle = df_ref_turtle.sort_values(by="date")
     df_ref_turtle = df_ref_turtle.reset_index(drop=True)
+    df_ref_turtle["date"] = df_ref_turtle["date"].dt.strftime("%d/%m/%Y")
     # get most used refugie as df_ref_turtle["refugie_label"] most repeted
     refugie_label_most_used = df_ref_turtle["refugie_label"].value_counts().index[0]
     # get center location as lat lon of refugie label most used
