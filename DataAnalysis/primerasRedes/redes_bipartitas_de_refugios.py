@@ -12,6 +12,7 @@ import datetime
 import os
 import mantel
 import random
+from html2image import Html2Image
 
 #changing time tu int, so i can compare them with ints 
 def change_int(x):
@@ -183,9 +184,8 @@ def make_map_from_refuguies(df_ref,topo_map=False):
         folium.CircleMarker(location=[refugie[0],refugie[1]],radius=10,color="red",fill_color="red",fill_opacity=0.3,popup="<b>Refugio</b><br>"+"nro"+str(i)+"  "+str(t_names)).add_to(map_out)
     return map_out
 
-def get_map(topo_map=False):
-    coords=[-40.585390,-64.996220]
-    map1 = folium.Map(location = coords,zoom_start=15)
+def get_map(topo_map=False,coords=[-40.585390,-64.996220],zoom=15):
+    map1 = folium.Map(location = coords,zoom_start=zoom)
     if topo_map:
         folium.TileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', attr= 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)').add_to(map1)
     else: 
@@ -403,6 +403,108 @@ def turtle_ref_path_map(t_name,df_of_refugies,node_r_norm=7,oppacity_lines= 0.71
     
     return map_turtle_path
 
+#makes htmls to make gif of turtles path through refugies 
+def make_html_temporal_maps(t_name,df_of_refugies,node_r_norm=3,oppacity_lines=0.71,frames_per_day=5,zoom_in_map=17):
+    df_ref_turtle = df_of_refugies[df_of_refugies["t_name"]==t_name]
+    # reset index of df_ref_turtle
+    df_ref_turtle = df_ref_turtle.reset_index(drop=True)
+    # get most used refugie as df_ref_turtle["refugie_label"] most repeted
+    refugie_label_most_used = df_ref_turtle["refugie_label"].value_counts().index[0]
+    # get center location as lat lon of refugie label most used
+    center_lat = df_ref_turtle[df_ref_turtle["refugie_label"]==refugie_label_most_used]["lat"].values[0]
+    center_lon = df_ref_turtle[df_ref_turtle["refugie_label"]==refugie_label_most_used]["lon"].values[0]
+    frames_per_day = 5
+    for j in range(1,len(df_ref_turtle)):
+        df_j=df_ref_turtle.iloc[j]
+        df_j_1=df_ref_turtle.iloc[j-1]
+        # make line from df_j_1 to df_j
+        # filter df_ref_turtle where iloc is less than j
+        df_ref_turtle_j = df_ref_turtle[df_ref_turtle.index<j]
+        unique_ref_to_j = np.unique(df_ref_turtle_j[["lat","lon"]].values.astype("<U22"),axis=0)
+        for h in range(frames_per_day):
+            map_turtle_path = get_map(topo_map=False,coords=[center_lat,center_lon],zoom=zoom_in_map)
+            for k in range(1,len(df_ref_turtle_j)):
+                df_k = df_ref_turtle_j.iloc[k]
+                # get refugie label of df_k
+                df_k_1 = df_ref_turtle_j.iloc[k-1]
+                #make lines from lat lon of df_k_1 to lat lon of df_k
+                # get lat lon of df_k_1
+                lat_k_1 = float(df_k_1["lat"])
+                lon_k_1 = float(df_k_1["lon"])
+                # get lat lon of df_k
+                lat_k = float(df_k["lat"])
+                lon_k = float(df_k["lon"])
+                # plot line from lat_k_1,lon_k_1 to lat_k,lon_k
+                folium.PolyLine(locations=[[lat_k_1,lon_k_1],[lat_k,lon_k]],color="lightblue",weight=oppacity_lines).add_to(map_turtle_path)
+
+            # make line from df_j_1 to (df_j-df_j_1)*frames_per_day/(i+1)+df_j_1
+            for i in range(len(unique_ref_to_j)):
+                ref=unique_ref_to_j[i]
+                nights_on_ref = len(df_ref_turtle_j[(df_ref_turtle_j["lat"]==ref[0]) & (df_ref_turtle_j["lon"]==ref[1])])
+                map_turtle_path.add_child(folium.CircleMarker(location=[ref[0],ref[1]],radius = nights_on_ref/node_r_norm,color="orange",fill=True,fill_color="orange",fill_opacity=0.81))
+            
+            lat = (float(df_j["lat"])-float(df_j_1["lat"]))*(h)/(frames_per_day-1)+float(df_j_1["lat"])
+            lon = (float(df_j["lon"])-float(df_j_1["lon"]))*(h)/(frames_per_day-1)+float(df_j_1["lon"])
+            folium.PolyLine(locations=[[float(df_j_1["lat"]),float(df_j_1["lon"])],[lat,lon]],color="lightblue",weight=oppacity_lines).add_to(map_turtle_path)
+            date = df_j["date"]
+            # Add year label to the map
+            title_html = '''
+                            <h3 align="left" style="font-size:22px"><b>{}</b></h3>
+                            '''.format("Day:" + str(date)+"               Turtle:"+t_name)   
+            map_turtle_path.get_root().html.add_child(folium.Element(title_html))
+            if j<10:
+                map_turtle_path.save("D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\primerasRedes\\gif_construccion_mapas\\"+t_name+"\\mapa_"+t_name+"_refugies_0"+str(j)+"_"+str(h)+".html")
+            else: 
+                map_turtle_path.save("D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\primerasRedes\\gif_construccion_mapas\\"+t_name+"\\mapa_"+t_name+"_refugies_"+str(j)+"_"+str(h)+".html")
+    return
+
+# takes screenshots of htmls and saves pngs
+def make_pngs_from_htmls(folder,remove_htmls=False):
+    #get all files in folder 
+    filenames=folder+"/*.html"
+    files=glob.glob(filenames)
+    hti = Html2Image(custom_flags=['--virtual-time-budget=10000'],output_path= folder)
+    for file in files:
+        #get name of file
+        f_name=file.replace(".html","")
+        f_name=f_name.replace(folder,"")
+        f_name=f_name.replace("\\","")
+        hti.screenshot(html_file=file,save_as= f_name+".png")
+        if remove_htmls:
+            os.remove(file)
+    return
+
+# from folder with pngs makes gif
+def make_gif(folder="",duration_frame=100,remove_pngs=False,low_quality=True,quantity=0,save_name="gif_refugie_path",crop_images=False,crop_box=(0,0,1000,800)):
+    #get all files in folder
+    filenames=folder+"/*.png"
+    files=glob.glob(filenames)
+    #make gif
+    frames = []
+    if not quantity==0:
+        files=files[:quantity]
+    for i in files:
+        new_frame = Image.open(i)
+        if low_quality:
+            new_size = (int(new_frame.width/4),int( new_frame.height/4))
+            new_frame = new_frame.resize(new_size) 
+        if crop_images:
+            new_frame=new_frame.crop(crop_box)
+        frames.append(new_frame)
+        # Save into a GIF file that loops forever
+        if remove_pngs:
+            os.remove(i)
+    if low_quality: 
+        frames[0].save(save_name+'.gif', format='GIF',
+                append_images=frames[1:],
+                save_all=True,
+                duration=duration_frame, loop=0)
+    else:  
+        frames[0].save(save_name+'_HD.gif', format='GIF',
+                append_images=frames[1:],
+                save_all=True,
+                duration=duration_frame, loop=0)
+    return
 
 
 
