@@ -175,15 +175,20 @@ def get_sex_dict(file_for_sex):
     return dict_sexs
 
 #makes html map with the refugies   
-def make_map_from_refuguies(df_ref,topo_map=False):
+def make_map_from_refuguies(df_ref,topo_map=False,radius_nodes=10,refus_labels=False,refus_labels_anchor = (0,0)):
     map_out=get_map(topo_map)
     #get unique values of (lat,lon) from df_ref, for each one, save a refuguie name and a list of tnames that are in that refugie
+    
     refugies=np.unique(df_ref[["lat","lon"]].values.astype("<U22"),axis=0)
+    refuguies_nodes=np.linspace(0,len(refugies)-1,num=len(refugies),dtype=int)
     for i in range(len(refugies)):
         refugie=refugies[i]
         df_aux=df_ref[(df_ref["lat"]==refugie[0]) & (df_ref["lon"]==refugie[1])]
         t_names=np.unique(df_aux["t_name"].values)
-        folium.CircleMarker(location=[refugie[0],refugie[1]],radius=10,color="red",fill_color="red",fill_opacity=0.3,popup="<b>Refugio</b><br>"+"nro"+str(i)+"  "+str(t_names)).add_to(map_out)
+        folium.CircleMarker(location=[refugie[0],refugie[1]],radius=radius_nodes,color="orange",fill_color="orange",fill_opacity=0.3,popup="<b>Refugio</b><br>"+"nro"+str(i)+"  "+str(t_names)).add_to(map_out)
+        # add not popup text to the map 
+        if refus_labels:
+            folium.Marker(location=[refugie[0],refugie[1]],icon=folium.features.DivIcon(icon_size=(150,36),icon_anchor=refus_labels_anchor,html='<div style="font-size: 10pt; color: white">%s</div>' % str(refuguies_nodes[i]))).add_to(map_out)
     return map_out
 
 def get_map(topo_map=False,coords=[-40.585390,-64.996220],zoom=15):
@@ -207,7 +212,7 @@ def get_adjacency_matrix(df_ref):
     return adjacency_matrix,np.linspace(0,len(refugies)-1,num=len(refugies)),t_uniq_names
 
 # makes bipartite network from nodes ref and nodes turltes
-def get_bigraph(df_ref,plot=False,k=0.5,return_refugies=False):
+def get_bigraph(df_ref,plot=False,k=0.5,return_refugies=False,nodesize=200,scale=1,iters=50,weight="weight"):
     refugies=np.unique(df_ref[["lat","lon"]].values.astype("<U22"),axis=0)
     t_uniq_names=np.unique(df_ref["t_name"].values)
     B = nx.Graph()
@@ -225,14 +230,14 @@ def get_bigraph(df_ref,plot=False,k=0.5,return_refugies=False):
     if plot:
         colors_refugies=["sandybrown"]*len(refugies)
         colors_t_names=get_colors_turtles(df_ref,t_uniq_names)
-        pos=nx.spring_layout(B,k)
+        pos=nx.spring_layout(B,k,iterations=iters,scale=scale,weight=weight)
         edges = B.edges()
         weights = [B[u][v]['weight'] for u,v in edges]
         weights=np.array(weights)
         weights=5*weights/np.max(weights)+np.ones(len(weights))*0.1
-        nx.draw_networkx_nodes(B, pos=pos, nodelist=t_uniq_names, node_color=colors_t_names,node_size=200,label=t_uniq_names)
+        nx.draw_networkx_nodes(B, pos=pos, nodelist=t_uniq_names, node_color=colors_t_names,node_size=nodesize,label=t_uniq_names)
         nx.draw_networkx_edges(B, pos=pos, width=weights)
-        nx.draw_networkx_nodes(B, pos=pos, nodelist=refuguies_nodes, node_color=colors_refugies,node_size=200,label=refuguies_nodes)
+        nx.draw_networkx_nodes(B, pos=pos, nodelist=refuguies_nodes, node_color=colors_refugies,node_size=nodesize,label=refuguies_nodes)
         nx.draw_networkx_labels(B,pos,font_size=10,font_family='sans-serif')
         plt.show()
     if return_refugies:
@@ -392,6 +397,7 @@ def swap_conections_in_bigraph(B,swaps,max_trys):
 def turtle_ref_path_map(t_name,df_of_refugies,node_r_norm=7,oppacity_lines= 0.71):
     map_turtle_path = get_map()
     df_ref_turtle = df_of_refugies[df_of_refugies["t_name"]==t_name]
+    df_ref_turtle = df_ref_turtle.reset_index(drop=True)
     df_ref_turtle["date"] = pd.to_datetime(df_ref_turtle["date"],format="%d/%m/%Y")
     df_ref_turtle = df_ref_turtle.sort_values(by="date")
     df_ref_turtle = df_ref_turtle.reset_index(drop=True)
@@ -414,6 +420,7 @@ def turtle_ref_path_map(t_name,df_of_refugies,node_r_norm=7,oppacity_lines= 0.71
 def make_html_temporal_maps(t_name,df_of_refugies,node_r_norm=3,oppacity_lines=0.71,frames_per_day=5,zoom_in_map=17):
     df_ref_turtle = df_of_refugies[df_of_refugies["t_name"]==t_name]
     # reset index of df_ref_turtle
+    df_ref_turtle = df_ref_turtle.reset_index(drop=True)
     df_ref_turtle["date"] = pd.to_datetime(df_ref_turtle["date"],format="%d/%m/%Y")
     df_ref_turtle = df_ref_turtle.sort_values(by="date")
     df_ref_turtle = df_ref_turtle.reset_index(drop=True)

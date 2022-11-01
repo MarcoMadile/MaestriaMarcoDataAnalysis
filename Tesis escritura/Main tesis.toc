@@ -1,0 +1,27 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\'{I}ndice de s{\'{\i }}mbolos}{\es@scroman {v}}{section*.1}%
+\contentsline {chapter}{\'{I}ndice de contenidos}{\es@scroman {vii}}{section*.3}%
+\contentsline {chapter}{\'{I}ndice de figuras}{\es@scroman {ix}}{section*.5}%
+\contentsline {chapter}{\'{I}ndice de tablas}{\es@scroman {xi}}{section*.7}%
+\contentsline {chapter}{Resumen}{\es@scroman {xiii}}{section*.9}%
+\contentsline {chapter}{Abstract}{\es@scroman {xv}}{section*.11}%
+\babel@toc {english}{}\relax 
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Opciones que acepta el estilo}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}T\'{\i }tulo del Cap\'{\i }tulo 2}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Formulaci\'{o}n del problema}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Interpretaciones}{4}{section.2.2}%
+\contentsline {chapter}{\numberline {3}otr}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Secci\'{o}n 1}{7}{section.3.1}%
+\contentsline {section}{\numberline {3.2}otra}{7}{section.3.2}%
+\contentsline {section}{\numberline {3.3}una}{7}{section.3.3}%
+\contentsline {section}{\numberline {3.4}dos}{7}{section.3.4}%
+\contentsline {section}{\numberline {3.5}tres}{7}{section.3.5}%
+\contentsline {chapter}{\numberline {4}cuatro}{9}{chapter.4}%
+\contentsline {section}{\numberline {4.1}una}{9}{section.4.1}%
+\contentsline {section}{\numberline {4.2}otra mas}{9}{section.4.2}%
+\contentsline {chapter}{\numberline {A}Ejemplo de ap\'{e}ndice: El problema de la medida}{11}{appendix.Alph1}%
+\contentsline {chapter}{Bibliograf{\'{\i }}a}{13}{section*.16}%
+\contentsline {chapter}{Publicaciones asociadas}{15}{section*.18}%
+\contentsline {chapter}{Agradecimientos}{17}{section*.20}%
