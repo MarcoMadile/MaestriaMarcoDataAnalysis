@@ -177,18 +177,17 @@ def get_sex_dict(file_for_sex):
 #makes html map with the refugies   
 def make_map_from_refuguies(df_ref,topo_map=False,radius_nodes=10,refus_labels=False,refus_labels_anchor = (0,0)):
     map_out=get_map(topo_map)
-    #get unique values of (lat,lon) from df_ref, for each one, save a refuguie name and a list of tnames that are in that refugie
-    
-    refugies=np.unique(df_ref[["lat","lon"]].values.astype("<U22"),axis=0)
-    refuguies_nodes=np.linspace(0,len(refugies)-1,num=len(refugies),dtype=int)
-    for i in range(len(refugies)):
-        refugie=refugies[i]
-        df_aux=df_ref[(df_ref["lat"]==refugie[0]) & (df_ref["lon"]==refugie[1])]
+    # get refugies_label as sorted as it is in refugies
+    refugies_label=df_ref["refugie_label"].unique()
+    refugies_label.sort() 
+    for i in range(len(refugies_label)):
+        refugie=df_ref[df_ref["refugie_label"]==refugies_label[i]].iloc[0][["lat","lon"]]
+        df_aux=df_ref[df_ref["refugie_label"]==refugies_label[i]]
         t_names=np.unique(df_aux["t_name"].values)
-        folium.CircleMarker(location=[refugie[0],refugie[1]],radius=radius_nodes,color="orange",fill_color="orange",fill_opacity=0.3,popup="<b>Refugio</b><br>"+"nro"+str(i)+"  "+str(t_names)).add_to(map_out)
+        folium.CircleMarker(location=[refugie[0],refugie[1]],radius=radius_nodes,color="orange",fill_color="orange",fill_opacity=0.3,popup="<b>Refugio</b><br>"+"nro"+str(refugies_label[i])+"  "+str(t_names)).add_to(map_out)
         # add not popup text to the map 
         if refus_labels:
-            folium.Marker(location=[refugie[0],refugie[1]],icon=folium.features.DivIcon(icon_size=(150,36),icon_anchor=refus_labels_anchor,html='<div style="font-size: 10pt; color: white">%s</div>' % str(refuguies_nodes[i]))).add_to(map_out)
+            folium.Marker(location=[refugie[0],refugie[1]],icon=folium.features.DivIcon(icon_size=(150,36),icon_anchor=refus_labels_anchor,html='<div style="font-size: 10pt; color: white">%s</div>' % str(refugies_label[i]))).add_to(map_out)
     return map_out
 
 def get_map(topo_map=False,coords=[-40.585390,-64.996220],zoom=15):
@@ -200,12 +199,13 @@ def get_map(topo_map=False,coords=[-40.585390,-64.996220],zoom=15):
     return map1 
 
 def get_adjacency_matrix(df_ref):
-    refugies=np.unique(df_ref[["lat","lon"]].values.astype("<U22"),axis=0)
+    refugies_label=df_ref["refugie_label"].unique()
+    refugies = [df_ref[df_ref["refugie_label"]==refugies_label[i]].iloc[0][["lat","lon"]] for i in range(len(refugies_label))]
     t_uniq_names=np.unique(df_ref["t_name"].values)
     adjacency_matrix=np.zeros((len(refugies),len(t_uniq_names)))
     for i in range(len(refugies)):
         refugie=refugies[i]
-        df_aux=df_ref[(df_ref["lat"]==refugie[0]) & (df_ref["lon"]==refugie[1])]
+        df_aux=df_ref[df_ref["refugie_label"]==refugies_label[i]]
         #count the number of each tnames that are in that refugie. then add that number to the adjacency matrix
         for t_name in t_uniq_names:  
             adjacency_matrix[i,t_uniq_names.tolist().index(t_name)]=len(df_aux[df_aux["t_name"]==t_name])
@@ -213,11 +213,13 @@ def get_adjacency_matrix(df_ref):
 
 # makes bipartite network from nodes ref and nodes turltes
 def get_bigraph(df_ref,plot=False,k=0.5,return_refugies=False,nodesize=200,scale=1,iters=50,weight="weight"):
-    refugies=np.unique(df_ref[["lat","lon"]].values.astype("<U22"),axis=0)
+    refugies_label=df_ref["refugie_label"].unique()
+    refugies = [df_ref[df_ref["refugie_label"]==refugies_label[i]].iloc[0][["lat","lon"]] for i in range(len(refugies_label))]
     t_uniq_names=np.unique(df_ref["t_name"].values)
     B = nx.Graph()
     # Add nodes with the node attribute "bipartite"
-    refuguies_nodes=np.linspace(0,len(refugies)-1,num=len(refugies),dtype=int)
+    refuguies_nodes=refugies_label
+    
     B.add_nodes_from(t_uniq_names.tolist(), bipartite=1)
     B.add_nodes_from(refuguies_nodes.tolist(), bipartite=0)
     # Add edges with the edge attribute "weight"
