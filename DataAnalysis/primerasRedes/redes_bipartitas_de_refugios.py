@@ -419,7 +419,7 @@ def turtle_ref_path_map(t_name,df_of_refugies,node_r_norm=7,oppacity_lines= 0.71
     return map_turtle_path
 
 #makes htmls to make gif of turtles path through refugies 
-def make_html_temporal_maps(t_name,df_of_refugies,node_r_norm=3,oppacity_lines=0.71,frames_per_day=5,zoom_in_map=17):
+def make_html_temporal_maps(t_name,df_of_refugies,node_r_norm=3,oppacity_lines=0.51,line_size=3,frames_per_day=5,zoom_in_map=17,add_ref_label=False):
     df_ref_turtle = df_of_refugies[df_of_refugies["t_name"]==t_name]
     # reset index of df_ref_turtle
     df_ref_turtle = df_ref_turtle.reset_index(drop=True)
@@ -439,7 +439,9 @@ def make_html_temporal_maps(t_name,df_of_refugies,node_r_norm=3,oppacity_lines=0
         # make line from df_j_1 to df_j
         # filter df_ref_turtle where iloc is less than j
         df_ref_turtle_j = df_ref_turtle[df_ref_turtle.index<j]
-        unique_ref_to_j = np.unique(df_ref_turtle_j[["lat","lon"]].values.astype("<U22"),axis=0)
+        refugies_label_to_j=df_ref_turtle_j["refugie_label"].unique()
+        unique_ref_to_j = [df_ref_turtle_j[df_ref_turtle_j["refugie_label"]==refugies_label_to_j[i]].iloc[0][["lat","lon"]] for i in range(len(refugies_label_to_j))]
+        
         for h in range(frames_per_day):
             map_turtle_path = get_map(topo_map=False,coords=[center_lat,center_lon],zoom=zoom_in_map)
             for k in range(1,len(df_ref_turtle_j)):
@@ -454,13 +456,14 @@ def make_html_temporal_maps(t_name,df_of_refugies,node_r_norm=3,oppacity_lines=0
                 lat_k = float(df_k["lat"])
                 lon_k = float(df_k["lon"])
                 # plot line from lat_k_1,lon_k_1 to lat_k,lon_k
-                folium.PolyLine(locations=[[lat_k_1,lon_k_1],[lat_k,lon_k]],color="lightblue",weight=oppacity_lines).add_to(map_turtle_path)
+                folium.PolyLine(locations=[[lat_k_1,lon_k_1],[lat_k,lon_k]],color="lightblue",weight=line_size,opacity=oppacity_lines).add_to(map_turtle_path)
 
             # make line from df_j_1 to (df_j-df_j_1)*frames_per_day/(i+1)+df_j_1
             for i in range(len(unique_ref_to_j)):
-                ref=unique_ref_to_j[i]
-                nights_on_ref = len(df_ref_turtle_j[(df_ref_turtle_j["lat"]==ref[0]) & (df_ref_turtle_j["lon"]==ref[1])])
-                map_turtle_path.add_child(folium.CircleMarker(location=[ref[0],ref[1]],radius = nights_on_ref/node_r_norm,color="orange",fill=True,fill_color="orange",fill_opacity=0.81))
+                ref_lat=unique_ref_to_j[i]["lat"]
+                ref_lon = unique_ref_to_j[i]["lon"]
+                nights_on_ref = len(df_ref_turtle_j[(df_ref_turtle_j["lat"]==ref_lat) & (df_ref_turtle_j["lon"]==ref_lon)])
+                map_turtle_path.add_child(folium.CircleMarker(location=[float(ref_lat),float(ref_lon)],radius = nights_on_ref/node_r_norm,color="orange",fill=True,fill_color="orange",fill_opacity=0.81))
             
             lat = (float(df_j["lat"])-float(df_j_1["lat"]))*(h)/(frames_per_day-1)+float(df_j_1["lat"])
             lon = (float(df_j["lon"])-float(df_j_1["lon"]))*(h)/(frames_per_day-1)+float(df_j_1["lon"])
@@ -471,6 +474,11 @@ def make_html_temporal_maps(t_name,df_of_refugies,node_r_norm=3,oppacity_lines=0
                             <h3 align="left" style="font-size:22px"><b>{}</b></h3>
                             '''.format("Day:" + str(date)+"               Turtle:"+t_name)   
             map_turtle_path.get_root().html.add_child(folium.Element(title_html))
+            refus_labels_anchor = (7,10)
+            if add_ref_label:
+                for k in range(len(unique_ref_to_j)):
+                    folium.Marker(location=[float(unique_ref_to_j[k]["lat"]),float(unique_ref_to_j[k]["lon"])],icon=folium.features.DivIcon(icon_size=(150,36),icon_anchor=refus_labels_anchor,html='<div style="font-size: 10pt; color: white">%s</div>' % str(refugies_label_to_j[k]))).add_to(map_turtle_path)
+                
             if j<10:
                 map_turtle_path.save("D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\primerasRedes\\gif_construccion_mapas\\"+t_name+"\\mapa_"+t_name+"_refugies_0"+str(j)+"_"+str(h)+".html")
             else: 
