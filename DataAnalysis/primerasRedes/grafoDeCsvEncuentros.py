@@ -135,9 +135,8 @@ def get_sex_dict(file_for_sex,return_colors=False):
     
 
 """
-file="DataAnalysis\encuentros_csv\encuentroscompleto_tiempo_largo.csv"
+file="DataAnalysis\encuentros_csv\encuentros_Igoto_20min.csv"
 name_fig=r"D:\facultad\IB5toCuatri\Tesis\MaestriaMarco\DataAnalysis\primerasRedes\red_interaccion_mismo_dia_campanas.pdf"
 file_for_sex="DataAnalysis\encuentros_csv\encuentroscompleto_only_space.csv"
-title=r"Interaction Network, only same day encounters"
-G=plot_weighted_graph(file,title,save=False,save_name=name_fig,get_sex_from_file=True,file_for_sex=file_for_sex)
-"""
+title=r"Interaction Network, $\Delta x = 20\,$m, $\Delta t = 20\,$min"
+G=plot_weighted_graph(file,title,save=False,save_name=name_fig,get_sex_from_file=True,file_for_sex=file_for_sex)"""
