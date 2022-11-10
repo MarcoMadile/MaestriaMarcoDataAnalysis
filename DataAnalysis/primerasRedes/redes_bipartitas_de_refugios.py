@@ -539,15 +539,16 @@ def define_refugie_entry_hour(dfsI,min_distance=10):
         unq_d_in_df=df["date"].unique()
         for d in unq_d_in_df:
             df_d=df[df["date"]==d]
-            df_d.reset_index(inplace=True)
-            lats_d,lons_d = df_d["lat"].values,df_d["lon"].values
-            times = pd.to_datetime(df_d['timeGMT'], format='%H:%M:%S').array
-            for j in range(len(lats_d)):
-                #check if all distances from lats_d[j] and lons_d[j] to last one are less than 10metres
-                distances_from_j= [distance.distance((lats_d[j],lons_d[j]),(lats_d[k],lons_d[k])).m for k in range(j+1,len(lats_d))]
-                if all(d<min_distance for d in distances_from_j):
-                    ref_entry_t.append(times[j])
-                    break
+            if len(df_d)>10:
+                df_d.reset_index(inplace=True)
+                lats_d,lons_d = df_d["lat"].values,df_d["lon"].values
+                times = pd.to_datetime(df_d['timeGMT'], format='%H:%M:%S').array
+                for j in range(len(lats_d)):
+                    #check if all distances from lats_d[j] and lons_d[j] to last one are less than 10metres
+                    distances_from_j= [distance.distance((lats_d[j],lons_d[j]),(lats_d[k],lons_d[k])).m for k in range(j+1,len(lats_d))]
+                    if all(d<min_distance for d in distances_from_j):
+                        ref_entry_t.append(times[j])
+                        break
     return ref_entry_t
 
 """folder_to_Igoto="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos"
