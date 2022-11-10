@@ -8,7 +8,7 @@
 
 Primero se muestran las trayectorias obtenidas para un día de medición (Fig.~\ref{fig:trayeSinFiltr}), como por ejemplo 1/12/2020. Para éstas se realizó un programa en el lenguaje Python utilizando la librería Folium, permitiendo añadir puntos de GPS al mapa \cite{github}.
  
-\begin{figure}[h]
+\begin{figure}[ht]
     \begin{center}
        
    
@@ -25,7 +25,7 @@ Se observa en la Fig.~\ref{fig:trayeSinFiltr}, que algunos puntos tomados por el
 Para corregir estas desviaciones, se implementó un método basado en la velocidad máxima que pueden alcanzar los individuos. El mismo está detallado en el repositorio de GitHub, archivo \textit{CriterioParaSacarData.py} \cite{github}. Para obtener la velocidad máxima, se calculó la distribución de velocidades de la Fig.~\ref{fig:distribuciondeVel}.
 
  
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
        
    
@@ -39,7 +39,7 @@ Se observó en la distribución de velocidades de la Fig.~\ref{fig:distribuciond
  
  
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \begin{center}
        
    
@@ -55,7 +55,7 @@ Partiendo de las trayectorias filtradas, se decidió buscar el solapamiento de l
 Utilizando los encuentros calculados, se armaron dos redes de interacción  en la librería NetworkX \cite{networkx}, una para los datos obtenidos utilizando  tortugometro y otra para los datos provenientes de i-gotU (\ref{fig:redInteraccion20mincampanas} y otra). Las conexiones entre nodos tortugas tienen peso linealmente dependiente de la cantidad de encuentros entre ellas, esto se observa en el grosor del link entre dos tortugas y las distancias relativas entre nodos.
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \begin{center}
        
    
@@ -67,7 +67,7 @@ Utilizando los encuentros calculados, se armaron dos redes de interacción  en l
 
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \begin{center}
        
    

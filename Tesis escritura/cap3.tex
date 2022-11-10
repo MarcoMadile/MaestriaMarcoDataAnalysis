@@ -6,7 +6,7 @@ En distintos campos cercanos a la zona de medición (San Antonio Oeste, provinci
 
 \section{Refugios en el mapa}
 Para determinar el refugio donde paso la noche la tortuga se tomó el ultimo punto de  de la tortuga en un día de medición y se pidió la condicion de que haya sido tomado despues de las 19 horas. A este punto nuevo se le asigna un label de refugio y un enlace con la tortuga que paso la noche en ese refugio. A medida que se añade otro refugio primero se verifica que presente una distancia mayor a 20 metros con todos los otros refugios labeleados, en caso que la distancia es menor a 20 metros a por ejemplo el refugio 1, se dice que la tortuga estuvo en el refugio 1. Se graficaron los refugios encontrados en un mapa utilizando la librería Folium, los mapas fueron guardados en formato html para el facil acceso a los mismos.
-\begin{figure}[h]
+\begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/map_refugies_with_labels.jpg}
         \caption{Distribución geográfica de los refugios encontrados para los datos provenientes de las campañas.} 
@@ -15,7 +15,7 @@ Para determinar el refugio donde paso la noche la tortuga se tomó el ultimo pun
         \end{center}
 \end{figure} 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/map_refugies_with_labels_IGOTo.jpg}
         \caption{Distribución geográfica de los refugios encontrados para los datos provenientes de los datos de i-gotU.} 
@@ -25,12 +25,15 @@ Para determinar el refugio donde paso la noche la tortuga se tomó el ultimo pun
 \end{figure} 
 
 En base a observaciónes de directas de campo \cite{Erika} se espera que las tortugas machos tengan una distribución de refugios mas amplia en el espacio que las hembras.  Para verificar esta hipotesis se definieron dos metricas, centro de masa de refugios y distancia media entre refugios. El centro de masa se define como:
-    $$X_{centro}= \sum^{N -1}_{n=0} \frac{i_{n} X_n}{I_{totales}}.$$
+\begin{center}
+    
 
+$$X_{centro}= \sum^{N -1}_{n=0} \frac{i_{n} X_n}{I_{totales}}.$$
+\end{center}
 Donde $I_{totales}$ es la cantidad de noches donde se registro que la tortuga durmio en un refugio (depende de cada tortuga), $X_n$ es la coordenada X del refugio n, $i_{n}$ es la cantidad de noches que la tortuga durmio en el refugio n y N la cantidad de refugios totales.  Este proceso se calcula para todas las tortugas. 
 Partiendo de $X_{centro}$, la distancia media  espacial de los refugios se calcula como:
-
-$$D = \sum^{N -1}_{n=0} \frac{|X_n i_n - X_{centro}|}{I_{totales}}$$
+$$D = \sum^{N -1}_{n=0} \frac{|X_n i_n - X_{centro}|}{I_{totales}}.$$
+Esta metrica fue calculada para todas las tortugas y  promediada para  machos y hembras. Se encontro para los machos $\overline{D}_m =  (128\pm66)\,\text{m}$ y para las hembras     $\overline{D}_h = (122\pm82)\,\text{m}$. Es decir que no se encontraron diferencias significativas en la distribucion espacial de refugios definida coomo
 \section{Redes bipartitas de refugios}
 Se armaron redes bipartitas con nodos refugios y nodos tortugas. Los nodos refugios solo estan conectados con nodos tortugas.  Partiendo de todos los labels de refugios con las tortugas que pasaron noche en ese refugio se armaron las redes bipartias para los datos tomados por los tortugometros y los datos tomados con los i-gotU, figuras respectivamente.%chequear
 
