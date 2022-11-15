@@ -110,7 +110,7 @@ def save_refugies_data(dfs,dates,t_names,cutoff_time=2000,distance_refugies=10,d
     for date in dates:
         for j in range(len(dfs)):
             if data_is_Igoto:
-                points=get_last_cordinate_from_day_IGOTO(dfs[j],date,cutoff_time)
+                points=get_first_cordinate_from_day_IGOTO(dfs[j],date,cutoff_time)
             else:
                 points=get_last_cordinate_from_day(dfs[j],date,cutoff_time)
             if points!=0:
@@ -144,13 +144,13 @@ def  get_last_cordinate_from_day(df,day,cutoff_time):
     return 0
 
 #get the last coordinate from a day, supposed to be the place where the turtle sleeps for IGOTO
-def  get_last_cordinate_from_day_IGOTO(df,day,cutoff_time):
+def  get_first_cordinate_from_day_IGOTO(df,day,cutoff_time):
     df_aux=df[df["date"]==day]
     if len(df_aux)>=1:
         #define hour of cutoff time as 20:00:00
-        hour= 100*int(df_aux.iloc[-1]["timeGMT"].split(":")[0])
-        if hour>=cutoff_time:
-            return (df_aux["lat"].iloc[-1],df_aux["lon"].iloc[-1])
+        hour= 100*int(df_aux.iloc[0]["timeGMT"].split(":")[0])
+        if hour<=cutoff_time:
+            return (df_aux["lat"].iloc[0],df_aux["lon"].iloc[0])
     return 0
 
 #check if the point is considered a new refugie or not        
@@ -236,9 +236,9 @@ def get_bigraph(df_ref,plot=False,k=0.5,return_refugies=False,nodesize=200,scale
         weights = [B[u][v]['weight'] for u,v in edges]
         weights=np.array(weights)
         weights=5*weights/np.max(weights)+np.ones(len(weights))*0.1
-        nx.draw_networkx_nodes(B, pos=pos, nodelist=t_uniq_names, node_color=colors_t_names,node_size=nodesize,label=t_uniq_names)
         nx.draw_networkx_edges(B, pos=pos, width=weights)
         nx.draw_networkx_nodes(B, pos=pos, nodelist=refuguies_nodes, node_color=colors_refugies,node_size=nodesize,label=refuguies_nodes)
+        nx.draw_networkx_nodes(B, pos=pos, nodelist=t_uniq_names, node_color=colors_t_names,node_size=nodesize,label=t_uniq_names)
         nx.draw_networkx_labels(B,pos,font_size=10,font_family='sans-serif')
         plt.show()
     if return_refugies:
@@ -404,14 +404,14 @@ def turtle_ref_path_map(t_name,df_of_refugies,node_r_norm=7,oppacity_lines= 0.71
     df_ref_turtle = df_ref_turtle.reset_index(drop=True)
     df_ref_turtle["date"] = df_ref_turtle["date"].dt.strftime("%d/%m/%Y")
 
-    unique_ref = np.unique(df_ref_turtle[["lat","lon"]].values.astype("<U22"),axis=0)
+    unique_ref_label = np.unique(df_ref_turtle["refugie_label"].values)
     for j in range(1,len(df_ref_turtle)):
         df_j=df_ref_turtle.iloc[j]
         df_j_1=df_ref_turtle.iloc[j-1]
         # make line from df_j_1 to df_j
         folium.PolyLine(locations=[[float(df_j_1["lat"]),float(df_j_1["lon"])],[float(df_j["lat"]),float(df_j["lon"])]],color="lightblue",weight=oppacity_lines).add_to(map_turtle_path)
-    for i in range(len(unique_ref)):
-        ref = unique_ref[i]
+    for i in range(len(unique_ref_label)):
+        ref =df_ref_turtle[df_ref_turtle["refugie_label"]==unique_ref_label[i]][["lat","lon"]].values[0]
         nights_on_ref = len(df_ref_turtle[(df_ref_turtle["lat"]==ref[0]) & (df_ref_turtle["lon"]==ref[1])])
         map_turtle_path.add_child(folium.CircleMarker(location=[ref[0],ref[1]],popup="Nights on refugie: "+str(nights_on_ref),radius = nights_on_ref/node_r_norm,color="orange",fill=True,fill_color="orange",fill_opacity=0.81))
     
@@ -543,18 +543,120 @@ def define_refugie_entry_hour(dfsI,min_distance=10):
                 df_d.reset_index(inplace=True)
                 lats_d,lons_d = df_d["lat"].values,df_d["lon"].values
                 times = pd.to_datetime(df_d['timeGMT'], format='%H:%M:%S').array
-                for j in range(len(lats_d)):
-                    #check if all distances from lats_d[j] and lons_d[j] to last one are less than 10metres
-                    distances_from_j= [distance.distance((lats_d[j],lons_d[j]),(lats_d[k],lons_d[k])).m for k in range(j+1,len(lats_d))]
-                    if all(d<min_distance for d in distances_from_j):
-                        ref_entry_t.append(times[j])
-                        break
+                if times[-1].hour>16:
+                    for j in range(len(lats_d)):
+                        #check if all distances from lats_d[j] and lons_d[j] to last one are less than 10metres
+                        distances_from_j= [distance.distance((lats_d[j],lons_d[j]),(lats_d[k],lons_d[k])).m for k in range(j+1,len(lats_d))]
+                        if all(d<min_distance for d in distances_from_j):
+                            ref_entry_t.append(times[j])
+                            break
     return ref_entry_t
 
-"""folder_to_Igoto="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos"
+def get_all_months(dfs):
+    uniqueMonths=[]
+    for df in dfs:
+        dates=pd.to_datetime(df["date"],format="%d/%m/%Y")
+        dates=dates.to_numpy()
+        dates=np.array([date.astype("datetime64[M]").astype(str) for date in dates])
+        months=np.copy(dates)
+        for h in range(len(dates)):
+            months[h]=dates[h].split("-")[1]
+        df["month"]=months
+        uniqueMonths.append(months)
+   
+    uniqueMonths=np.hstack(uniqueMonths)
+    uniqueMonths=np.unique(np.array(uniqueMonths))
+    print(uniqueMonths)
+    return dfs,uniqueMonths
+
+#get time in hours messuring "macho" for each month and time mesured "hembra" for each month. 
+def time_in_hours_per_sex(dfs,dates):
+    dfs,months=get_all_months(dfs) #now i have a new column named month in each df
+    males_time=np.zeros(len(months))
+    females_time=np.zeros(len(months))
+    for day in dates:
+        for df in dfs:
+            time=pd.to_datetime(df.loc[df['date']==day]["timeGMT"],format='%H:%M:%S')
+            time=np.array(time)
+            deltatimes=((time[1:]-time[:-1]).astype('timedelta64[m]')).astype("int")
+            if len(deltatimes)>0:
+                month_of_date=df.loc[df['date']==day]["month"].iloc[0]
+                if df["sexo"].iloc[0]=="macho":
+                    males_time[np.where(months==month_of_date)[0][0]]+=np.sum(deltatimes)
+                elif df["sexo"].iloc[0]=="hembra":
+                    females_time[np.where(months==month_of_date)[0][0]]+=np.sum(deltatimes)
+    return months,males_time,females_time
+
+# agarra los encuentros y devuelve la cantidad de encuentros por hora medida segun los meses
+def get_encounters_per_month_igotu(df):
+    #get dataframe from filename
+    #add month column to df and fill it with months
+    dates=pd.to_datetime(df["day"],format="%Y/%m/%d")
+    dates=dates.to_numpy()
+    dates=np.array([date.astype("datetime64[M]").astype(str) for date in dates])
+    months=np.copy(dates)
+    for h in range(len(dates)):
+        months[h]=dates[h].split("-")[1]
+    df["month"]=months
+    unq_months=df["month"].unique()
+
+    total_malesEncounters=np.zeros(len(unq_months))
+    total_femalesEncounters=np.zeros(len(unq_months))
+    f_fEncounter=np.zeros(len(unq_months))
+    m_fEncounter=np.zeros(len(unq_months))
+    m_mEncounter=np.zeros(len(unq_months))
+    for j in range(len(unq_months)):
+        data_of_month=df.loc[df['month']==unq_months[j]]
+        sex_one=data_of_month["sex one"]
+        sex_two=data_of_month["sex two"]
+        sex_one=sex_one.to_numpy()
+        sex_two=sex_two.to_numpy()
+        for i in range(len(sex_one)):
+            if sex_one[i]=="macho":
+                if sex_two[i]=="macho":
+                    total_malesEncounters[j]+=2
+                    m_mEncounter[j]+=1
+                else:
+                    total_malesEncounters[j]+=1
+                    total_femalesEncounters[j]+=1
+                    m_fEncounter[j]+=1
+            else:
+                if sex_two[i]=="macho":
+                    total_malesEncounters[j]+=1
+                    total_femalesEncounters[j]+=1
+                    m_fEncounter[j]+=1
+                else: 
+                    total_femalesEncounters[j]+=2
+                    f_fEncounter[j]+=1
+    return total_malesEncounters,total_femalesEncounters,m_mEncounter,m_fEncounter,f_fEncounter
+"""
+folder_to_Igoto="D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos"
 dfsI,datesI,t_namesI=get_files_and_dates_IGOTO(folder_to_Igoto)
 file_to_sex= "D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\encuentros_csv\\encuentroscompleto_only_space.csv"
-df_refugiosI=save_refugies_data(dfsI,datesI,t_namesI,cutoff_time=2000,distance_refugies=0,data_is_Igoto=True,file_for_sex=file_to_sex)"""
+entrys15= define_refugie_entry_hour(dfsI,min_distance=15)
+entrys20 = define_refugie_entry_hour(dfsI,min_distance=15)
+
+entrys_hour_and_minute = [entrys15[i].hour+entrys15[i].minute/60 for i in range(len(entrys15))]
+plt.hist(entrys_hour_and_minute,bins=24,density=True,edgecolor='black')
+plt.xlim(right=24)
+# make tiks spaced by two
+plt.xticks(np.arange(6, 25, 2))
+plt.xlabel("Entrada al refugio (horas)")
+plt.ylabel("Frecuencia")
+plt.show()
+
+
+
+entrys_hour_and_minute = [entrys20[i].hour+entrys20[i].minute/60 for i in range(len(entrys20))]
+plt.hist(entrys_hour_and_minute,bins=24,density=True,edgecolor='black')
+plt.xlim(right=24)
+# make tiks spaced by two
+plt.xticks(np.arange(6, 25, 2))
+plt.xlabel("Entrada al refugio (horas)")
+plt.ylabel("Frecuencia")
+plt.show()
+"""
+#df_refugiosI=save_refugies_data(dfsI,datesI,t_namesI,cutoff_time=2000,distance_refugies=0,data_is_Igoto=True,file_for_sex=file_to_sex)
 
 #dfs,dates,t_names=get_files_and_dates_IGOTO("D:\\facultad\\IB5toCuatri\\Tesis\\MaestriaMarco\\DataAnalysis\\DatosIgoto2022Todos")
 #df_coincidencia=save_refugies_data(dfs,dates,t_names,distance_refugies=200)

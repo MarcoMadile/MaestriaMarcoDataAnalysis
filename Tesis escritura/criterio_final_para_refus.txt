@@ -1,0 +1,10 @@
+pARA LAS CAMPAÑAS SABEMOS QUE NO SE MUEVEN DURANTE LA NOCHE. Siempre que fuimos y pusimos los tortugometros estaban en el 
+refugio
+
+
+Los tortus se apagaban en el lugar instantaneamente. Al prender no era tan trivial =D tardaban como 20 
+Calcular disntancia entre noche anterior y mañana siguiente 
+
+Ya calculada la distancia entre noche anterior y mañana siguiente se fija criterio para proximas campanas 
+Y se cambia para igot-U criterio de refugio como primer punto de la mañana siendo menor que las 7 hs, despues respecto campanas le pido que la hora sea mayor o igual a las 23 =D mayor o igual de las 8.
+Respecto grilla dos caminos o mostrar solo la de la campana o filtrar igotu con datos que sean hasta febrero 

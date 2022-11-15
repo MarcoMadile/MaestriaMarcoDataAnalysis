@@ -43,22 +43,36 @@ En primer lugar se utilizó una técnica de radiotelemetría para localizar la p
 Las técnicas de radiotelemetría permiten localizar individuos mediante un sistema de transmisor-receptor-antena. Se utilizaron transmisores Holohil (Grand HOLOHIL Systems Ltd. RI-2B) pegados a los caparazones de las tortugas mediante cinta adhesiva. Estos transmisores emiten un pulso a una determinada frecuencia ($\approx$150 MHz) cada dos segundos. Estos pulsos eran detectados por un sistema de recepción, que consiste en una antena Yagi-Uda conectada a un receptor ATS R410 (Advanced Telemetry Systems,Inc). Esta técnica permite con gran precisión localizar el transmisor y, usando un GPS portátil (Garmin eTrex
 x20), determinar la ubicación.
  
-A pesar de ser muy precisa espacialmente, esta técnica no posee una buena resolución temporal, necesaria para reconstruir trayectorias confiables. En primer lugar, es necesario seguir constantemente al individuo para tener una mejor resolución temporal. En segundo lugar, el investigador debe acercarse a una distancia considerable de la tortuga para tomar su posición con el GPS. Esto puede alterar el comportamiento de la tortuga y su trayectoria. En la siguiente sección se describe la unidad de navegación, que ofrece una alta resolución temporal en las trayectorias sin perturbar al comportamiento animal.
+A pesar de ser muy precisa espacialmente, esta técnica no posee una buena resolución temporal, necesaria para reconstruir trayectorias confiables. En primer lugar, es necesario seguir constantemente al individuo para tener una mejor resolución temporal. En segundo lugar, el investigador debe acercarse a una distancia considerable de la tortuga para tomar su posición con el GPS. Esto puede alterar el comportamiento de la tortuga y su trayectoria. En la siguiente sección se describe la unidad de navegación, que ofrece una alta resolución temporal en las trayectorias sin perturbar al comportamiento animal. Es por esta razon que solo se usó esta técnica para recuperar la unidad de navegación y el i-gotU, no para monitorear la trayectoría directamente.
  
 \subsection{Unidad de navegación}
-Se desarrolló en el departamento de Ingeniería del Centro Atómico  una unidad de bajo presupuesto para monitorear individuos en su hábitat natural (de ahora en más llamado tortugómetro), que consiste de un receptor GPS, sensores inerciales (acelerómetro y giróscopo) y un sensor de temperatura (Fig.~\ref{fig:tortugometro}). El mismo está alimentado por una batería recargable que le da una autonomía de aproximadamente 15 horas considerando una adquisición del GPS de un punto cada 5-10 minutos. El peso del tortugómetro es de 45 g representando el 3\% del peso de una tortuga de tamaño medio, lo que es aceptable para no disturbar el movimiento del animal. Los datos del receptor de GPS y los sensores inerciales son guardados en una memoria micro-SD. Al final de cada día de monitoreo se descargaron los datos de la memoria y se cargaron las baterías.
+Se desarrolló en el departamento de Ingeniería del Centro Atómico  una unidad de bajo presupuesto para monitorear individuos en su hábitat natural (de ahora en más llamado tortugómetro), que consiste de un receptor GPS, sensores inerciales (acelerómetro y giróscopo) y un sensor de temperatura (Fig.~\ref{fig:tortugometro}). El mismo está alimentado por una batería recargable que le da una autonomía de aproximadamente 15 horas considerando una adquisición del GPS de un punto cada 5-10 minutos. El peso del tortugómetro es de 45 g representando el 3\% del peso de una tortuga de tamaño medio, lo que es aceptable para no disturbar el movimiento del animal. Los datos del receptor de GPS y los sensores inerciales son guardados en una memoria micro-SD. Al final de cada día de monitoreo se descargaron los datos de la memoria y se cargaron las baterías. 
  
-En este trabajo, se utilizaron datos obtenidos por campañas realizadas por el grupo de investigación. Contaron con 8 de estas unidades en correcto funcionamiento para monitorear las tortugas en cada día de campaña.
+En este trabajo, se utilizaron datos obtenidos por campañas realizadas por el grupo de investigación. Contaron con 8 de estas unidades en correcto funcionamiento para monitorear las tortugas en cada día de campaña. Las campañas de medición donde se utilizó esta técnica fueron entre enero de 2020 y enero del 2022. Se monitorearon en total 27 individuos por un total de 1160 horas.
 \begin{figure}[ht]
+    \begin{center}
+        
+    
     \includegraphics[width=\imsize]{figs/Chap1/tortugometro.pdf}  
+\end{center}
     \caption[Unidad de navegación (tortugómetro) para monitorear individuos.] {Unidad de navegación (tortugómetro) para monitorear individuos. Consiste de un GPS, sensores inerciales (giróscopo y acelerómetro) y de temperatura, todos conectados a una unidad de control y procesamiento. Pesa menos de 45g. Las posiciones del GPS son adquiridas cada 10 minutos y se almacenan en la tarjeta micro SD extraíble. }
     \label{fig:tortugometro}
 \end{figure}
 
 \subsection{i-gotU}
-\begin{huge}
-TO-DO!
-\end{huge}
+La unidad de navegación comercial i-gotU GT120 (Fig.~\ref{fig:igotu}) es una unidad de bajo costo que permite monitorear la posición de individuos en su hábitat natural. La misma posee un receptor GPS, donde se puede programar la frecuencia de medición a travez de un software previsto por el fabricante. La batería de la unidad permite una autonomía de aproximadamente 7 dias. El peso de la unidad es de 21 g, lo que representa el 1.5\% del peso de una tortuga de tamaño medio. La unidad  posee una memoria interna que almacena los datos de posición y hora. Los datos se pueden descargar a través de un puerto USB.
+
+\begin{figure}[ht]
+    \begin{center}
+        
+    
+    \includegraphics[width=.8\imsize]{figs/Chap1/igotu.jpg}  
+\end{center}
+    \caption[Unidad de navegación comercial i-gotU para monitorear individuos.] {Unidad de navegación i-gotU para monitorear individuos.Pesa aproximadamente  21\,g, las posiciones del GPS son adquiridas cada 15 minutos y se almacenan en la memoría interna del dispositivo. }
+    \label{fig:igotu}
+\end{figure}
+En este trabajo se utilizaron datos obtenidos por campañas realizadas entre finales de enero 2022 y abril 2022, se contaron con 12 de estas unidades en correcto funcionamiento y se decidió monitorear a las mismas 6 tortugas intercambiando el i-gotU a cada una de ellas cada 7 dias. Se programaron los i-gotU para adquirir posición y hora cada 15 minutos entre las 6 de la mañana y las 9 de la noche, sobre la noche no adquiría datos para ahorrar batería. En total se monitorearon aproximadamente 1000 horas por tortuga ya que algunas semanas no se llegó a intercambíar los i-gotU.
+
 \section{Redes complejas}
 \begin{huge}
     TO-DO!

@@ -4,46 +4,48 @@ The top-level auxiliary file: Main tesis.aux
 The style file: ibtesis.bst
 A level-1 auxiliary file: resumen.aux
 A level-1 auxiliary file: cap2.aux
+A level-1 auxiliary file: cap3.aux
+A level-1 auxiliary file: cap4.aux
 A level-1 auxiliary file: apend1.aux
 Database file #1: mibib.bib
-You've used 14 entries,
+You've used 11 entries,
             2634 wiz_defined-function locations,
-            1130 strings with 12092 characters,
-and the built_in function-call counts, 5064 in all, are:
-= -- 330
-> -- 163
-< -- 4
-+ -- 80
-- -- 41
-* -- 278
-:= -- 573
-add.period$ -- 41
-call.type$ -- 14
-change.case$ -- 18
+            1098 strings with 11534 characters,
+and the built_in function-call counts, 3521 in all, are:
+= -- 225
+> -- 133
+< -- 0
++ -- 67
+- -- 33
+* -- 170
+:= -- 399
+add.period$ -- 28
+call.type$ -- 11
+change.case$ -- 12
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 496
-empty$ -- 513
-format.name$ -- 50
-if$ -- 1103
+cite$ -- 11
+duplicate$ -- 335
+empty$ -- 350
+format.name$ -- 40
+if$ -- 758
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 143
-newline$ -- 72
-num.names$ -- 16
-pop$ -- 223
+int.to.str$ -- 11
+missing$ -- 100
+newline$ -- 55
+num.names$ -- 10
+pop$ -- 176
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 119
+skip$ -- 94
 stack$ -- 0
-substring$ -- 217
-swap$ -- 338
-text.length$ -- 4
+substring$ -- 133
+swap$ -- 228
+text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 32
-width$ -- 16
-write$ -- 151
+while$ -- 19
+width$ -- 13
+write$ -- 109

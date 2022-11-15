@@ -49,10 +49,59 @@ Se observó en la distribución de velocidades de la Fig.~\ref{fig:distribuciond
     \label{fig:trayeConFiltr}
 \end{figure}
 
-\section{Red de encuentros}
-Partiendo de las trayectorias filtradas, se decidió buscar el solapamiento de las trayectorias, para identificar los encuentros. Para ello, se implementó un codigo en Python, que partiendo de cualquier punto de su trayectoria busca si hay otro punto de otra tortuga que se encuentre a una distancia menor a 20 metros y a una distancia temporal menor a 20 minutos. Cuando se cumple esta condición se van guardando los pares de puntos junto con la hora y el nombre de ambas tortugas. 
+\section{Zonas de interes}
+Partiendo de las trayectorias filtradas, se realizó  una grilla identificando las zonas de recurrencia en la Fig.~\ref{fig:grilla1}. La misma es de gran interés para la investigación y preservación de la especie, en caso que se pudieran identificar los factores o características de las zonas más recurridas, se podrían sugerir políticas de manejo para minimizar los daños sobre las tortugas. Esto es especialmente importante dado que ahora se está introduciendo ganado en la zona con el consiguiente deterioro del hábitat natural de las tortugas. La grilla fue programada en Python y asigna la cantidad de posiciones medidas por el GPS en cada celda \cite{github}.
+ 
+ 
+\begin{figure}[ht]
+    \begin{center}
+    \includegraphics[width=\imsize]{Chap2/GrillaSintCNoche.png}
+    \end{center}
+    \caption[Mapa de zonas de recurrencia.]{Mapa de recurrencias  interactivo con las trayectorias filtradas. Al hacer clic en cualquier celda de la grilla un cartel dice cuantas mediciones fueron tomadas. El tamaño de celda es de 10m$^2$.}
+    \label{fig:grilla1}
+\end{figure}
+ 
+Se puede observar en la Fig.~\ref{fig:grilla1} un punto que se destaca mucho más que el resto (arriba a la izquierda) teniendo el máximo de mediciones en esa casilla. Esto se debe a que una pareja de tortugas pasó la noche con el tortugómetro puesto en medio de un arbusto de difícil acceso. Para obtener una mejor idea de las zonas de interés diurnas se realizó otra grilla usando sólo datos del tortugómetro registrados en el día (entre 7am y 9pm) y  realizando una interpolación lineal de 1 punto por minuto por cada par de puntos consecutivos (Fig.~\ref{fig:grillaInt}, \cite{github}). Esta interpolación da una aproximación de las casillas por donde tuvo que pasar la tortuga y añade un peso cuando la tortuga se quedó dentro de la misma casilla por una mayor cantidad de tiempo (mediciones consecutivas).
+ 
+\begin{figure}[ht]
+    \begin{center}
+        
+    
+    \includegraphics[width=\imsize]{Chap2/GrillaCintSNoche.png}
+\end{center}
+    \caption[Mapa con zona de recurrencia para trayectorias diurnas.]{Mapa de recurrencias  interactivo con las trayectorias diurnas (7am-9pm) filtradas e interpoladas linealmente. Al hacer clic en cualquier celda de la grilla un cartel dice cuantas mediciones fueron tomadas. El tamaño de celda es de 10m$^2$.}
+    \label{fig:grillaInt}
+\end{figure}
+ 
+Comparando las Figs. \ref{fig:grilla1} y \ref{fig:grilla1}, se observa en la  Fig.~\ref{fig:grillaInt} un mayor contraste de las otras celdas respecto al que se encuentra arriba a la izquierda. Esto se debe a la extracción de los puntos nocturnos.  Si se puede obtener las características de las zonas de interés, se podrían sugerir políticas de manejo para minimizar los daños sobre las tortugas. Esto es especialmente importante dado que ahora se está introduciendo ganado en la zona con el consiguiente deterioro del hábitat natural de las tortugas.
 
-Utilizando los encuentros calculados, se armaron dos redes de interacción  en la librería NetworkX \cite{networkx}, una para los datos obtenidos utilizando  tortugometro y otra para los datos provenientes de i-gotU (\ref{fig:redInteraccion20mincampanas} y otra). Las conexiones entre nodos tortugas tienen peso linealmente dependiente de la cantidad de encuentros entre ellas, esto se observa en el grosor del link entre dos tortugas y las distancias relativas entre nodos.
+\section{Red de encuentros}
+Partiendo de las trayectorias filtradas, se decidió buscar el solapamiento de las trayectorias, para identificar los encuentros. Para ello, se implementó un codigo en Python, que partiendo de cualquier punto de su trayectoria busca si hay otro punto de otra tortuga que se encuentre a una distancia menor a 20 metros y a una distancia temporal menor a 20 minutos. Cuando se cumple esta condición se van guardando los pares de puntos junto con la hora y el nombre de ambas tortugas.
+
+En las Figs. \ref{fig:encuentros_hora_medida_tortugometro} y \ref{fig:encuentros_hora_medida_igotu}, están la cantidad de encuentros calculados por hora medida por los tortugómetros y por los i-gotU en función de los meses de medición. Los encuentros del tipo macho-hembra fueron normalizados por la cantidad promedio de horas medidas de ambos sexos para cada mes, en cambió para la cantidad de encuentros macho-macho y hembra-hembra se normalizo utilizando la cantidad de horas medidas para cada sexo en cada mes.  
+\begin{figure}[ht]
+    \begin{center}
+       
+   
+    \includegraphics[width=\imsize]{Chap2/encuentros_por_hora_tortugometro.pdf}
+\end{center}
+    \caption[Encuentros por hora medida tomando los datos del tortugometro.]{Encuentros sobre cantidad de horas medidas para cada sexo en función de los meses de medición utilizando el tortugometro.Los distintos colores identifican el tipo de encuentro.}
+    \label{fig:encuentros_hora_medida_tortugometro}
+\end{figure}
+
+\begin{figure}[ht]
+    \begin{center}
+       
+   
+    \includegraphics[width=\imsize]{Chap2/encuentros_por_hora_igotu.pdf}
+\end{center}
+    \caption[Encuentros por hora medida tomando los datos de los i-gotU.]{Encuentros sobre cantidad de horas medidas para cada sexo en función de los meses de medición utilizando los i-gotU. Los distintos colores identifican el tipo de encuentro.}
+    \label{fig:encuentros_hora_medida_igotu}
+\end{figure}
+En la Fig. \ref{fig:encuentros_hora_medida_tortugometro}, se observa que el máximo de encuentros del tipo macho-hembra por hora medida esta en los meses noviembre-diciembre, esto coincide con la epoca de apariamiento. Estos meses estan juntos ya que las mediciones en esos meses fueron tomadas a finales de noviembre y principios de diciembre. Para el mes de enero solo se registraron encuentros del tipo hembra-hembra en ambas figuras ( \ref{fig:encuentros_hora_medida_tortugometro} y \ref{fig:encuentros_hora_medida_igotu}), esto puede deberse a que las hembras están buscando un lugar acorde para depositar sus huevos, haciendo el encuentro hembra-hembra más probable. Para los datos de los i-gotU (\ref{fig:encuentros_hora_medida_igotu}) tambien se registraron encuentros en los meses de febrero, marzo y abril, pero en menor cantidad que en los meses anteriores, asociamos esta diferencia a la disminución de actividad en las tortugas.
+
+
+Utilizando los encuentros calculados, se armaron dos redes de interacción  en la librería NetworkX \cite{networkx}, una para los datos obtenidos utilizando  tortugometro y otra para los datos provenientes de i-gotU (Figs. \ref{fig:redInteraccion20mincampanas} y \ref{fig:redInteraccion20igotu}). Las conexiones entre nodos tortugas tienen peso linealmente dependiente de la cantidad de encuentros entre ellas, esto se observa en el grosor del link entre dos tortugas y las distancias relativas entre nodos.
 
 
 \begin{figure}[ht]
@@ -61,7 +110,7 @@ Utilizando los encuentros calculados, se armaron dos redes de interacción  en l
    
     \includegraphics[width=\imsize]{Chap2/red_interaccion_20min_campanas.pdf}
 \end{center}
-    \caption[Red de encuentros entre tortugas utilizando telemetria y tortugometro.]{Red de encuentros entre tortugas para datos provenientes de las metodologías telemetria y tortugometro. La condición de encuentro esta dada por una distancia espacial menor a 20 metros y a una distancia temporal menor a 20 minutos.}
+    \caption[Red de encuentros entre tortugas  con datos tomados por el tortugometro.]{Red de encuentros entre tortugas para datos provenientes de las metodología  tortugometro. La condición de encuentro esta dada por una distancia espacial menor a 20 metros y a una distancia temporal menor a 20 minutos.}
     \label{fig:redInteraccion20mincampanas}
 \end{figure}
 

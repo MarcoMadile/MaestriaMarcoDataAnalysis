@@ -42,42 +42,19 @@ Zacarias, G.~G., Diaz~Gomez, J.~M., de~la Fuente, M.~S.
   nuestra tortuga chaque{\~n}a {(Chelonoidis} chilensis): Peque{\~n}o pariente
   de las tortugas terrestres de las islas {G}al{\'a}pagos, 2016.
 
-\bibitem{Bohr1913PMp10}
-Bohr, N.
-\newblock On the constitution of atoms and molecules.
-\newblock \emph{Phil. Mag.}, \textbf{25}, 10, 1913.
+\bibitem{Erika}
+Kubisch, E., investigadora de CONICET{,} especialista en biología de~campo.
+\newblock Comunicacion directa, 2022.
 
-\bibitem{Bohm1952PRp166}
-Bohm, D.
-\newblock A suggested interpretation of the quantum theory in terms of
-  ``{Hidden}" variables. {I}.
-\newblock \emph{Physical Review}, \textbf{85}, 166--179, 1952.
+\bibitem{github}
+{Codigos realizados en el trabajo}, repositorio github.
+\newblock \url{https://github.com/MaestriaIBMarco/MaestriaMarco}.
 
-\bibitem{Bohm1952PRp180}
-Bohm, D.
-\newblock A suggested interpretation of the quantum theory in terms of
-  ``{Hidden}" variables. {II}.
-\newblock \emph{Physical Review}, \textbf{85}, 180--193, 1952.
-
-\bibitem{Briggs1991AAMOP_TTOp1}
-Briggs, J.~S., Macek, J.~H.
-\newblock The theory of fast ion-atom collisions.
-\newblock \underline{En}: J.~S. Briggs, J.~H. Macek (eds.) Advances in Atomic,
-  Molecular and Optical Physics, tomo~28, p\'ags. 1--74. Academic Press, Inc.,
-  1991.
-
-\bibitem{Hunter07CSE}
-Hunter, J.~D.
-\newblock Matplotlib: A 2d graphics environment.
-\newblock \emph{Computing In Science \& Engineering}, \textbf{9}~(3), 90--95,
-  May-Jun 2007.
-
-\bibitem{Laricch2009AAMOP_ICBp3}
-Laricchia, G., Armitage, S., K\"{o}ver, A., Murtagh, D.~J.
-\newblock Ionizing collisions by positrons and positronium impact on the inert
-  atoms.
-\newblock \underline{En}: Advances in Atomic, Molecular and Optical Physics,
-  tomo~56, p\'ag.~3. Academic Press, Inc., 2009.
+\bibitem{networkx}
+Hagberg, A., Swart, P., S~Chult, D.
+\newblock Exploring network structure, dynamics, and function using networkx.
+\newblock Inf.\ t\'ec., Los Alamos National Lab.(LANL), Los Alamos, NM (United
+  States), 2008.
 
 \bibitem{Philipp1982NCBSp75}
 Philippidis, C., Bohm, D., Kaye, R.~D.

@@ -1,0 +1,29 @@
+Esta seteado para que durante la noche muestreee  a f mas baja revisar (data logger) 	
+
+Porque estan separadas? quiza mas adelante podemos juntar información: la tesina es una instancia donde empezaste a entender el problema, entonces es como que 
+enbtender los datos por etapas esta bueno para la tesina. Esta bueno porque son dispositivos diferentes, un dispositivo que junta datos de años dif y por otro lado el otro dispositivo son muchos datos concentrados en poco tiempo. Cantidad de datos homogeneamente distribuida en tortugas en dos redes, a trabajo a futuro estudiar con mas estadistica las tres temporadas con redes complejas =D esto de Igot-U esta bueno pero representa solo una temporada como paso a futuro seria estudiar con mas datos estas ttres temporadas y despues analizar las diferencias por temporada en metricas y patrones de movimiento sobre refugios. 
+AClarar que lo que veniamos usando era el tortugometro y que recien ahora apareció la posibilidad de usar los i-gotU, en un futuro la idea seria integrar toda la información de los tortus como de los igotu y comparar si los resultados son rofbustos coerentes todo eso. Porque claro la red de refus se ve bonita con datos tortus pero en igotu tenemos pocos animales monitoreados. La otra cosa que estaba pensando rencien era que esto sirva (tu trabajo) planificar las siguientes campañas. Pensar bien como diseñar el experimento. Conclusion : laburar de una manera. Los repiles son consideredaos como animales no muy socialers, cosas buenas para saber es recurrencia si tienen memoria, cosas que no se han puesto a mirar , el temade la memoria es algo que no se ha puesto a mirar ( capaz que va mas parte de motivacion o discusión de resultados), ver a la poblacion de tortugas mas como comunidad y no tanto lo individual.
+
+
+En el 2 agregaría la grilla con el uso del espacio  y la explicacion  de como la calculé. Explicar porque esto es importante y agregar graficos de encuentros. Para graficar encuentros en función del mes habria que poner 3 simbolois representando tipo de encuentro y promediar para hora medida de macho y hembra. No agregar ahora de igotu pero si agregar de las campanas y mostraria como resultado preliminar y a futuro volver a calcular encuentros utilizando nuevos datos de igotu y rectificar resultado.  
+
+
+En metodologias avisar que radiotelemetría se uso solo para recuperar las unidaddes de navegacipin y recargarlas. 
+
+
+En conclusiónes podríamos poner que esto de los refugios sobre la noche =D esto de medir refus sobre la noche
+
+
+Sobré comparación usando predictor de conexiones discutir con Luis.
+
+
+Tengo que justificar esta hora arbitraria de cutoff, tal vez mirar sobre la noche la velocidad y ver a que hora en general ya no se mueven 
+
+Poner horas medidas con dos metologiias cuantos dias cuantas tortus... 
+
+lo mas importe es como son los valores respecto a la red aleatoria 
+
+
+
+
+

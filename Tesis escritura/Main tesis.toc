@@ -8,20 +8,23 @@
 \babel@toc {english}{}\relax 
 \babel@toc {spanish}{}\relax 
 \contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Opciones que acepta el estilo}{1}{section.1.1}%
-\contentsline {chapter}{\numberline {2}T\'{\i }tulo del Cap\'{\i }tulo 2}{3}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Formulaci\'{o}n del problema}{3}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Interpretaciones}{4}{section.2.2}%
-\contentsline {chapter}{\numberline {3}otr}{7}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Secci\'{o}n 1}{7}{section.3.1}%
-\contentsline {section}{\numberline {3.2}otra}{7}{section.3.2}%
-\contentsline {section}{\numberline {3.3}una}{7}{section.3.3}%
-\contentsline {section}{\numberline {3.4}dos}{7}{section.3.4}%
-\contentsline {section}{\numberline {3.5}tres}{7}{section.3.5}%
-\contentsline {chapter}{\numberline {4}cuatro}{9}{chapter.4}%
-\contentsline {section}{\numberline {4.1}una}{9}{section.4.1}%
-\contentsline {section}{\numberline {4.2}otra mas}{9}{section.4.2}%
-\contentsline {chapter}{\numberline {A}Ejemplo de ap\'{e}ndice: El problema de la medida}{11}{appendix.Alph1}%
-\contentsline {chapter}{Bibliograf{\'{\i }}a}{13}{section*.16}%
-\contentsline {chapter}{Publicaciones asociadas}{15}{section*.18}%
-\contentsline {chapter}{Agradecimientos}{17}{section*.20}%
+\contentsline {section}{\numberline {1.1}Motivación}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2} C. \textit {chilencis} }{1}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Metodologias}{2}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Radiotelemetría}{3}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Unidad de navegación}{4}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}i-gotU}{4}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}Redes complejas}{5}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Redes de interacción entre tortugas}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Trayectorias }{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Zonas de interes}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Red de encuentros}{10}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Uso de refugios}{15}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Refugios en el mapa}{15}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Redes bipartitas de refugios}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Comparacion red encuentros con bipartita de refugio}{18}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Conclusiones y trabajo a futuro}{21}{chapter.4}%
+\contentsline {chapter}{\numberline {A}Ejemplo de ap\'{e}ndice: El problema de la medida}{23}{appendix.Alph1}%
+\contentsline {chapter}{Bibliograf{\'{\i }}a}{25}{section*.29}%
+\contentsline {chapter}{Publicaciones asociadas}{27}{section*.31}%
+\contentsline {chapter}{Agradecimientos}{29}{section*.33}%
