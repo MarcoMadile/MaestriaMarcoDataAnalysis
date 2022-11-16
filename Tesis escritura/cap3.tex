@@ -76,7 +76,7 @@ Haber encontradó preferencia por ciertos refugios abre distintas preguntas, ¿Q
 
 
 
-\section{Redes  de refugios}
+\section{Redes  de bipartitas de refugios}
 Se armaron redes bipartitas con nodos refugios y nodos tortugas. Los nodos refugios solo estan conectados con nodos tortugas.  Partiendo de todos los labels de refugios con las tortugas que pasaron noche en ese refugio se armaron las redes bipartias para los datos tomados por los tortugometros y los datos tomados con los i-gotU, Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refus_igotu} respectivamente.
 
 \begin{figure}[ht]
@@ -130,8 +130,13 @@ Para comparar y ver que tan probable es el encuentro entre tortugas en caso que 
     \caption[Tabla con metricas de comparacion entre redes de encuentros y proyeciones de redes bipartitas.]{Tabla con metricas de comparacion entre redes de encuentros y proyeciones de redes bipartitas. Se tomó las proyecciones de la redes bipartitas como predictor de conexiones en las redes de encuentros.}
     \label{tab:metricas_comparacion_redes}
 \end{table}
-% que mas decir ? 
+Se observa en la tabla \ref{tab:metricas_comparacion_redes}, que las metricas obtenidas para los datos provenientes de los tortugometros son considerablemente menores que las metricas obtenidas para los datos provenientes de los i-gotU. Estas diferencias se espera que esten asociadas a la poca cantidad de refugios nocturnos medidos para los datos del tortugometro ya que originalmente las campañas de medición no se planearon para este tipo de análisis. Por otro lado, con los i-gotU se monitorearon una menor cantidad de tortugas, haciendo posible la existencia de un bias de medición. 
 
+Una posible comparacion entre las proyecciones de las redes bipartitas con las redes de encuentros esta dada por la topología de las redes.  Por 
+
+
+% que mas decir ? 
+\section{Proyección de redes bipartitas en nodos refugios}
 
 \begin{itemize}
     \item Criterio para identificar refugio, redes bipartitas de refus
