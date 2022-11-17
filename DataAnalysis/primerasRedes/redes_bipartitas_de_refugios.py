@@ -13,6 +13,7 @@ import mantel
 import random
 from html2image import Html2Image
 from PIL import Image
+import math
 
 
 #changing time tu int, so i can compare them with ints 
@@ -211,7 +212,7 @@ def get_adjacency_matrix(df_ref):
     return adjacency_matrix,np.linspace(0,len(refugies)-1,num=len(refugies)),t_uniq_names
 
 # makes bipartite network from nodes ref and nodes turltes
-def get_bigraph(df_ref,plot=False,k=0.5,return_refugies=False,nodesize=200,scale=1,iters=50,weight="weight"):
+def get_bigraph(df_ref,plot=False,k=0.5,return_refugies=False,nodesize=200,scale=1,iters=50,weight="weight",log_weights=False,log_base=20):
     refugies_label=df_ref["refugie_label"].unique()
     refugies = [df_ref[df_ref["refugie_label"]==refugies_label[i]].iloc[0][["lat","lon"]] for i in range(len(refugies_label))]
     t_uniq_names=np.unique(df_ref["t_name"].values)
@@ -229,13 +230,19 @@ def get_bigraph(df_ref,plot=False,k=0.5,return_refugies=False,nodesize=200,scale
             if len(df_aux[df_aux["t_name"]==t_name])>0: 
                 B.add_edge(t_name,refuguies_nodes[i],weight=len(df_aux[df_aux["t_name"]==t_name]))
     if plot:
-        colors_refugies=["sandybrown"]*len(refugies)
-        colors_t_names=get_colors_turtles(df_ref,t_uniq_names)
-        pos=nx.spring_layout(B,k,iterations=iters,scale=scale,weight=weight)
         edges = B.edges()
+      
         weights = [B[u][v]['weight'] for u,v in edges]
         weights=np.array(weights)
         weights=5*weights/np.max(weights)+np.ones(len(weights))*0.1
+        colors_refugies=["sandybrown"]*len(refugies)
+        colors_t_names=get_colors_turtles(df_ref,t_uniq_names)
+        if log_weights:
+            #change weights to log scale in B 
+            for edge in B.edges():
+                B.edges[edge]["weight"]=np.log(B.edges[edge]["weight"]+log_base)/np.log(log_base)
+        pos=nx.spring_layout(B,k,iterations=iters,scale=scale,weight=weight)
+        
         nx.draw_networkx_edges(B, pos=pos, width=weights)
         nx.draw_networkx_nodes(B, pos=pos, nodelist=refuguies_nodes, node_color=colors_refugies,node_size=nodesize,label=refuguies_nodes)
         nx.draw_networkx_nodes(B, pos=pos, nodelist=t_uniq_names, node_color=colors_t_names,node_size=nodesize,label=t_uniq_names)

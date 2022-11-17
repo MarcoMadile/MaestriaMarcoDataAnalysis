@@ -90,7 +90,7 @@ Se armaron redes bipartitas con nodos refugios y nodos tortugas. Los nodos refug
 
 \begin{figure}[ht]
     \begin{center}
-        \includegraphics[width=\imsize]{Chap3/RedBipartita_deRefugios_IGOTO.pdf}
+        \includegraphics[width=1.3\imsize]{Chap3/RedBipartita_deRefugios_IGOTO.pdf}
         \caption[Red bipartita de refugios para los datos de los i-gotU.]{Red bipartita de refugios para los datos de los i-gotU. Las distancias relativas entre nodos y el grosor del link son dependientes de la cantidad de noches que una  tortuga paso en el refugio. } 
         \label{fig:red_bipartita_refus_igotu}
         
@@ -102,7 +102,7 @@ En la Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refu
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/Proyecion_bipartita_ref_solo_tortus.pdf}
-        \caption[Proyeccion  de red bipartita de refugios para datos de los tortugometros.]{Proyeccion  de red bipartita de refugios para datos de los tortugometros (Fig. \ref{fig:red_bipartita_refus_campanas}). Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyeccion. } 
+        \caption[Proyeccion  de red bipartita de refugios para datos de los tortugometros en nodos tortugas.]{Proyeccion  de red bipartita de refugios para datos de los tortugometros (Fig. \ref{fig:red_bipartita_refus_campanas}) en nodos tortugas. Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyeccion. } 
         \label{fig:proyeccion_red_campanas}
         
         \end{center}
@@ -110,8 +110,8 @@ En la Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refu
 
 \begin{figure}[ht]
     \begin{center}
-        \includegraphics[width=\imsize]{Chap3/Proyecion_bipartita_ref_solo_tortus.pdf}
-        \caption[Proyeccion  de red bipartita de refugios para datos de los tortugometros.]{Proyeccion  de red bipartita de refugios para datos de los i-gotU (Fig. \ref{fig:red_bipartita_refus_igotu}). Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyeccion. } 
+        \includegraphics[width=\imsize]{Chap3/Proyecion_bipartita_ref_solo_tortus_IGOTU.pdf}
+        \caption[Proyeccion  de red bipartita de refugios para datos de los tortugometros en nodos tortugas.]{Proyeccion  de red bipartita de refugios para datos de los i-gotU (Fig. \ref{fig:red_bipartita_refus_igotu}) en nodos tortugas. Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyeccion. } 
         \label{fig:proyeccion_red_igotu}
         
         \end{center}
@@ -119,7 +119,7 @@ En la Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refu
 Para comparar y ver que tan probable es el encuentro entre tortugas en caso que hayan usado alguna vez el mismo refugio, se decidió tomar las proyecciónes de las redes bipartitas como predictores de conexiones en las redes de encuentros. Se calcularon las metricas presición, accuaracy y recall, partiendo de las cantidades TP, TN, FP y FN. Donde, por ejemplo, TP se calculó como la cantidad de conexiones existentes en las redes de encuentros que están en las redes proyectadas. Los valores obtenidos se muestran el la tabla \ref{tab:metricas_comparacion_redes}.
 \begin{table}[ht]
     \centering
-    \begin{tabular}{|l|l|l|l|}
+    \begin{tabular}{|c|c|c|c|}
         
    \hline
     Metodología  & Presition & Recall & accuaracy \\ \hline
@@ -132,12 +132,50 @@ Para comparar y ver que tan probable es el encuentro entre tortugas en caso que 
 \end{table}
 Se observa en la tabla \ref{tab:metricas_comparacion_redes}, que las metricas obtenidas para los datos provenientes de los tortugometros son considerablemente menores que las metricas obtenidas para los datos provenientes de los i-gotU. Estas diferencias se espera que esten asociadas a la poca cantidad de refugios nocturnos medidos para los datos del tortugometro ya que originalmente las campañas de medición no se planearon para este tipo de análisis. Por otro lado, con los i-gotU se monitorearon una menor cantidad de tortugas, haciendo posible la existencia de un bias de medición. 
 
-Una posible comparacion entre las proyecciones de las redes bipartitas con las redes de encuentros esta dada por la topología de las redes.  Por 
+Una posible comparacion entre las proyecciones de las redes bipartitas con las redes de encuentros esta dada por la topología de las redes.  En la siguiente subsección se analiza la topología de las redes de encuentros y se compara con la topología de las redes proyectadas en nodos tortugas, comparando con metricas obtenidas de usos aleatorios de los refugios. 
+\section{Comparación de topología de redes de encuentros y redes proyectadas}
+Se calcularon las metricas modularidad, densidad de la red, coeficiente de agrupamiento y centralidad de grado medio en nodos tortugas machos y hembras para las redes de encuentros (Figs. \ref{fig:redInteraccion20mincampanas} y \ref{fig:redInteraccion20igotu}) y para las redes proyectadas (Figs. \ref{fig:proyeccion_red_campanas} y \ref{fig:proyeccion_red_igotu}). En la tabla \ref{tab:metricas_topologia_redes}   se muestran los valores obtenidos para las distintas metricas, para los datos provenientes de las dos metodologias.
 
 
-% que mas decir ? 
-\section{Proyección de redes bipartitas en nodos refugios}
 
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    Metricas          & E. Tortu.   & P. Tortu      & E. i-gotU   & P. i-gotU    \\ \hline
+    Modularidad       & 0.5         & 0.6           & 0.1        & 0            \\ \hline
+    C. agrupamiento & 0.28        & 0.16          & 0           & 0            \\ \hline
+    Densidad          & 0.22        & 0.09          & 0.50         & 0.13          \\ \hline
+    C.G.M. machos     & $0.2\pm0.1$ & $0.08\pm0.08$ & $0.5\pm0.2$ & 0            \\ \hline
+    C.G.M. hembras    & $0.2\pm0.1$ & $0.10\pm0.07$ & 0.5         & $0.2\pm0.1 $ \\ \hline
+    \end{tabular}
+    \caption[Tabla con metricas asociadas a las topologias de las redes de encuentros y las redes proyectadas.]{Tabla con metricas asociadas a las topologias de las redes de encuentros y las redes proyectadas. E. y P. se refiere a redes de encuentros y redes proyectadas respectivamente, para cada metodología de medición. C. agrupamiento se refiere a coeficiente de agrupamiento y C.G.M. se refiere a centralidad de grado medio .}
+    \label{tab:metricas_topologia_redes}
+\end{table}
+
+%añadir double edge_swap y discutir metricas alladas
+\section{Proyecciónes de redes bipartitas en nodos refugios}
+Se realizaron las proyecciones de las redes bipartitas de refugios (Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refus_igotu}) en nodos refugios, Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}.
+
+
+\begin{figure}[ht]
+    \begin{center}
+        \includegraphics[width=\imsize]{Chap3/Proyecion_bipartita_ref_solo_ref.pdf}
+        \caption[Proyeccion  de red bipartita de refugios para datos de los tortugometros en nodos refugios.]{Proyeccion  de red bipartita de refugios para datos de los tortugometros (Fig. \ref{fig:red_bipartita_refus_campanas}). Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyeccion. } 
+        \label{fig:proyeccion_red_campanas_refus}
+        
+        \end{center}
+\end{figure} 
+
+\begin{figure}[ht]
+    \begin{center}
+        \includegraphics[width=\imsize]{Chap3/Proyecion_bipartita_ref_solo_ref_iGOTU.pdf}
+        \caption[Proyeccion  de red bipartita de refugios para datos de los i-gotU en nodos refugios.]{Proyeccion  de red bipartita de refugios para datos de los i-gotU (Fig. \ref{fig:red_bipartita_refus_igotu}) sobre los nodos refugios. Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre el refugio comun con los respectivos refugios de ambas tortugas en la proyeccion. } 
+        \label{fig:proyeccion_red_igotu_refus}
+        
+        \end{center}
+\end{figure} 
+Se observa en las Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}, pequeños clusters donde hay nodos completamente conectados (asociados a los refugios que visito una tortuga) con algunos nodos que conectan distintos clusters (asociados a algun refugio compartido). Ejemplo de este nodo conector es el refugio 4 (Fig. \ref{fig:proyeccion_red_igotu_refus}), que fue utilizado por la tortuga T30 y T6 en distintas noches (Fig. \ref{fig:red_bipartita_refus_igotu}).
 \begin{itemize}
     \item Criterio para identificar refugio, redes bipartitas de refus
     \item Distribucion espacial de los refugios con la definicion que use
