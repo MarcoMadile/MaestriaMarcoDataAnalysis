@@ -175,18 +175,21 @@ Se realizaron las proyecciones de las redes bipartitas de refugios (Figs. \ref{f
         
         \end{center}
 \end{figure} 
-Se observa en las Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}, pequeños clusters donde hay nodos completamente conectados (asociados a los refugios que visito una tortuga) con algunos nodos que conectan distintos clusters (asociados a algun refugio compartido). Ejemplo de este nodo conector es el refugio 4 (Fig. \ref{fig:proyeccion_red_igotu_refus}), que fue utilizado por la tortuga T30 y T6 en distintas noches (Fig. \ref{fig:red_bipartita_refus_igotu}).
-\begin{itemize}
-    \item Criterio para identificar refugio, redes bipartitas de refus
-    \item Distribucion espacial de los refugios con la definicion que use
-    \item Paths de refugios y acumulada de noches en refugios (material adicional gif de refugies paths)
-    \item proyeccion en solo refugios, mapa con proyeccion y metricas asociadas 
-    \item Mantel test entre matriz de distancias y matriz adyacencia de refus 
-\end{itemize}
-\section{Comparacion red encuentros con bipartita de refugio}
-Capaz esta section podria ser otro capitulo y aca poner las metricas alladas.
-\begin{itemize}
-    \item Usar una como predictor de conexiones 
-    \item Comparar metricas obtenidas 
-    \item Double edge swapping 
-\end{itemize}
+Se observa en las Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}, pequeños clusters donde hay nodos completamente conectados (asociados a los refugios que visito una tortuga) con algunos nodos que conectan distintos clusters (asociados a algun refugio compartido). Ejemplo de este nodo conector es el refugio 4 (Fig. \ref{fig:proyeccion_red_igotu_refus}), que fue utilizado por la tortuga T30 y T6 en distintas noches (Fig. \ref{fig:red_bipartita_refus_igotu}). 
+
+Una pregunta subyaciente de las proyecciones calculadas es si existe alguna relación entre los links formados y las distancias entre los nodos refugios. Para responder esta pregunta se graficaron los refugios en el mapa junto con las conexiones dadas por los links en las proyecciones. Un ejemplo de este mapa para los datos de los i-gotU se muestra en la Fig. \ref{fig:mapa_con_conexiones_igotu}. Se observa que parte de los links se encuentran entre refugios vecinos, pero también hay links entre refugios que se encuentran a distancias considerables respecto de refugios vecinos. A falta de una relación mas rigurosa entre las distancias y los links, se realizó un \textit{mantel test} \cite{MantelTest} entre las matrices de adyacencia de las redes proyectadas en nodos refugios (Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}) con matrices de distancias entre refugios. En el lugar i,j de la matriz de distancias se encuentra la distancia entre el refugio  de la posición i y el refugio j (en metros) de la matriz de adyacencia. 
+
+El mantel test calcula el coeficiente de correlación de Pearson entre estas dos matrices, luego realiza permutaciónes aleatorias de la matriz de distancias y recalcula el coeficiente de correlación de Pearson. El p-valor es la proporción de permutaciones que dan un coeficiente de correlación de Pearson mayor o igual al coeficiente de correlación de Pearson de la matriz de distancias original. Bajo la hipotesis de correlación nula en las dos matrices, las permutaciones aleatorias deberían ser igualmente probable de producir valores mayores o menores del coeficiente de correlación calculado. 
+
+
+Los mantel tests realizados con 10000 permutaciones aleatorias para los datos de los tortugometros y los i-gotU dan un p-valor de 0.0051 y 0.0001 respectivamente. Esto indica que existe una correlación significativa entre las distancias entre refugios y los links en las redes proyectadas en nodos refugios (Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}). Es decir que la tortuga que visita un refugio, tiene una probabilidad mayor de visitar refugios cercanos a este, como se observa en la Fig. \ref{fig:mapa_con_conexiones_igotu}.
+
+\begin{figure}[ht]
+    \begin{center}
+        \includegraphics[width=\imsize]{Chap3/Mapa_refus_con_coneciones_igotu.jpg}
+        \caption[Proyeccion en nodos refugios con conexiones en el mapa.]{Proyeccion de red bipartita (Fig. \ref{fig:proyeccion_red_igotu_refus}) en nodos refugios con conexiones en el mapa para los datos de i-gotU. } 
+        \label{fig:mapa_con_conexiones_igotu}
+        
+        \end{center}
+\end{figure} 
+
