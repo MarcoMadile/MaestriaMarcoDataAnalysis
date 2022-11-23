@@ -116,13 +116,13 @@ En la Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refu
         
         \end{center}
 \end{figure} 
-Para comparar y ver que tan probable es el encuentro entre tortugas en caso que hayan usado alguna vez el mismo refugio, se decidió tomar las proyecciónes de las redes bipartitas como predictores de conexiones en las redes de encuentros. Se calcularon las metricas presición, accuaracy y recall, partiendo de las cantidades TP, TN, FP y FN. Donde, por ejemplo, TP se calculó como la cantidad de conexiones existentes en las redes de encuentros que están en las redes proyectadas. Los valores obtenidos se muestran el la tabla \ref{tab:metricas_comparacion_redes}.
+Para comparar y ver que tan probable es el encuentro entre tortugas en caso que hayan usado alguna vez el mismo refugio, se decidió tomar las proyecciónes de las redes bipartitas como predictores de conexiones en las redes de encuentros. Se calcularon las metricas precision, accuracy y recall, partiendo de las cantidades TP, TN, FP y FN. Donde, por ejemplo, TP se calculó como la cantidad de conexiones existentes en las redes de encuentros que están en las redes proyectadas. Los valores obtenidos se muestran el la tabla \ref{tab:metricas_comparacion_redes}.
 \begin{table}[ht]
     \centering
     \begin{tabular}{|c|c|c|c|}
         
    \hline
-    Metodología  & Presition & Recall & accuaracy \\ \hline
+    Metodología  & precision & Recall & accuracy \\ \hline
     Tortugometro & 0.125     & 0.059  & 0.258    \\ \hline
     i-gotU       & 1         & 0.4    & 0.4       \\ \hline
     
@@ -132,7 +132,23 @@ Para comparar y ver que tan probable es el encuentro entre tortugas en caso que 
 \end{table}
 Se observa en la tabla \ref{tab:metricas_comparacion_redes}, que las metricas obtenidas para los datos provenientes de los tortugometros son considerablemente menores que las metricas obtenidas para los datos provenientes de los i-gotU. Estas diferencias se espera que esten asociadas a la poca cantidad de refugios nocturnos medidos para los datos del tortugometro ya que originalmente las campañas de medición no se planearon para este tipo de análisis. Por otro lado, con los i-gotU se monitorearon una menor cantidad de tortugas, haciendo posible la existencia de un bias de medición. 
 
-Una posible comparacion entre las proyecciones de las redes bipartitas con las redes de encuentros esta dada por la topología de las redes.  En la siguiente subsección se analiza la topología de las redes de encuentros y se compara con la topología de las redes proyectadas en nodos tortugas, comparando con metricas obtenidas de usos aleatorios de los refugios. 
+Para determinar si los resultados de la tabla \ref{tab:metricas_comparacion_redes} son estadísticamente significativos, se realizaron operaciones de \textit{double edge swap} sobre las redes bipartitas de refugios y se compararon los valores obtenidos sobre estas nuevas redes generadas, despues de las proyecciones. Se realizo un codigo en Python que elige dos conexiones al azar en la red bipartita y las intercambia si es que no existe ya estas conexiones. Es decir, si T10 uso el refugio 54 y T11 el refugio 32, se intercambian los enlances en caso que T10 no tenga una conexión con el refugio 32 y tampoco la T11 con el 54 \cite{github}, este procedimiento se itera de manera de generar una red aleatoria manteniendo la distribución de grado constante (un equivalente en cierto sentido a mantener la misma cantidad de mediciones pero tomando uso de refugios al azar). Partiendo de 1000 redes generadas a partir de 1000 cambios aleatorios de conexiones (1000 \textit{double edge swap}), se obtuvieron las metricas de precision, recall y accuracy para cada red generada. Sobre estos valores se calculó la cantidad de veces donde las metricas hayadas por usos aleatorios de refugios fueron mayores que las metricas obtenidas para los datos de la tabla \ref{tab:metricas_comparacion_redes}. Los resultados se muestran en la tabla \ref{tab:metricas_comparacion_redes_aleatorias}.
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        
+   \hline
+    Metodología  & \% Precision mayor  &  \% Recall mayor & \% Accuracy mayor \\ \hline
+    Tortugometro & 60    & 50  & 50    \\ \hline
+    i-gotU       & 0        & 0    & 0      \\ \hline
+    
+    \end{tabular}
+    \caption[Tabla con comparacion de metricas obtenidas en redes bipartitas con usos aleatorios de refugios respecto a las metricas medidas.]{Tabla con comparacion de metricas obtenidas por redes bipartitas con usos aleatorios de refugios respecto a las metricas medidas. Se tomó las proyecciones de la redes bipartitas generadas aleatoriamente como predictor de conexiones en las redes de encuentros y se calculáron las proporciones donde estas metricas son mayores a las obtenidas por la tabla \ref{tab:metricas_comparacion_redes}.}
+    \label{tab:metricas_comparacion_redes_aleatorias}
+\end{table}
+Se observa en la tabla \ref{tab:metricas_comparacion_redes_aleatorias}, que las metricas obtenidas para los datos provenientes de los i-gotU son estadísticamente significativas, mientras que las metricas obtenidas para los datos provenientes de los tortugometros no lo son. Esto se debe a que la cantidad de refugios nocturnos medidos para los datos del tortugometro es considerablemente menor que la cantidad de refugios nocturnos medidos para los datos de los i-gotU. Por otro lado, con los i-gotU se monitorearon una menor cantidad de tortugas, haciendo posible la existencia de un bias de medición.
+
+Una posible comparacion entre las proyecciones de las redes bipartitas con las redes de encuentros esta dada por la topología de las redes.  En la siguiente sección se analiza la topología de las redes de encuentros y se compara con la topología de las redes proyectadas en nodos tortugas, comparando con metricas obtenidas de usos aleatorios de los refugios. 
 \section{Comparación de topología de redes de encuentros y redes proyectadas}
 Se calcularon las metricas modularidad, densidad de la red, coeficiente de agrupamiento y centralidad de grado medio en nodos tortugas machos y hembras para las redes de encuentros (Figs. \ref{fig:redInteraccion20mincampanas} y \ref{fig:redInteraccion20igotu}) y para las redes proyectadas (Figs. \ref{fig:proyeccion_red_campanas} y \ref{fig:proyeccion_red_igotu}). En la tabla \ref{tab:metricas_topologia_redes}   se muestran los valores obtenidos para las distintas metricas, para los datos provenientes de las dos metodologias.
 
