@@ -1,159 +1,159 @@
 \chapter{Uso de refugios}
-Para varias especies los refugios son fundamentales para la protección de predadores y  condiciones climaticas (especialmente para animales de sangre fría, como las tortugas). En especies relativamente solitarias, los individuos pasan un tiempo considerable solos en los refugios y tienen pocos encuentros directos fuera de la epoca de apareamiento.
-Ejemplos de estas especies incluyen a los mapaches, zorros rojos, orangutanes y algunas especies de abejas, avispas y murcielagos. Para estas poblaciones de animales salvajes, monitorear y entender estos refugios puede ayudar a establecer patrones sociales de los individuos. 
-
+Para varias especies los refugios son fundamentales para la protección de predadores y  condiciones climáticas (especialmente para animales de sangre fría, como las tortugas). En especies relativamente solitarias, los individuos pasan un tiempo considerable solos en los refugios y tienen pocos encuentros directos fuera de la época de apareamiento.
+Ejemplos de estas especies incluyen a los mapaches, zorros rojos, orangutanes y algunas especies de abejas, avispas y murciélagos. Para estas poblaciones de animales salvajes, monitorear y entender estos refugios puede ayudar a establecer patrones sociales de los individuos.
+ 
 En distintos campos cercanos a la zona de medición (San Antonio Oeste, provincia de Río Negro) estan introduciendo ganado al habitad de las tortugas, es importante entender si presenta una amenaza para la integridad de los refugios y entender el patron de movimiento  de las tortugas sobre los mismos, junto con las caracteristicas geograficas de los refugios mas usados.
-
+ 
 \section{Refugios en el mapa}
-Para determinar el refugio donde paso la noche la tortuga se tomaron dos criterios, uno para cada una de las metodologias de medicion en los sets de datos. Para el tortugometro se tomo el ultimo punto tomado de la tortuga en un día de medición y se pidió la condicion de que haya sido tomado despues de las 20 horas, en base a las anotaciones tomadas por el grupo, las tortugas generalmente  se encontraban en el refugio cuando quitaban los tortugometros despues de este horario. A este punto nuevo se le asigna un label de refugio y un enlace con la tortuga que paso la noche en ese refugio. A medida que se añade otro refugio primero se verifica que presente una distancia mayor a 20 metros con todos los otros refugios labeleados, en caso que la distancia es menor a 20 metros a por ejemplo el refugio 1, se dice que la tortuga estuvo en el refugio 1. 
-
-Para los datos tomados por los i-gotU, se decidió mirar primero las distancias entre el ultimo punto medido (21 horas) de algún día monitoreado con el primer punto del día siguiente (6 horas). Y tambien se miraron las distancias entre el primer punto de algun dia de monitoreo con el segundo punto (6 horas y 6:15 respectivamente). En la Fig. \ref{fig:distancias} se muestran los histogramas de las distancias entre los puntos. Se observa que entre el ultimo punto de la noche y el primero de la mañana distancias mayores a 20 metros son muy probables con varias mediciónes de distancias del orden de los 50 o 100 metros, lo que nos diría que la tortuga todavía no se encuentra en el refugio a esa hora (21 horas). En cambio, entre el primer punto del día y el segundo punto, las distancias menores a 20 metros son las mas probables, lo que nos diría que la tortuga todavía no abandonó el refugio entre las 6 y las 6:15, a excepcion de algunos pocos casos donde tenemos distancias del orden de los 50 m. Por eso para los datos de los i-gotU se decidió tomar el primer punto del día como la posición del refugio y se siguió el mismo procedimiento de los tortugometos para agregar labels a los refugios. De cara a las proximas campañas se decidió mantener las mediciónes del i-gotU entre las 21 y las 6 horas, pero disminuyendo la frecuencia de muestreo. 
-
-
+Para determinar el refugio donde pasó la noche la tortuga se tomaron dos criterios, uno para cada una de las metodologías de medición en los sets de datos. Para el tortugometro se tomó el último punto tomado de la tortuga en un día de medición y se pidió la condición de que haya sido tomado después de las 20 horas, en base a las anotaciones tomadas por el grupo, las tortugas generalmente  se encontraban en el refugio cuando quitaban los tortugometros después de este horario. A este punto nuevo se le asigna un label de refugio y un enlace con la tortuga que pasó la noche en ese refugio. A medida que se añade otro refugio primero se verifica que presente una distancia mayor a 20 metros con todos los otros refugios etiquetados, en caso que la distancia sea menor a 20 metros a por ejemplo el refugio 1, se dice que la tortuga estuvo en el refugio 1.
+ 
+Para los datos tomados por los i-gotU, se decidió mirar primero las distancias entre el último punto medido (21 horas) de algún día monitoreado con el primer punto del día siguiente (6 horas). Y también se miraron las distancias entre el primer punto de algún día de monitoreo con el segundo punto (6 horas y 6:15 respectivamente). En la Fig. \ref{fig:distancias} se muestran los histogramas de las distancias entre los puntos. Se observa que entre el último punto de la noche y el primero de la mañana distancias mayores a 20 metros son muy probables con varias mediciones de distancias del orden de los 50 o 100 metros, lo que nos diría que la tortuga todavía no se encuentra en el refugio a esa hora (21 horas). En cambio, entre el primer punto del día y el segundo punto, las distancias menores a 20 metros son las más probables, lo que nos diría que la tortuga todavía no abandonó el refugio entre las 6 y las 6:15, a excepción de algunos pocos casos donde tenemos distancias del orden de los 50 m. Por eso para los datos de los i-gotU se decidió tomar el primer punto del día como la posición del refugio y se siguió el mismo procedimiento de los tortugometos para agregar labels a los refugios. De cara a las próximas campañas se decidió mantener las mediciones del i-gotU entre las 21 y las 6 horas, pero disminuyendo la frecuencia de muestreo.
+ 
+ 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=1.4\imsize]{Chap3/Distancias_primer_ult_con_deteterminar_criterio_ref.pdf}
-        \caption[Histogramas de las distancias entre los puntos de los datos de i-gotU.]{ Histogramas de las distancias entre los puntos de los datos de i-gotU. Arriba se muestra la distancia entre el ultimo punto del dia anterior y el primer punto del dia siguiente. Abajo se muestra la distancia entre el primer punto del dia y el segundo punto del dia.} 
+        \caption[Histogramas de las distancias entre los puntos de los datos de i-gotU.]{ Histogramas de las distancias entre los puntos de los datos de i-gotU. Arriba se muestra la distancia entre el último punto del día anterior y el primer punto del día siguiente. Abajo se muestra la distancia entre el primer punto del día y el segundo punto del día.}
         \label{fig:distancias}
         \end{center}
-\end{figure} 
-
-Se graficaron los refugios encontrados en un mapa utilizando la librería Folium, los mapas fueron guardados en formato html para el facil acceso a los mismos, al clickear en un refugio sobre el html aparece un cartel con las tortugas que pasaron la noche en el refugio. En las Fig. \ref{fig:refus_campanas_con_labels} y \ref{fig:refus_igotu_labels} se muestran los mapas de los refugios encontrados para los datos de las campañas y los datos de i-gotU respectivamente.
-
-
+\end{figure}
+ 
+Se graficaron los refugios encontrados en un mapa utilizando la librería Folium, los mapas fueron guardados en formato html para el fácil acceso a los mismos, al clickear en un refugio sobre el html aparece un cartel con las tortugas que pasaron la noche en el refugio. En las Fig. \ref{fig:refus_campanas_con_labels} y \ref{fig:refus_igotu_labels} se muestran los mapas de los refugios encontrados para los datos de las campañas y los datos de i-gotU respectivamente.
+ 
+ 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/map_refugies_with_labels.jpg}
-        \caption{Distribución geográfica de los refugios encontrados para los datos provenientes de las campañas.} 
+        \caption{Distribución geográfica de los refugios encontrados para los datos provenientes de las campañas.}
         \label{fig:refus_campanas_con_labels}
-        
+       
         \end{center}
-\end{figure} 
-
+\end{figure}
+ 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/map_refugies_with_labels_IGOTo.jpg}
-        \caption{Distribución geográfica de los refugios encontrados para los datos provenientes de los datos de i-gotU.} 
+        \caption{Distribución geográfica de los refugios encontrados para los datos provenientes de los datos de i-gotU.}
         \label{fig:refus_igotu_labels}
-        
+       
         \end{center}
-\end{figure} 
-
-En base a observaciónes de directas de campo \cite{Erika} se espera que las tortugas machos tengan una distribución de refugios mas amplia en el espacio que las hembras.  Para verificar esta hipotesis se definieron dos metricas, centro de masa de refugios y distancia media entre refugios. El centro de masa se define como:
+\end{figure}
+ 
+En base a observaciones de directas de campo \cite{Erika}, se espera que las tortugas machos tengan una distribución de refugios más amplia en el espacio que las hembras.  Para verificar esta hipótesis se definieron dos métricas, centro de masa de refugios y distancia media entre refugios. El centro de masa se define como:
 \begin{center}
-    
-
+   
+ 
 $$X_{centro}= \sum^{N -1}_{n=0} \frac{i_{n} X_n}{I_{totales}}.$$
 \end{center}
-Donde $I_{totales}$ es la cantidad de noches donde se registro que la tortuga durmio en un refugio (depende de cada tortuga), $X_n$ es la coordenada X del refugio n, $i_{n}$ es la cantidad de noches que la tortuga durmio en el refugio n y N la cantidad de refugios totales.  Este proceso se calcula para todas las tortugas. 
+Donde $I_{totales}$ es la cantidad de noches donde se registró que la tortuga durmió en un refugio (depende de cada tortuga), $X_n$ es la coordenada X del refugio n, $i_{n}$ es la cantidad de noches que la tortuga durmió en el refugio n y N la cantidad de refugios totales.  Este proceso se calcula para todas las tortugas.
 Partiendo de $X_{centro}$, la distancia media  espacial de los refugios se calcula como:
 $$D = \sum^{N -1}_{n=0} \frac{|X_n i_n - X_{centro}|}{I_{totales}}.$$
 \label{eq:distancia_media_refugios}
-Esta metrica fue calculada para todas las tortugas y  promediada para  machos y hembras. Se encontro para los machos $\overline{D}_m =  (128\pm66)\,\text{m}$ y para las hembras     $\overline{D}_h = (122\pm82)\,\text{m}$. Es decir que no se encontraron diferencias significativas en la distribucion espacial de refugios  entre machos y hembras.
-\section{Refugios mas usados y caminos tomados}
-Dentro de los refugios que utiliza una tortuga, se encontraron refugios preferidos, es decir refugios que fueron visitados recurrentemente. Para observar esto se decidió graficar la acumulada de noches pasadas en un refugio para los refugios mas utilizados por una tortuga. Esto se realizó solo para los datos provenientes de los i-gotU, ya que se conto con una gran cantidad de dias consecutivos de medición. En la Fig. \ref{fig:refugios_preferidos} se encuentra la acumulada de noches pasadas en estos refugios que distintas tortugas tomaron como preferidos. 
-
+Esta métrica fue calculada para todas las tortugas y  promediada para  machos y hembras. Se encontró para los machos $\overline{D}_m =  (128\pm66)\,\text{m}$ y para las hembras     $\overline{D}_h = (122\pm82)\,\text{m}$. Es decir que no se encontraron diferencias significativas en la distribucion espacial de refugios  entre machos y hembras.
+\section{Refugios más usados y caminos tomados}
+Dentro de los refugios que utiliza una tortuga, se encontraron refugios preferidos, es decir refugios que fueron visitados recurrentemente. Para observar esto se decidió graficar la acumulada de noches pasadas en un refugio para los refugios más utilizados por una tortuga. Esto se realizó solo para los datos provenientes de los i-gotU, ya que se contó con una gran cantidad de días consecutivos de medición. En la Fig. \ref{fig:refugios_preferidos} se encuentra la acumulada de noches pasadas en estos refugios que distintas tortugas tomaron como preferidos.
+ 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=1.4\imsize]{Chap3/acumulada_de_noches_en_refmasUsados_espanol.pdf}
-        \caption[Acumulada de noches pasadas en los refugios preferidos.]{Acumulada de noches pasadas en los refugios preferidos para distintas tortugas monitoreadas por los i-gotU de enero 2022 a mayo 2022.} 
+        \caption[Acumulada de noches pasadas en los refugios preferidos.]{Acumulada de noches pasadas en los refugios preferidos para distintas tortugas monitoreadas por los i-gotU de enero 2022 a mayo 2022.}
         \label{fig:refugios_preferidos}
-        
+       
         \end{center}
 \end{figure}
-Se observa en la Fig. \ref{fig:refugios_preferidos} que las tortugas tienen un refugio como preferido donde pasan la mayor parte de las noches moritoreadas. Sin embargo, también se observó que algunas tortugas tienen varios refugios preferidos, como es el caso de la tortuga T54. En las tortugas T30, T54, T6 y T79, se registraron dias donde decidío pasar la noche en otro refugio para despues volver a su refugio preferido. Para visualizar estas rutas entre refugios y la preferencia relativa entre ciertos refugios, se realizaron mapas en la librería Folium donde se graficaron los refugios con tamaños proporcional a la cantidad de noches que la tortuga paso en el refugio con conexiones entre refugios ilustrando las rutas tomadas entre refugios. Es decir si la T54 paso una noche en el refugio 12 y la noche siguiente en el refugio 3, hay una linea entre el refugio 12 y el refugio 3 en el mapa. En la Fig. \ref{fig:ruta_refus_T54} se muestra un ejemplo de este tipo de mapa para la tortuga T54.
-
+Se observa en la Fig. \ref{fig:refugios_preferidos} que las tortugas tienen un refugio como preferido donde pasan la mayor parte de las noches monitoreadas. Sin embargo, también se observó que algunas tortugas tienen varios refugios preferidos, como es el caso de la tortuga T54. En las tortugas T30, T54, T6 y T79, se registraron días donde decidió pasar la noche en otro refugio para después volver a su refugio preferido. Para visualizar estas rutas entre refugios y la preferencia relativa entre ciertos refugios, se realizaron mapas en la librería Folium donde se graficaron los refugios con tamaños proporcional a la cantidad de noches que la tortuga pasó en el refugio con conexiones entre refugios ilustrando las rutas tomadas entre refugios. Es decir si la T54 pasó una noche en el refugio 12 y la noche siguiente en el refugio 3, hay una línea entre el refugio 12 y el refugio 3 en el mapa. En la Fig. \ref{fig:ruta_refus_T54} se muestra un ejemplo de este tipo de mapa para la tortuga T54.
+ 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/refugies_path_for_t54.jpg}
-        \caption[Caminos tomados entre refugios para la tortuga T54.]{Caminos tomados entre refugios para la tortuga T54. El tamaño de nodo refugio es proporcional a la cantidad de noches que paso la tortuga en el mismo. Una conexión entre par de nodos refugios aparece solo si paso una noche en el refugio de origen y la noche siguiente en el refugio de destino. Al clickear sobre un nodo refugio se puede ver la cantidad de noches que paso la tortuga en el mismo.} 
+        \caption[Caminos tomados entre refugios para la tortuga T54.]{Caminos tomados entre refugios para la tortuga T54. El tamaño de nodo refugio es proporcional a la cantidad de noches que pasó la tortuga en el mismo. Una conexión entre par de nodos refugios aparece solo si pasó una noche en el refugio de origen y la noche siguiente en el refugio de destino. Al clickear sobre un nodo refugio se puede ver la cantidad de noches que pasó la tortuga en el mismo.}
         \label{fig:ruta_refus_T54}
-        
+       
         \end{center}
-\end{figure} 
-Haber encontradó preferencia por ciertos refugios abre distintas preguntas, ¿Que caracteristicas comparten estos refugios preferidos? ¿Siguen recurriendo estos refugios a distintas epocas del año u otros años?  Responder estas preguntas podría ayudarnos a plantear medidas de conservación de la especie. En futuras campañas de medición se espera poder entener mas sobre estos refugios preferidos.
-
-
-
-
+\end{figure}
+Haber encontrado preferencia por ciertos refugios abre distintas preguntas, ¿Qué características comparten estos refugios preferidos? ¿Siguen recurriendo estos refugios a distintas épocas del año u otros años?  Responder estas preguntas podría ayudarnos a plantear medidas de conservación de la especie. En futuras campañas de medición se espera poder entender más sobre estos refugios preferidos.
+ 
+ 
+ 
+ 
 \section{Redes  de bipartitas de refugios}
-Se armaron redes bipartitas con nodos refugios y nodos tortugas. Los nodos refugios solo estan conectados con nodos tortugas.  Partiendo de todos los labels de refugios con las tortugas que pasaron noche en ese refugio se armaron las redes bipartias para los datos tomados por los tortugometros y los datos tomados con los i-gotU, Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refus_igotu} respectivamente.
-
+Se armaron redes bipartitas con nodos refugios y nodos tortugas. Los nodos refugios solo están conectados con nodos tortugas.  Partiendo de todos los labels de refugios con las tortugas que pasaron noche en ese refugio se armaron las redes bipartitas para los datos tomados por los tortugometros y los datos tomados con los i-gotU, Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refus_igotu} respectivamente.
+ 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/RedBipartita_deRefugios_corregida_campanas_2300.pdf}
-        \caption[Red bipartita de refugios para los datos de los tortugometros.]{Red bipartita de refugios para los datos de los tortugometros. Las distancias relativas entre nodos y el grosor del link son dependientes de la cantidad de noches que una  tortuga paso en el refugio. } 
+        \caption[Red bipartita de refugios para los datos de los tortugometros.]{Red bipartita de refugios para los datos de los tortugometros. Las distancias relativas entre nodos y el grosor del link son dependientes de la cantidad de noches que una  tortuga paso en el refugio. }
         \label{fig:red_bipartita_refus_campanas}
-        
+       
         \end{center}
-\end{figure} 
-
+\end{figure}
+ 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=1.3\imsize]{Chap3/RedBipartita_deRefugios_IGOTO.pdf}
-        \caption[Red bipartita de refugios para los datos de los i-gotU.]{Red bipartita de refugios para los datos de los i-gotU. Las distancias relativas entre nodos y el grosor del link son dependientes de la cantidad de noches que una  tortuga paso en el refugio. } 
+        \caption[Red bipartita de refugios para los datos de los i-gotU.]{Red bipartita de refugios para los datos de los i-gotU. Las distancias relativas entre nodos y el grosor del link son dependientes de la cantidad de noches que una  tortuga paso en el refugio. }
         \label{fig:red_bipartita_refus_igotu}
-        
+       
         \end{center}
-\end{figure} 
-En la Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refus_igotu}, se observan refugios compartidos entre dos y tres pares de refugios.  En base a este resultado, se decidió buscar la probabilidad de que dos nodos tortugas esten conectados en la red de encuentros (Figs. \ref{fig:redInteraccion20mincampanas} y \ref{fig:redInteraccion20igotu}). Al proyectar la red bipartita en nodos tortugas obtenemos una redes comparables con las redes de encuentros, en las Figs. \ref{fig:proyeccion_red_campanas} y \ref{fig:proyeccion_red_igotu}.
-
-
+\end{figure}
+En la Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refus_igotu}, se observan refugios compartidos entre dos y tres pares de refugios.  En base a este resultado, se decidió buscar la probabilidad de que dos nodos tortugas estén conectados en la red de encuentros (Figs. \ref{fig:redInteraccion20mincampanas} y \ref{fig:redInteraccion20igotu}). Al proyectar la red bipartita en nodos tortugas obtenemos una redes comparables con las redes de encuentros, en las Figs. \ref{fig:proyeccion_red_campanas} y \ref{fig:proyeccion_red_igotu}.
+ 
+ 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/Proyecion_bipartita_ref_solo_tortus.pdf}
-        \caption[Proyeccion  de red bipartita de refugios para datos de los tortugometros en nodos tortugas.]{Proyeccion  de red bipartita de refugios para datos de los tortugometros (Fig. \ref{fig:red_bipartita_refus_campanas}) en nodos tortugas. Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyeccion. } 
+        \caption[Proyección  de red bipartita de refugios para datos de los tortugometros en nodos tortugas.]{Proyección  de red bipartita de refugios para datos de los tortugometros (Fig. \ref{fig:red_bipartita_refus_campanas}) en nodos tortugas. Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyección. }
         \label{fig:proyeccion_red_campanas}
-        
+       
         \end{center}
-\end{figure} 
-
+\end{figure}
+ 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/Proyecion_bipartita_ref_solo_tortus_IGOTU.pdf}
-        \caption[Proyeccion  de red bipartita de refugios para datos de los tortugometros en nodos tortugas.]{Proyeccion  de red bipartita de refugios para datos de los i-gotU (Fig. \ref{fig:red_bipartita_refus_igotu}) en nodos tortugas. Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyeccion. } 
+        \caption[Proyección  de red bipartita de refugios para datos de los tortugometros en nodos tortugas.]{Proyección  de red bipartita de refugios para datos de los i-gotU (Fig. \ref{fig:red_bipartita_refus_igotu}) en nodos tortugas. Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyeccion. }
         \label{fig:proyeccion_red_igotu}
-        
+       
         \end{center}
-\end{figure} 
-Para comparar y ver que tan probable es el encuentro entre tortugas en caso que hayan usado alguna vez el mismo refugio, se decidió tomar las proyecciónes de las redes bipartitas como predictores de conexiones en las redes de encuentros. Se calcularon las metricas precision, accuracy y recall, partiendo de las cantidades TP, TN, FP y FN. Donde, por ejemplo, TP se calculó como la cantidad de conexiones existentes en las redes de encuentros que están en las redes proyectadas. Los valores obtenidos se muestran el la tabla \ref{tab:metricas_comparacion_redes}.
+\end{figure}
+Para comparar y ver que tan probable es el encuentro entre tortugas en caso que hayan usado alguna vez el mismo refugio, se decidió tomar las proyecciones de las redes bipartitas como predictores de conexiones en las redes de encuentros. Se calcularon las métricas precision, accuracy y recall, partiendo de las cantidades TP, TN, FP y FN. Donde, por ejemplo, TP se calculó como la cantidad de conexiones existentes en las redes de encuentros que están en las redes proyectadas. Los valores obtenidos se muestran el la tabla \ref{tab:metricas_comparacion_redes}.
 \begin{table}[ht]
     \centering
     \begin{tabular}{|c|c|c|c|}
-        
+       
    \hline
     Metodología  & precision & Recall & accuracy \\ \hline
     Tortugometro & 0.125     & 0.059  & 0.258    \\ \hline
     i-gotU       & 1         & 0.4    & 0.4       \\ \hline
-    
+   
     \end{tabular}
-    \caption[Tabla con metricas de comparacion entre redes de encuentros y proyeciones de redes bipartitas.]{Tabla con metricas de comparacion entre redes de encuentros y proyeciones de redes bipartitas. Se tomó las proyecciones de la redes bipartitas como predictor de conexiones en las redes de encuentros.}
+    \caption[Tabla con métricas de comparación entre redes de encuentros y proyecciones de redes bipartitas.]{Tabla con métricas de comparación entre redes de encuentros y proyecciones de redes bipartitas. Se tomó las proyecciones de la redes bipartitas como predictor de conexiones en las redes de encuentros.}
     \label{tab:metricas_comparacion_redes}
 \end{table}
-Se observa en la tabla \ref{tab:metricas_comparacion_redes}, que las metricas obtenidas para los datos provenientes de los tortugometros son considerablemente menores que las metricas obtenidas para los datos provenientes de los i-gotU. Estas diferencias se espera que esten asociadas a la poca cantidad de refugios nocturnos medidos para los datos del tortugometro ya que originalmente las campañas de medición no se planearon para este tipo de análisis. Por otro lado, con los i-gotU se monitorearon una menor cantidad de tortugas, haciendo posible la existencia de un bias de medición. 
-
-Para determinar si los resultados de la tabla \ref{tab:metricas_comparacion_redes} son estadísticamente significativos, se realizaron operaciones de \textit{double edge swap} sobre las redes bipartitas de refugios y se compararon los valores obtenidos sobre estas nuevas redes generadas, despues de las proyecciones. Se realizo un codigo en Python que elige dos conexiones al azar en la red bipartita y las intercambia si es que no existe ya estas conexiones. Es decir, si T10 uso el refugio 54 y T11 el refugio 32, se intercambian los enlances en caso que T10 no tenga una conexión con el refugio 32 y tampoco la T11 con el 54 \cite{github}, este procedimiento se itera de manera de generar una red aleatoria manteniendo la distribución de grado constante (un equivalente en cierto sentido a mantener la misma cantidad de mediciones pero tomando uso de refugios al azar). Partiendo de 1000 redes generadas a partir de 1000 cambios aleatorios de conexiones (1000 \textit{double edge swap}), se obtuvieron las metricas de precision, recall y accuracy para cada red generada. Sobre estos valores se calculó la cantidad de veces donde las metricas hayadas por usos aleatorios de refugios fueron mayores que las metricas obtenidas para los datos de la tabla \ref{tab:metricas_comparacion_redes}. Los resultados se muestran en la tabla \ref{tab:metricas_comparacion_redes_aleatorias}.
+Se observa en la tabla \ref{tab:metricas_comparacion_redes}, que las métricas obtenidas para los datos provenientes de los tortugometros son considerablemente menores que las métricas obtenidas para los datos provenientes de los i-gotU. Estas diferencias se espera que estén asociadas a la poca cantidad de refugios nocturnos medidos para los datos del tortugometro ya que originalmente las campañas de medición no se planearon para este tipo de análisis. Por otro lado, con los i-gotU se monitorean una menor cantidad de tortugas, haciendo posible la existencia de un bias de medición.
+ 
+Para determinar si los resultados de la tabla \ref{tab:metricas_comparacion_redes} son estadísticamente significativos, se realizaron operaciones de \textit{double edge swap} sobre las redes bipartitas de refugios y se compararon los valores obtenidos sobre estas nuevas redes generadas, después de las proyecciones. Se realizó un código en Python que elige dos conexiones al azar en la red bipartita y las intercambia si es que no existe ya estas conexiones. Es decir, si T10 uso el refugio 54 y T11 el refugio 32, se intercambian los enlaces en caso que T10 no tenga una conexión con el refugio 32 y tampoco la T11 con el 54 \cite{github}, este procedimiento se itera de manera de generar una red aleatoria manteniendo la distribución de grado constante (un equivalente en cierto sentido a mantener la misma cantidad de mediciones pero tomando uso de refugios al azar). Partiendo de 1000 redes generadas a partir de 1000 cambios aleatorios de conexiones (1000 \textit{double edge swap}), se obtuvieron las métricas de precisión, recall y accuracy para cada red generada. Sobre estos valores se calculó la cantidad de veces donde las métricas halladas por usos aleatorios de refugios fueron mayores que los valores obtenidos para los datos de la tabla \ref{tab:metricas_comparacion_redes}. Los resultados se muestran en la tabla \ref{tab:metricas_comparacion_redes_aleatorias}.
 \begin{table}[ht]
     \centering
     \begin{tabular}{|c|c|c|c|}
-        
+       
    \hline
-    Metodología  & \% Precision mayor  &  \% Recall mayor & \% Accuracy mayor \\ \hline
+    Metodología  & \% Precisión mayor  &  \% Recall mayor & \% Accuracy mayor \\ \hline
     Tortugometro & 60    & 50  & 50    \\ \hline
     i-gotU       & 0        & 0    & 0      \\ \hline
-    
+   
     \end{tabular}
-    \caption[Tabla con comparacion de metricas obtenidas en redes bipartitas con usos aleatorios de refugios respecto a las metricas medidas.]{Tabla con comparacion de metricas obtenidas por redes bipartitas con usos aleatorios de refugios respecto a las metricas medidas. Se tomó las proyecciones de la redes bipartitas generadas aleatoriamente como predictor de conexiones en las redes de encuentros y se calculáron las proporciones donde estas metricas son mayores a las obtenidas por la tabla \ref{tab:metricas_comparacion_redes}.}
+    \caption[Tabla con comparación de métricas obtenidas en redes bipartitas con usos aleatorios de refugios respecto a las métricas medidas.]{Tabla con comparación de métricas obtenidas por redes bipartitas con usos aleatorios de refugios respecto a las métricas medidas. Se tomó las proyecciones de la redes bipartitas generadas aleatoriamente como predictor de conexiones en las redes de encuentros y se calcularon las proporciones donde estas métricas son mayores a las obtenidas por la tabla \ref{tab:metricas_comparacion_redes}.}
     \label{tab:metricas_comparacion_redes_aleatorias}
 \end{table}
-Se observa en la tabla \ref{tab:metricas_comparacion_redes_aleatorias}, que las metricas obtenidas para los datos provenientes de los i-gotU son estadísticamente significativas, mientras que las metricas obtenidas para los datos provenientes de los tortugometros no lo son. Esto se debe a que la cantidad de refugios nocturnos medidos para los datos del tortugometro es considerablemente menor que la cantidad de refugios nocturnos medidos para los datos de los i-gotU. Por otro lado, con los i-gotU se monitorearon una menor cantidad de tortugas, haciendo posible la existencia de un bias de medición.
-
-Una posible comparacion entre las proyecciones de las redes bipartitas con las redes de encuentros esta dada por la topología de las redes.  En la siguiente sección se analiza la topología de las redes de encuentros y se compara con la topología de las redes proyectadas en nodos tortugas, comparando con metricas obtenidas de usos aleatorios de los refugios. 
+Se observa en la tabla \ref{tab:metricas_comparacion_redes_aleatorias}, que las métricas obtenidas para los datos provenientes de los i-gotU son estadísticamente significativas, mientras que las métricas obtenidas para los datos provenientes de los tortugometros no lo son. Esto se debe a que la cantidad de refugios nocturnos medidos para los datos del tortugometro es considerablemente menor que la cantidad de refugios nocturnos medidos para los datos de los i-gotU. Por otro lado, con los i-gotU se monitorean una menor cantidad de tortugas, haciendo posible la existencia de un bias de medición.
+ 
+Una posible comparación entre las proyecciones de las redes bipartitas con las redes de encuentros está dada por la topología de las redes.  En la siguiente sección se analiza la topología de las redes de encuentros y se compara con la topología de las redes proyectadas en nodos tortugas, comparando con métricas obtenidas de usos aleatorios de los refugios.
 \section{Comparación de topología de redes de encuentros y redes proyectadas}
-Se calcularon las metricas modularidad, densidad de la red, coeficiente de agrupamiento y centralidad de grado medio en nodos tortugas machos y hembras para las redes de encuentros (Figs. \ref{fig:redInteraccion20mincampanas} y \ref{fig:redInteraccion20igotu}) y para las redes proyectadas (Figs. \ref{fig:proyeccion_red_campanas} y \ref{fig:proyeccion_red_igotu}). En la tabla \ref{tab:metricas_topologia_redes}   se muestran los valores obtenidos para las distintas metricas, para los datos provenientes de las dos metodologias.
-
-
-
+Se calcularon las métricas modularidad, densidad de la red, coeficiente de agrupamiento y centralidad de grado medio en nodos tortugas machos y hembras para las redes de encuentros (Figs. \ref{fig:redInteraccion20mincampanas} y \ref{fig:redInteraccion20igotu}) y para las redes proyectadas (Figs. \ref{fig:proyeccion_red_campanas} y \ref{fig:proyeccion_red_igotu}). En la tabla \ref{tab:metricas_topologia_redes}   se muestran los valores obtenidos para las distintas métricas, para los datos provenientes de las dos metodologías.
+ 
+ 
+ 
 \begin{table}[ht]
     \centering
     \begin{tabular}{|c|c|c|c|c|}
@@ -165,47 +165,50 @@ Se calcularon las metricas modularidad, densidad de la red, coeficiente de agrup
     C.G.M. machos     & $0.2\pm0.1$ & $0.08\pm0.08$ & $0.5\pm0.2$ & 0            \\ \hline
     C.G.M. hembras    & $0.2\pm0.1$ & $0.10\pm0.07$ & 0.5         & $0.2\pm0.1 $ \\ \hline
     \end{tabular}
-    \caption[Tabla con metricas asociadas a las topologias de las redes de encuentros y las redes proyectadas.]{Tabla con metricas asociadas a las topologias de las redes de encuentros y las redes proyectadas. E. y P. se refiere a redes de encuentros y redes proyectadas respectivamente, para cada metodología de medición. C. agrupamiento se refiere a coeficiente de agrupamiento y C.G.M. se refiere a centralidad de grado medio.}
+    \caption[Tabla con métricas asociadas a las tipologías de las redes de encuentros y las redes proyectadas.]{Tabla con métricas asociadas a las topologías de las redes de encuentros y las redes proyectadas. E. y P. se refiere a redes de encuentros y redes proyectadas respectivamente, para cada metodología de medición. C. agrupamiento se refiere a coeficiente de agrupamiento y C.G.M. se refiere a centralidad de grado medio.}
     \label{tab:metricas_topologia_redes}
 \end{table}
-Se esperaba que la centralidad de grado medio de los machos fuera mayor que el de las hembras en base de observaciones de campo, pero se encontro en la tabla \ref{tab:metricas_topologia_redes} que no presentan diferencias significativas para los datos provenientes de ambas metodologías \cite{Erika}. Respecto a las proyecciones de la red bipartita en nodos tortugas para los datos provenientes de ambas metodologías, se encontraron menores densidades de redes respecto a las redes de encuentros. Esto esta relacionado a la poca cantidad de mediciones de refugios compartidos, en el caso de los tortugometros el filtro para la selección de refugios es muy estricto, generando una poca cantidad de refugios respecto a la cantidad de dias de medición. Por otro lado, en el caso de los i-gotU, la cantidad de refugios medidos es alta respecto a la cantidad de dias de medición pero la mayoría de estos fueron medidos en meses donde la tortuga baja la actividad a causa de las temperaturas del ambiente y decide quedarse la mayor parte de las noches en los refugios preferidos encontrados (Fig. \ref{fig:refugios_preferidos}). 
-%%seguir con esto 
-\section{Proyecciónes de redes bipartitas en nodos refugios}
+Se esperaba que la centralidad de grado medio de los machos fuera mayor que el de las hembras en base de observaciones de campo, pero se encontró en la tabla \ref{tab:metricas_topologia_redes} que no presentan diferencias significativas para los datos provenientes de ambas metodologías \cite{Erika}. Respecto a las proyecciones de la red bipartita en nodos tortugas para los datos provenientes de ambas metodologías, se encontraron menores densidades de redes respecto a las redes de encuentros. Esto está relacionado a la poca cantidad de mediciones de refugios compartidos, en el caso de los tortugometros el filtro para la selección de refugios es muy estricto, generando una poca cantidad de refugios respecto a la cantidad de días de medición. Por otro lado, en el caso de los i-gotU, la cantidad de refugios medidos es alta respecto a la cantidad de días de medición pero la mayoría de estos fueron medidos en meses donde la tortuga baja la actividad a causa de las temperaturas del ambiente y decide quedarse la mayor parte de las noches en los refugios preferidos encontrados (Fig. \ref{fig:refugios_preferidos}).
+%%seguir con esto
+\section{Proyecciones de redes bipartitas en nodos refugios}
 Se realizaron las proyecciones de las redes bipartitas de refugios (Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refus_igotu}) en nodos refugios, Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}.
-
-
+ 
+ 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/Proyecion_bipartita_ref_solo_ref.pdf}
-        \caption[Proyeccion  de red bipartita de refugios para datos de los tortugometros en nodos refugios.]{Proyeccion  de red bipartita de refugios para datos de los tortugometros (Fig. \ref{fig:red_bipartita_refus_campanas}). Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyeccion. } 
+        \caption[Proyección  de red bipartita de refugios para datos de los tortugometros en nodos refugios.]{Proyección  de red bipartita de refugios para datos de los tortugometros (Fig. \ref{fig:red_bipartita_refus_campanas}). Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyección. }
         \label{fig:proyeccion_red_campanas_refus}
-        
+       
         \end{center}
-\end{figure} 
-
+\end{figure}
+ 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/Proyecion_bipartita_ref_solo_ref_iGOTU.pdf}
-        \caption[Proyeccion  de red bipartita de refugios para datos de los i-gotU en nodos refugios.]{Proyeccion  de red bipartita de refugios para datos de los i-gotU (Fig. \ref{fig:red_bipartita_refus_igotu}) sobre los nodos refugios. Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre el refugio comun con los respectivos refugios de ambas tortugas en la proyeccion. } 
+        \caption[Proyección  de red bipartita de refugios para datos de los i-gotU en nodos refugios.]{Proyección  de red bipartita de refugios para datos de los i-gotU (Fig. \ref{fig:red_bipartita_refus_igotu}) sobre los nodos refugios. Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre el refugio común con los respectivos refugios de ambas tortugas en la proyección. }
         \label{fig:proyeccion_red_igotu_refus}
-        
+       
         \end{center}
-\end{figure} 
-Se observa en las Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}, pequeños clusters donde hay nodos completamente conectados (asociados a los refugios que visito una tortuga) con algunos nodos que conectan distintos clusters (asociados a algun refugio compartido). Ejemplo de este nodo conector es el refugio 4 (Fig. \ref{fig:proyeccion_red_igotu_refus}), que fue utilizado por la tortuga T30 y T6 en distintas noches (Fig. \ref{fig:red_bipartita_refus_igotu}). 
-
-Una pregunta subyaciente de las proyecciones calculadas es si existe alguna relación entre los links formados y las distancias entre los nodos refugios. Para responder esta pregunta se graficaron los refugios en el mapa junto con las conexiones dadas por los links en las proyecciones. Un ejemplo de este mapa para los datos de los i-gotU se muestra en la Fig. \ref{fig:mapa_con_conexiones_igotu}. Se observa que parte de los links se encuentran entre refugios vecinos, pero también hay links entre refugios que se encuentran a distancias considerables respecto de refugios vecinos. A falta de una relación mas rigurosa entre las distancias y los links, se realizó un \textit{mantel test} \cite{MantelTest} entre las matrices de adyacencia de las redes proyectadas en nodos refugios (Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}) con matrices de distancias entre refugios. En el lugar i,j de la matriz de distancias se encuentra la distancia entre el refugio  de la posición i y el refugio j (en metros) de la matriz de adyacencia. 
-
-El mantel test calcula el coeficiente de correlación de Pearson entre estas dos matrices, luego realiza permutaciónes aleatorias de la matriz de distancias y recalcula el coeficiente de correlación de Pearson. El p-valor es la proporción de permutaciones que dan un coeficiente de correlación de Pearson mayor o igual al coeficiente de correlación de Pearson de la matriz de distancias original. Bajo la hipotesis de correlación nula en las dos matrices, las permutaciones aleatorias deberían ser igualmente probable de producir valores mayores o menores del coeficiente de correlación calculado. 
-
-
-Los mantel tests realizados con 10000 permutaciones aleatorias para los datos de los tortugometros y los i-gotU dan un p-valor de 0.0051 y 0.0001 respectivamente. Esto indica que existe una correlación significativa entre las distancias entre refugios y los links en las redes proyectadas en nodos refugios (Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}). Es decir que la tortuga que visita un refugio, tiene una probabilidad mayor de visitar refugios cercanos a este, como se observa en la Fig. \ref{fig:mapa_con_conexiones_igotu}.
-
+\end{figure}
+Se observa en las Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}, pequeños clusters donde hay nodos completamente conectados (asociados a los refugios que visito una tortuga) con algunos nodos que conectan distintos clusters (asociados a algún refugio compartido). Ejemplo de este nodo conector es el refugio 4 (Fig. \ref{fig:proyeccion_red_igotu_refus}), que fue utilizado por la tortuga T30 y T6 en distintas noches (Fig. \ref{fig:red_bipartita_refus_igotu}).
+ 
+Una pregunta subyacente de las proyecciones calculadas es si existe alguna relación entre los links formados y las distancias entre los nodos refugios. Para responder esta pregunta se graficaron los refugios en el mapa junto con las conexiones dadas por los links en las proyecciones. Un ejemplo de este mapa para los datos de los i-gotU se muestra en la Fig. \ref{fig:mapa_con_conexiones_igotu}. Se observa que parte de los links se encuentran entre refugios vecinos, pero también hay links entre refugios que se encuentran a distancias considerables respecto de refugios vecinos. A falta de una relación más rigurosa entre las distancias y los links, se realizó un \textit{mantel test} \cite{MantelTest} entre las matrices de adyacencia de las redes proyectadas en nodos refugios (Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}) con matrices de distancias entre refugios. En el lugar i,j de la matriz de distancias se encuentra la distancia entre el refugio  de la posición i y el refugio j (en metros) de la matriz de adyacencia.
+ 
+El mantel test calcula el coeficiente de correlación de Pearson entre estas dos matrices, luego realiza permutaciones aleatorias de la matriz de distancias y vuelve a calcular el coeficiente de correlación de Pearson. El p-valor es la proporción de permutaciones que dan un coeficiente de correlación de Pearson mayor o igual al coeficiente de correlación de Pearson de la matriz de distancias original. Bajo la hipótesis de correlación nula en las dos matrices, las permutaciones aleatorias deberían ser igualmente probable de producir valores mayores o menores del coeficiente de correlación calculado.
+ 
+ 
+Los mantel tests realizados con 10000 permutaciones aleatorias para los datos de los tortugometros y los i-gotU dan un p-valor de 0.0051 y 0.0001 respectivamente. Esto indica que existe una correlación significativa entre las distancias entre refugios y los enlaces en las redes proyectadas en nodos refugios (Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}). Es decir que la tortuga que visita un refugio, tiene una probabilidad mayor de visitar refugios cercanos a este, como se observa en la Fig. \ref{fig:mapa_con_conexiones_igotu}.
+ 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/Mapa_refus_con_coneciones_igotu.jpg}
-        \caption[Proyeccion en nodos refugios con conexiones en el mapa.]{Proyeccion de red bipartita (Fig. \ref{fig:proyeccion_red_igotu_refus}) en nodos refugios con conexiones en el mapa para los datos de i-gotU. } 
+        \caption[Proyección en nodos refugios con conexiones en el mapa.]{Proyección de red bipartita (Fig. \ref{fig:proyeccion_red_igotu_refus}) en nodos refugios con conexiones en el mapa para los datos de i-gotU. }
         \label{fig:mapa_con_conexiones_igotu}
-        
+       
         \end{center}
-\end{figure} 
+\end{figure}
+ 
+ 
+ 
 
