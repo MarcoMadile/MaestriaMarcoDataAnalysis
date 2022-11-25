@@ -4,3 +4,29 @@ DataAnalysis/primerasRedes/__pycache__
 
 DataAnalysis/IgotoGif/__pycache__/gif_from_trayectories.cpython-38.pyc
 DataAnalysis/primerasRedes/gif_construccion_mapas
+Tesis escritura/REUNIONKARILUIS18.txt
+Tesis escritura/Reunion_Virtual_con_luis.txt
+Tesis escritura/cap2.aux
+Tesis escritura/ultimareunion.txt
+*.aux
+*.xdb
+*.log
+*.lof
+*.lot
+*.toc
+*.xdv
+*.blg
+*.bbl
+*.brf
+*.dvi
+*.txt
+*.pyc
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.out
+*.fls
+*.brf
+*.gz
+Tesis escritura/Main tesis.synctex.gz
+Tesis escritura/Main tesis.brf
