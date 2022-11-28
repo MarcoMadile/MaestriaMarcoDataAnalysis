@@ -74,9 +74,30 @@ La unidad de navegación comercial i-gotU GT120 (Fig.~\ref{fig:igotu}) es una un
 En este trabajo se utilizaron datos obtenidos por campañas realizadas entre finales de enero 2022 y abril 2022, se contaron con 12 de estas unidades en correcto funcionamiento y se decidió monitorear a las mismas 6 tortugas intercambiando el i-gotU a cada una de ellas cada 7 días. Se programaron los i-gotU para adquirir posición y hora cada 15 minutos entre las 6 de la mañana y las 9 de la noche, sobre la noche no adquiere datos para ahorrar batería. En total se monitorearon aproximadamente 1000 horas por tortuga ya que algunas semanas no se llegó a intercambiar los i-gotU.
  
 \section{Redes complejas}
-\begin{huge}
-    TO-DO!
-\end{huge}
+El uso de herramientas de redes complejas permitió comparar resultados provenientes de diferentes analisis sobre los datos de GPS de las tortugas. En este trabajo se utilizaron metricas sobre la topología de distintas redes generadas, todas calculadas a travez de funciones implementadas en la librería networkX de python \cite{networkx}. 
+
+Una red compleja es un conjunto de elementos (nodos) conectados entre sí por enlaces (aristas). La topología de una red compleja es la forma en que los elementos están conectados entre sí. La topología de una red compleja puede ser estudiada a través de distintas métricas. En este trabajo se utilizaron las siguientes métricas:
+\begin{itemize}
+    \item \textbf{Densidad}: es la fracción de enlaces que existen en la red respecto a la cantidad de enlaces que podrían existir en la red. Se calcula como:
+    \begin{equation}
+        \rho = \frac{2m}{n(n-1)},
+    \end{equation}
+    donde $n$ es la cantidad de nodos y $m$ la cantidad de enlaces.
+    \item  \textbf{Modularidad}: es una medida de fuerza de división de la red en comunidades. Se calcula como:
+    \begin{equation}
+        Q = \sum_{c=1}^{n}
+        \left[ \frac{L_c}{m} - \gamma\left( \frac{k_c}{2m} \right) ^2 \right]
+    \end{equation}
+    donde $L_c$ es la cantidad de enlaces que conectan nodos de la comunidad $c$, $k_c$ es la cantidad de enlaces que conectan nodos de la comunidad $c$ con nodos de otras comunidades, $m$ es la cantidad de enlaces en la red y $\gamma$ es un parámetro que depende de la red. En este trabajo se utilizó $\gamma = 1$. Las comunidades en la red se identificaron a travez de un método de propagación de etiquetas semi-síncrono \cite{cordasco2010community}.
+    \item \textbf{Coeficiente de agrupamiento}: es una medida de la densidad de enlaces entre los vecinos de un nodo. Se calcula como:
+    \begin{equation}
+        c_u = \frac{2 T(u)}{deg(u)(deg(u)-1)},
+    \end{equation}
+    donde $T(u)$ es a cantidad de triangulos formados por los vecinos de $u$ y $deg(u)$ es la cantidad de vecinos de $u$ (grado de $u$).
+    
+   
+\end{itemize}
+
  
  
  
