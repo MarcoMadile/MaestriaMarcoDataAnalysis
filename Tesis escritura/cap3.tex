@@ -49,7 +49,7 @@ Donde $I_{totales}$ es la cantidad de noches donde se registró que la tortuga d
 Partiendo de $X_{centro}$, la distancia media  espacial de los refugios se calcula como:
 $$D = \sum^{N -1}_{n=0} \frac{|X_n i_n - X_{centro}|}{I_{totales}}.$$
 \label{eq:distancia_media_refugios}
-Esta métrica fue calculada para todas las tortugas y  promediada para  machos y hembras. Se encontró para los machos $\overline{D}_m =  (128\pm66)\,\text{m}$ y para las hembras     $\overline{D}_h = (122\pm82)\,\text{m}$. Es decir que no se encontraron diferencias significativas en la distribucion espacial de refugios  entre machos y hembras.
+Esta métrica fue calculada para todas las tortugas y  promediada para  machos y hembras. Se encontró para los machos $\overline{D}_m =  (128\pm66)\,\text{m}$ y para las hembras     $\overline{D}_h = (122\pm82)\,\text{m}$. Es decir que no se encontraron diferencias significativas en la distribución espacial de refugios  entre machos y hembras.
 \section{Refugios más usados y caminos tomados}
 Dentro de los refugios que utiliza una tortuga, se encontraron refugios preferidos, es decir refugios que fueron visitados recurrentemente. Para observar esto se decidió graficar la acumulada de noches pasadas en un refugio para los refugios más utilizados por una tortuga. Esto se realizó solo para los datos provenientes de los i-gotU, ya que se contó con una gran cantidad de días consecutivos de medición. En la Fig. \ref{fig:refugios_preferidos} se encuentra la acumulada de noches pasadas en estos refugios que distintas tortugas tomaron como preferidos.
  
@@ -111,12 +111,12 @@ En la Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refu
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/Proyecion_bipartita_ref_solo_tortus_IGOTU.pdf}
-        \caption[Proyección  de red bipartita de refugios para datos de los tortugometros en nodos tortugas.]{Proyección  de red bipartita de refugios para datos de los i-gotU (Fig. \ref{fig:red_bipartita_refus_igotu}) en nodos tortugas. Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyeccion. }
+        \caption[Proyección  de red bipartita de refugios para datos de los tortugometros en nodos tortugas.]{Proyección  de red bipartita de refugios para datos de los i-gotU (Fig. \ref{fig:red_bipartita_refus_igotu}) en nodos tortugas. Si hay una refugio compartido por un par de nodos tortugas, aparece una conexión entre este par de nodos en la proyección. }
         \label{fig:proyeccion_red_igotu}
        
         \end{center}
 \end{figure}
-Para comparar y ver que tan probable es el encuentro entre tortugas en caso que hayan usado alguna vez el mismo refugio, se decidió tomar las proyecciones de las redes bipartitas como predictores de conexiones en las redes de encuentros. Se calcularon las métricas precision, accuracy y recall, partiendo de las cantidades TP, TN, FP y FN. Donde, por ejemplo, TP se calculó como la cantidad de conexiones existentes en las redes de encuentros que están en las redes proyectadas. Los valores obtenidos se muestran el la tabla \ref{tab:metricas_comparacion_redes}.
+Para comparar y ver que tan probable es el encuentro entre tortugas en caso que hayan usado alguna vez el mismo refugio, se decidió tomar las proyecciones de las redes bipartitas como predictores de conexiones en las redes de encuentros. Se calcularon las métricas precisión, accuracy y recall, partiendo de las cantidades TP, TN, FP y FN. Donde, por ejemplo, TP se calculó como la cantidad de conexiones existentes en las redes de encuentros que están en las redes proyectadas. Los valores obtenidos se muestran el la tabla \ref{tab:metricas_comparacion_redes}.
 \begin{table}[ht]
     \centering
     \begin{tabular}{|c|c|c|c|}
@@ -169,19 +169,19 @@ Se calcularon las métricas modularidad, densidad de la red, coeficiente de agru
     \label{tab:metricas_topologia_redes}
 \end{table}
 Se esperaba que la centralidad de grado medio de los machos fuera mayor que el de las hembras en base de observaciones de campo, pero se encontró en la tabla \ref{tab:metricas_topologia_redes} que no presentan diferencias significativas para los datos provenientes de ambas metodologías \cite{Erika}. Respecto a las proyecciones de la red bipartita en nodos tortugas para los datos provenientes de ambas metodologías, se encontraron menores densidades de redes respecto a las redes de encuentros. Esto está relacionado a la poca cantidad de mediciones de refugios compartidos, en el caso de los tortugometros el filtro para la selección de refugios es muy estricto, generando una poca cantidad de refugios respecto a la cantidad de días de medición. Por otro lado, en el caso de los i-gotU, la cantidad de refugios medidos es alta respecto a la cantidad de días de medición pero la mayoría de estos fueron medidos en meses donde la tortuga baja la actividad a causa de las temperaturas del ambiente y decide quedarse la mayor parte de las noches en los refugios preferidos encontrados (Fig. \ref{fig:refugios_preferidos}).
-
-Respecto al coeficiente de agrupamiento, se observa que para los datos provenientes de los tortugometros, el coeficiente de agrupamiento es distinto de cero. Para el caso de los datos provenientes de los i-gotU, el coeficiente de agrupamiento es cero, esto se debe a que la red de encuentros y la red proyectada no presenta triangulos entre cualquier triplete de nodos. Se encontraron modularidades mayores en los datos provenientes de los tortugometros en comparacion con los datos provenientes de los i-gotU para las redes de encuentros y las redes proyectadas. Esto se debe a la existencia de dos claras comunidades en las redes provenientes de los datos del tortugometro (Figs. \ref{fig:redInteraccion20mincampanas} y \ref{fig:proyeccion_red_campanas}) y a la ausencia de comunidades en las redes de los datos de los i-gotU (Figs. \ref{fig:redInteraccion20igotu} y \ref{fig:proyeccion_red_igotu}).
-
-Sobre las redes bipartitas se generaron 1000 redes aleatorias  realizando 1000 operaciones del tipo \textit{double edge swap}. Se compararon las metricas obtenidas en las redes proyectadas de la tabla \ref{tab:metricas_topologia_redes} con las metricas obtenidas en las proyecciones de las redes aleatorias. En la Fig. \ref{fig:distribucion_coef_agrupa}, se muestra un ejemplo de la distribución del coeficiente de agrupamiento en las redes aleatorias generadas partiendo de la red bipartita de refugios con datos de los tortugometros (Fig. \ref{fig:red_bipartita_refus_campanas}). Se observa que no presenta diferencias significativas entre los valores hayados con el valor medido en la proyección de la red original. Se observo el mismo tipo de comportamiento para todas las metricas calculadas en la tabla \ref{tab:metricas_topologia_redes}. %agregar en el apendice las otras figuras?
+ 
+Respecto al coeficiente de agrupamiento, se observa que para los datos provenientes de los tortugometros, el coeficiente de agrupamiento es distinto de cero. Para el caso de los datos provenientes de los i-gotU, el coeficiente de agrupamiento es cero, esto se debe a que la red de encuentros y la red proyectada no presenta triángulos entre cualquier triplete de nodos. Se encontraron modularidades mayores en los datos provenientes de los tortugometros en comparación con los datos provenientes de los i-gotU para las redes de encuentros y las redes proyectadas. Esto se debe a la existencia de dos claras comunidades en las redes provenientes de los datos del tortugometro (Figs. \ref{fig:redInteraccion20mincampanas} y \ref{fig:proyeccion_red_campanas}) y a la ausencia de comunidades en las redes de los datos de los i-gotU (Figs. \ref{fig:redInteraccion20igotu} y \ref{fig:proyeccion_red_igotu}).
+ 
+Sobre las redes bipartitas se generaron 1000 redes aleatorias  realizando 1000 operaciones del tipo \textit{double edge swap}. Se compararon las métricas obtenidas en las redes proyectadas de la tabla \ref{tab:metricas_topologia_redes} con las métricas obtenidas en las proyecciones de las redes aleatorias. En la Fig. \ref{fig:distribucion_coef_agrupa}, se muestra un ejemplo de la distribución del coeficiente de agrupamiento en las redes aleatorias generadas partiendo de la red bipartita de refugios con datos de los tortugometros (Fig. \ref{fig:red_bipartita_refus_campanas}). Se observa que no presenta diferencias significativas entre los valores hallados con el valor medido en la proyección de la red original. Se observó el mismo tipo de comportamiento para todas las métricas calculadas en la tabla \ref{tab:metricas_topologia_redes}. %agregar en el apendice las otras figuras?
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/coef_clustering_distribucion.pdf}
-        \caption[Distribución del coeficiente de agrupamiento en proyecciones de redes aleatorias.]{Distribución del coeficiente de agrupamiento calculado de las proyecciones en nodos tortugas de mil redes generadas aleatoriamente a partir de la red bipartita con datos de los tortugometros. En rojo esta el valor medido del coeficiente de agrupamiento para la proyección en nodos tortugas (Fig. \ref{fig:proyeccion_red_campanas}).}
+        \caption[Distribución del coeficiente de agrupamiento en proyecciones de redes aleatorias.]{Distribución del coeficiente de agrupamiento calculado de las proyecciones en nodos tortugas de mil redes generadas aleatoriamente a partir de la red bipartita con datos de los tortugometros. En rojo está el valor medido del coeficiente de agrupamiento para la proyección en nodos tortugas (Fig. \ref{fig:proyeccion_red_campanas}).}
         \label{fig:distribucion_coef_agrupa}
        
         \end{center}
 \end{figure}
-
+ 
 \section{Proyecciones de redes bipartitas en nodos refugios}
 Se realizaron las proyecciones de las redes bipartitas de refugios (Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refus_igotu}) en nodos refugios, Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}.
  
@@ -220,6 +220,9 @@ Los mantel tests realizados con 10000 permutaciones aleatorias para los datos de
        
         \end{center}
 \end{figure}
+ 
+ 
+ 
  
  
  
