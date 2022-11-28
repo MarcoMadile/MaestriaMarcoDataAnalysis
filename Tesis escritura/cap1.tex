@@ -76,7 +76,7 @@ En este trabajo se utilizaron datos obtenidos por campañas realizadas entre fin
 \section{Redes complejas}
 El uso de herramientas de redes complejas permitió comparar resultados provenientes de diferentes analisis sobre los datos de GPS de las tortugas. En este trabajo se utilizaron metricas sobre la topología de distintas redes generadas, todas calculadas a travez de funciones implementadas en la librería networkX de python \cite{networkx}. 
 
-Una red compleja es un conjunto de elementos (nodos) conectados entre sí por enlaces (aristas). La topología de una red compleja es la forma en que los elementos están conectados entre sí. La topología de una red compleja puede ser estudiada a través de distintas métricas. En este trabajo se utilizaron las siguientes métricas:
+Una red compleja es un conjunto de elementos (nodos) conectados entre sí por enlaces (aristas). La topología de una red compleja puede ser estudiada a través de distintas métricas. En este trabajo se utilizaron las siguientes métricas:
 \begin{itemize}
     \item \textbf{Densidad}: es la fracción de enlaces que existen en la red respecto a la cantidad de enlaces que podrían existir en la red. Se calcula como:
     \begin{equation}
@@ -94,8 +94,13 @@ Una red compleja es un conjunto de elementos (nodos) conectados entre sí por en
         c_u = \frac{2 T(u)}{deg(u)(deg(u)-1)},
     \end{equation}
     donde $T(u)$ es a cantidad de triangulos formados por los vecinos de $u$ y $deg(u)$ es la cantidad de vecinos de $u$ (grado de $u$).
-    
-   
+
+   \item \textbf{Centralidad de grado}: para un nodo $v$, la centralidad de grado es la fracción de nodos a la que esta conectado. Se calcula como:
+    \begin{equation}
+        C_G(v) = \frac{deg(v)}{n-1},
+    \end{equation}
+    donde $deg(v)$ es el grado del nodo $v$ y $n$ es la cantidad de nodos en la red. Da una idea de la importancia relativa de un nodo en la red. 
+  
 \end{itemize}
 
  
