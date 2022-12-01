@@ -45,7 +45,7 @@ Se observó en la distribución de velocidades de la Fig.~\ref{fig:distribuciond
 \end{figure}
  
 \section{Zonas de interés}
-Partiendo de las trayectorias filtradas, se realizó  una grilla identificando las zonas de recurrencia en la Fig.~\ref{fig:grilla1}. Las celdas de la grilla fueron elegidas de 10\,m$^2$ debido a que se estima en 10\,m el erorr del GPS del tortugómetro y se está revisando para ambas modalidades el valor del mismo. Para cada celda se contó el numero de veces que estuvo allí, la grilla fue programada en Python \cite{github}. En caso de que se pudieran identificar los factores o características de las zonas más recurridas, se podrían sugerir políticas de manejo para minimizar los daños sobre las tortugas. Esto es especialmente importante dado que ahora se está introduciendo ganado en la zona con el consiguiente deterioro del hábitat natural de las mismas.
+Partiendo de las trayectorias filtradas, se realizó  una grilla identificando las zonas de recurrencia en la Fig.~\ref{fig:grilla1}. Las celdas de la grilla fueron elegidas de 10\,m$^2$ debido a que se estima en 10\,m el error del GPS del tortugómetro y se está revisando para ambas modalidades el valor del mismo. Para cada celda se contó el número de veces que estuvieron allí las tortugas, la grilla fue programada en Python \cite{github}. En caso de que se pudieran identificar los factores o características de las zonas más recurridas, se podrían sugerir políticas de manejo para minimizar los daños sobre las tortugas. Esto es especialmente importante dado que ahora se está introduciendo ganado en la zona con el consiguiente deterioro del hábitat natural de las mismas.
  
  
 \begin{figure}[ht]
@@ -56,7 +56,7 @@ Partiendo de las trayectorias filtradas, se realizó  una grilla identificando l
     \label{fig:grilla1}
 \end{figure}
  
-Se puede observar en la Fig.~\ref{fig:grilla1} un punto que se destaca mucho más que el resto (arriba a la izquierda) teniendo el máximo de mediciones en esa casilla. Esto se debe a que una pareja de tortugas pasó la noche con el tortugómetro puesto en medio de un arbusto de difícil acceso. Para obtener una mejor idea de las zonas de interés diurnas se realizó otra grilla usando sólo datos del tortugómetro registrados en el día (entre 7am y 9pm) y  realizando una interpolación lineal de 1 punto por minuto por cada par de puntos consecutivos (Fig.~\ref{fig:grillaInt}, \cite{github}). Esta interpolación da una aproximación de las casillas por donde tuvo que pasar la tortuga y añade un peso cuando la tortuga se quedó dentro de la misma casilla por una mayor cantidad de tiempo (mediciones consecutivas).
+Se puede observar en la Fig.~\ref{fig:grilla1} un punto que se destaca mucho más que el resto (arriba a la izquierda) teniendo el máximo de mediciones en esa casilla. Esto se debe a que una pareja de tortugas pasó la noche con el tortugómetro puesto en medio de un arbusto de difícil acceso. Para obtener una mejor idea de las zonas de interés diurnas se realizó otra grilla usando solo datos del tortugómetro registrados en el día (entre 7am y 9pm) y  realizando una interpolación lineal de 1 punto por minuto por cada par de puntos consecutivos (Fig.~\ref{fig:grillaInt}, \cite{github}). Esta interpolación da una aproximación de las casillas por donde tuvo que pasar la tortuga y añade un peso cuando la tortuga se quedó dentro de la misma casilla por una mayor cantidad de tiempo (mediciones consecutivas).
  
 \begin{figure}[ht]
     \begin{center}
@@ -67,8 +67,8 @@ Se puede observar en la Fig.~\ref{fig:grilla1} un punto que se destaca mucho má
     \caption[Mapa con zonas de recurrencia para trayectorias diurnas.]{Mapa de recurrencias  interactivo con las trayectorias diurnas (7am-9pm) filtradas e interpoladas linealmente. Al hacer clic en cualquier celda de la grilla un cartel dice cuantas mediciones fueron tomadas. El tamaño de celda es de 10m$^2$.}
     \label{fig:grillaInt}
 \end{figure}
-
-
+ 
+ 
 Comparando las Figs. \ref{fig:grilla1} y \ref{fig:grilla1}, se observa en la  Fig.~\ref{fig:grillaInt} un mayor contraste de las otras celdas respecto al que se encuentra arriba a la izquierda. Esto se debe a la extracción de los puntos nocturnos. Al momento se desconocen los motivos por los cuales dichas zonas son muy visitadas, esto será investigado en profundidad en el futuro.
  
 \section{Red de encuentros}
@@ -131,6 +131,9 @@ En la Fig. \ref{fig:redInteraccion20igotu}, se observa una mayor cantidad de enc
 %%% mode: latex
 %%% TeX-master: "template"
 %%% End:
+ 
+ 
+ 
  
  
  
