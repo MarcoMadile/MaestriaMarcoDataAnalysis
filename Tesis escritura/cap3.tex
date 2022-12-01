@@ -77,12 +77,12 @@ Haber encontrado preferencia por ciertos refugios abre distintas preguntas: ¿Qu
  
 %hasta aca corregido 
 \section{Redes bipartitas de refugios}
-Se armaron redes bipartitas con nodos refugios y nodos tortuga. En este tipo de redes, los nodos refugios solo están conectados con nodos tortuga y las conexiones indican que esa tortuga usó ese refugio. Partiendo de todos las etiquetas de refugios con las tortugas que pasaron noche en ese refugio, se armaron las redes bipartitas para los datos tomados por los tortugómetros y los datos tomados con los i-gotU, Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refus_igotu} respectivamente.
+Se armaron redes bipartitas con nodos refugio y nodos tortuga. En este tipo de redes, los nodos refugio solo están conectados con nodos tortuga y las conexiones indican que esa tortuga usó ese refugio. Partiendo de todos las etiquetas de refugios con las tortugas que pasaron noche en ese refugio, se armaron las redes bipartitas para los datos tomados por los tortugómetros y los datos tomados con los i-gotU, Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refus_igotu} respectivamente.
  
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/RedBipartita_deRefugios_corregida_campanas_2300.pdf}
-        \caption[Red bipartita de refugios para los datos de los tortugómetros.]{Red bipartita de refugios para los datos de los tortugómetros. Las distancias relativas entre nodos y el grosor del link son dependientes de la cantidad de noches que una  tortuga pasó en el refugio. }
+        \caption[Red bipartita de refugios para los datos de los tortugómetros.]{Red bipartita de refugios para los datos de los tortugómetros. Las distancias relativas entre nodos y el grosor del enlace es dependiente de la cantidad de noches que una  tortuga pasó en el refugio. }
         \label{fig:red_bipartita_refus_campanas}
        
         \end{center}
@@ -91,7 +91,7 @@ Se armaron redes bipartitas con nodos refugios y nodos tortuga. En este tipo de 
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=1.3\imsize]{Chap3/RedBipartita_deRefugios_IGOTO.pdf}
-        \caption[Red bipartita de refugios para los datos de los i-gotU.]{Red bipartita de refugios para los datos de los i-gotU. Las distancias relativas entre nodos y el grosor del link son dependientes de la cantidad de noches que una  tortuga pasó en el refugio. }
+        \caption[Red bipartita de refugios para los datos de los i-gotU.]{Red bipartita de refugios para los datos de los i-gotU. Las distancias relativas entre nodos y el grosor del enlace es dependiente de la cantidad de noches que una  tortuga pasó en el refugio. }
         \label{fig:red_bipartita_refus_igotu}
        
         \end{center}
@@ -177,9 +177,9 @@ Podría esperarse que la centralidad de grado medio de los machos sea mayor que 
  
 Con respecto al coeficiente de agrupamiento, se observa que para los datos provenientes de los tortugómetros, el coeficiente de agrupamiento es distinto de cero. Para el caso de los datos provenientes de los i-gotU, el coeficiente de agrupamiento es cero. Esto se debe a que la red de encuentros y la red proyectada no presentan triángulos entre ningún triplete de nodos, debido seguramente a la poca cantidad de individuos monitoreados con este método. 
 
-Se encontraron modularidades mayores en los datos provenientes de los tortugómetros en comparación con los datos provenientes de los i-gotU para las redes de encuentros y las redes proyectadas. Esto se debe a la existencia de dos claras comunidades en las redes provenientes de los datos del tortugómetro (Figs. \ref{fig:redInteraccion20mincampanas} y \ref{fig:proyeccion_red_campanas}) y a la ausencia de comunidades en las redes de los datos de los i-gotU (Figs. \ref{fig:redInteraccion20igotu} y \ref{fig:proyeccion_red_igotu}).
+Se encontraron modularidades mayores en los datos provenientes de los tortugómetros en comparación con los datos provenientes de los i-gotU para las redes de encuentros y las redes proyectadas. Esto indica a la existencia de dos claras comunidades en las redes provenientes de los datos del tortugómetro (Figs. \ref{fig:redInteraccion20mincampanas} y \ref{fig:proyeccion_red_campanas}) y a la ausencia de comunidades en las redes de los datos de los i-gotU (Figs. \ref{fig:redInteraccion20igotu} y \ref{fig:proyeccion_red_igotu}).
  
-Sobre las redes bipartitas se generaron 1000 redes aleatorias  realizando 1000 operaciones del tipo \textit{double edge swap}. Se compararon las métricas obtenidas en las redes proyectadas de la tabla \ref{tab:metricas_topologia_redes} con las métricas obtenidas en las proyecciones de las redes aleatorias. En la Fig. \ref{fig:distribucion_coef_agrupa}, se muestra un ejemplo de la distribución del coeficiente de agrupamiento en las redes aleatorias generadas partiendo de la red bipartita de refugios con datos de los tortugómetros (Fig. \ref{fig:red_bipartita_refus_campanas}). Se observa que no presenta diferencias significativas entre los valores hallados con el valor medido en la proyección de la red original. Se observó el mismo tipo de comportamiento para todas las métricas calculadas en la tabla \ref{tab:metricas_topologia_redes}. Esto quiere decir que no habría diferencias con una red aleatoria.
+Para comparar las metricas obtenidas con un modelo de uso aleatorio de refugios, se generaron 1000 redes aleatorias  realizando 1000 operaciones del tipo \textit{double edge swap} sobre las redes bipartitas. Se compararon las métricas obtenidas en las redes proyectadas de la tabla \ref{tab:metricas_topologia_redes} con las métricas obtenidas en las proyecciones de las redes aleatorias. En la Fig. \ref{fig:distribucion_coef_agrupa}, se muestra un ejemplo de la distribución del coeficiente de agrupamiento en las redes aleatorias generadas partiendo de la red bipartita de refugios con datos de los tortugómetros (Fig. \ref{fig:red_bipartita_refus_campanas}). Se observa que no presenta diferencias significativas entre los valores hallados con el valor medido en la proyección de la red original. Se observó el mismo tipo de comportamiento para todas las métricas calculadas en la tabla \ref{tab:metricas_topologia_redes}. Esto quiere decir que no habría diferencias con una red aleatoria y que por lo tanto no parece ser posible inferir información de una red de a partir de la otra.
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/coef_clustering_distribucion.pdf}
@@ -189,14 +189,14 @@ Sobre las redes bipartitas se generaron 1000 redes aleatorias  realizando 1000 o
         \end{center}
 \end{figure}
  
-\section{Proyecciones de redes bipartitas en nodos refugios}
-Se realizaron las proyecciones de las redes bipartitas (Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refus_igotu}) en nodos refugios, Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}.
+\section{Proyecciones de redes bipartitas en nodos refugio}
+Se realizaron las proyecciones de las redes bipartitas (Figs. \ref{fig:red_bipartita_refus_campanas} y \ref{fig:red_bipartita_refus_igotu}) en nodos refugio, Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}.
  
  
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/Proyecion_bipartita_ref_solo_ref.pdf}
-        \caption[Proyección  de red bipartita de refugios para datos de los tortugómetros en nodos refugios.]{Proyección  de red bipartita de refugios para datos de los tortugómetros (Fig. \ref{fig:red_bipartita_refus_campanas}). Si hay una refugio compartido por un par de nodos tortuga, aparece una conexión entre este par de nodos en la proyección. }
+        \caption[Proyección  de red bipartita de refugios para datos de los tortugómetros en nodos refugio.]{Proyección  de red bipartita de refugios para datos de los tortugómetros (Fig. \ref{fig:red_bipartita_refus_campanas}). Si hay una refugio compartido por un par de nodos tortuga, aparece una conexión entre este par de nodos en la proyección. }
         \label{fig:proyeccion_red_campanas_refus}
        
         \end{center}
@@ -205,24 +205,24 @@ Se realizaron las proyecciones de las redes bipartitas (Figs. \ref{fig:red_bipar
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/Proyecion_bipartita_ref_solo_ref_iGOTU.pdf}
-        \caption[Proyección  de red bipartita de refugios para datos de los i-gotU en nodos refugios.]{Proyección  de red bipartita de refugios para datos de los i-gotU (Fig. \ref{fig:red_bipartita_refus_igotu}) sobre los nodos refugios. Si hay una refugio compartido por un par de nodos tortuga, aparece una conexión entre el refugio común con los respectivos refugios de ambas tortugas en la proyección. }
+        \caption[Proyección  de red bipartita de refugios para datos de los i-gotU en nodos refugio.]{Proyección  de red bipartita de refugios para datos de los i-gotU (Fig. \ref{fig:red_bipartita_refus_igotu}) sobre los nodos refugio. Si hay una refugio compartido por un par de nodos tortuga, aparece una conexión entre el refugio común con los respectivos refugios de ambas tortugas en la proyección. }
         \label{fig:proyeccion_red_igotu_refus}
        
         \end{center}
 \end{figure}
-En las Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}, se observan pequeños clusters donde hay nodos completamente conectados (asociados a los refugios que visitó una tortuga) con algunos nodos que conectan distintos clusters (asociados a algún refugio compartido). Ejemplo de este nodo conector es el refugio 4 (Fig. \ref{fig:proyeccion_red_igotu_refus}), que fue utilizado por la tortuga T30 y T6 en distintas noches (Fig. \ref{fig:red_bipartita_refus_igotu}).
+En las Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}, se observan pequeños clusters donde hay nodos completamente conectados (asociados a los refugios que visitó una tortuga) con algunos nodos que conectan distintos clusters (asociados a algún refugio compartido). Un ejemplo de este nodo conector es el refugio 4 (Fig. \ref{fig:proyeccion_red_igotu_refus}), que fue utilizado por la tortuga T30 y T6 en distintas noches (Fig. \ref{fig:red_bipartita_refus_igotu}).
  
-Una pregunta subyacente de las proyecciones calculadas es si existe alguna relación entre los links de la red y las distancias geográficas entre los nodos refugios. Para responder esta pregunta se graficaron los refugios en el mapa junto con las conexiones dadas por los links en las proyecciones. Un ejemplo de este mapa para los datos de los i-gotU se muestra en la Fig. \ref{fig:mapa_con_conexiones_igotu}. Se observa que parte de los links se encuentran entre refugios vecinos, pero también hay unos pocos links entre refugios que se encuentran a distancias considerables respecto de refugios vecinos. A falta de una relación más rigurosa entre las distancias y los links, se realizó un \textit{mantel test} \cite{MantelTest} entre las matrices de adyacencia de las redes proyectadas en nodos refugios (Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}) con matrices de distancias entre refugios. La matriz de adyacencia esta definida como: la matriz booleana que representa las conexiones entre pares de nodos refugios. En el lugar i,j de la matriz de distancias se encuentra la distancia entre el refugio  de la posición i y el refugio j (en metros) de la matriz de adyacencia.
+Una pregunta subyacente de las proyecciones calculadas es si existe alguna relación entre los enlaces de la red y las distancias geográficas entre los nodos refugio. Para responder esta pregunta se graficaron los refugios en el mapa junto con las conexiones dadas por los enlaces en las proyecciones. Un ejemplo de este mapa para los datos de los i-gotU se muestra en la Fig. \ref{fig:mapa_con_conexiones_igotu}. Se observa que parte de los enlaces se encuentran entre refugios vecinos, pero también hay unos pocos enlaces entre refugios que se encuentran a distancias considerables respecto de refugios vecinos. A falta de una relación más rigurosa entre las distancias y los enlaces, se realizó un \textit{Mantel test} \cite{MantelTest} entre las matrices de adyacencia de las redes proyectadas en nodos refugio (Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}) con matrices de distancias entre refugios. La matriz de adyacencia esta definida como la matriz booleana que representa las conexiones entre pares de nodos refugio. En el lugar $i$,$j$ de la matriz de distancias se encuentra la distancia entre el refugio  de la posición $i$ y el refugio $j$ (en metros) de la matriz de adyacencia.
  
-El mantel test calcula el coeficiente de correlación de Pearson entre estas dos matrices, luego realiza permutaciones aleatorias de la matriz de distancias y vuelve a calcular el coeficiente de correlación de Pearson. El p-valor es la proporción de permutaciones que dan un coeficiente de correlación de Pearson mayor o igual al coeficiente de correlación de Pearson de la matriz de distancias original. Bajo la hipótesis de correlación nula en las dos matrices, las permutaciones aleatorias deberían ser igualmente probables de producir valores mayores o menores del coeficiente de correlación calculado.
+El Mantel test calcula el coeficiente de correlación de Pearson entre estas dos matrices, luego realiza permutaciones aleatorias de la matriz de distancias y vuelve a calcular el coeficiente de correlación de Pearson. El p-valor es la proporción de permutaciones que dan un coeficiente de correlación de Pearson mayor o igual al coeficiente de correlación de Pearson de la matriz de distancias original. Bajo la hipótesis de correlación nula en las dos matrices, las permutaciones aleatorias deberían ser igualmente probables de producir valores mayores o menores del coeficiente de correlación calculado.
  
  
-Los mantel tests realizados con 10000 permutaciones aleatorias para los datos de los tortugómetros y los i-gotU dan un p-valor de 0.0051 y 0.0001 respectivamente. Esto indica que existe una correlación significativa entre las distancias entre refugios y los enlaces en las redes proyectadas en nodos refugios (Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}). Es decir que la tortuga que visita un refugio, tiene una probabilidad mayor de visitar refugios cercanos a este, como se observa en la Fig. \ref{fig:mapa_con_conexiones_igotu}. Esto también se evidencia observando la trayectoria de visita de los refugios, siendo la regla que la tortuga posee noches consecutivas en refugios cercanos entre si (Fig. \ref{fig:ruta_refus_T54}).
+Los Mantel tests realizados con 10000 permutaciones aleatorias para los datos de los tortugómetros y los i-gotU dan un p-valor de 0.0051 y 0.0001 respectivamente. Esto indica que existe una correlación significativa entre las distancias entre refugios y los enlaces en las redes proyectadas en nodos refugio (Figs. \ref{fig:proyeccion_red_campanas_refus} y \ref{fig:proyeccion_red_igotu_refus}). Es decir que la tortuga que visita un refugio tiene una probabilidad mayor de visitar refugios cercanos a este, como se observa en la Fig. \ref{fig:mapa_con_conexiones_igotu}. Esto también se evidencia observando la trayectoria de visita de los refugios, siendo la regla que la tortuga posee noches consecutivas en refugios cercanos entre sí (Fig. \ref{fig:ruta_refus_T54}).
  
 \begin{figure}[ht]
     \begin{center}
         \includegraphics[width=\imsize]{Chap3/Mapa_refus_con_coneciones_igotu.jpg}
-        \caption[Proyección en nodos refugios con conexiones en el mapa.]{Proyección de red bipartita (Fig. \ref{fig:proyeccion_red_igotu_refus}) en nodos refugios con conexiones en el mapa para los datos de i-gotU. }
+        \caption[Proyección en nodos refugio con conexiones en el mapa.]{Proyección de red bipartita (Fig. \ref{fig:proyeccion_red_igotu_refus}) en nodos refugio con conexiones en el mapa para los datos de i-gotU. }
         \label{fig:mapa_con_conexiones_igotu}
        
         \end{center}
