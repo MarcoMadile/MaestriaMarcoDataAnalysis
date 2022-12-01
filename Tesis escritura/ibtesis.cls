@@ -98,7 +98,7 @@
 \def\@ifdefined#1#2{\@ifundefined{#1}{}{#2}}
 
 % Algunas definiciones
-\newcommand\directorname {Director}
+\newcommand\directorname {Directora}
 \newcommand\codirectorname {Co-director}
 \newcommand\juradoname {Miembros del Jurado}
 \newcommand\jurado[2][1]{\gdef\@njurado{#1} \gdef\@jurado{#2}}
