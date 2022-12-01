@@ -26,7 +26,7 @@ Las tortugas son animales  herbívoros que se alimentan con tallos, frutos de ca
         \label{fig:distribuciondeEspecie}
         \end{center}
 \end{figure}
-
+ 
 Esta especie presenta un dimorfismo sexual cuando son adultos, siendo los machos notablemente más chicos que las hembras. El período de actividad  de la especie (en la distribución más sur) a las latitudes de la zona de estudio es el más corto, ya que durante el invierno  bruman (parecido a hibernar) por aproximadamente cinco meses. Sus períodos de actividad comienzan durante la primavera, en el mes de septiembre. Desde noviembre a diciembre, ocurren los apareamientos; y entre enero y marzo es cuando las hembras pasan una gran parte del tiempo buscando un lugar adecuado para enterrar sus huevos \cite{Erika}. Al momento se conoce muy poco sobre la dinámica poblacional de C. \textit{chilensis} presente en Argentina.
  
 Motivados por la falta de información, el objetivo de este estudio es caracterizar el movimiento y las interacciones de las tortugas en una de las poblaciones en el límite sur de su distribución geográfica. Aprender acerca del movimiento de los individuos es fundamental para entender su rol ecológico en el ecosistema y para diseñar políticas de conservación de la especie y de su hábitat.
@@ -39,7 +39,7 @@ Se combinaron diferentes técnicas para monitorear las trayectorias de las tortu
 En primer lugar se utilizó la técnica de radiotelemetría para la localización de la posición de las tortugas. En segundo lugar, se utilizó una unidad de navegación (construida en el Centro Atómico Bariloche), para registrar señales de GPS y que contaba con sensores inerciales y de temperatura. En tercer lugar, más recientemente en el año 2022 se comenzó a utilizar un \textit{datalogger} comercial (i-gotU GT120) que toma datos de GPS y hora. En las siguientes subsecciones se proveerán más detalles de ambas metodologías.
  
 \subsection{Radiotelemetría}
-La técnica de radiotelemetría permite localizar individuos mediante un sistema de transmisor-receptor-antena. Se utilizaron transmisores Holohil (Grand HOLOHIL Systems Ltd. RI-2B) pegados a los caparazones de las tortugas mediante cinta adhesiva. Estos transmisores emiten un pulso a una determinada frecuencia ($\approx$150 MHz) cada dos segundos. Los pulsos eran detectados por un sistema de recepción, que consiste en una antena Yagi-Uda conectada a un receptor ATS R410 (Advanced Telemetry Systems,Inc). Esta técnica permite con gran precisión localizar el transmisor y, usando un GPS portátil (Garmin eTrexx20), determinar la ubicación de la tortuga.
+La técnica de radiotelemetría permite localizar individuos mediante un sistema de transmisor-receptor-antena. Se utilizaron transmisores Holohil (Grand HOLOHIL Systems Ltd. RI-2B) pegados a los caparazones de las tortugas mediante cinta adhesiva. Estos transmisores emiten un pulso a una determinada frecuencia ($\approx$150 MHz) cada dos segundos. Los pulsos eran detectados por un sistema de recepción, que consistía en una antena Yagi-Uda conectada a un receptor ATS R410 (Advanced Telemetry Systems,Inc). Esta técnica permite con gran precisión localizar el transmisor y, usando un GPS portátil (Garmin eTrexx20), determinar la ubicación de la tortuga.
  
 A pesar de ser muy precisa espacialmente, esta técnica no posee una buena resolución temporal, necesaria para reconstruir trayectorias confiables. En primer lugar, es necesario seguir constantemente al individuo para tener una mejor resolución temporal. En segundo lugar, el investigador debe acercarse a una distancia considerable de la tortuga para tomar su posición con el GPS. Ambos factores pueden alterar el comportamiento de la tortuga y su trayectoria. En las siguientes secciones se describen la unidad de navegación y el i-gotU, que ofrecen una alta resolución temporal en las trayectorias sin perturbar al comportamiento animal. Es por esta razón que solo se usó esta técnica para recuperar la unidad de navegación y el i-gotU, no para monitorear la trayectoria directamente.
  
@@ -74,7 +74,7 @@ Con este dispositivo se obtuvieron datos de campañas realizadas entre finales d
 \section{Redes complejas}
 El uso de herramientas de redes complejas permitió comparar resultados provenientes de diferentes análisis sobre los datos de la posición de las tortugas. En este trabajo se utilizaron métricas sobre la topología de distintas redes generadas, todas calculadas utilizando  funciones implementadas en la librería NetworkX de Python \cite{networkx}.
  
-Una red es un conjunto de elementos (nodos) conectados entre sí por enlaces (aristas). Las redes se consideran complejas cuando tienen características que las distinguen de modelos generadores sencillos, por ejemplo, el modelo de Erdos-Rényi. La forma que están conectados los nodos  en la red (o su topología) puede ser estudiada a través de distintas métricas. En este trabajo se utilizaron las siguientes métricas:
+Una red es un conjunto de elementos (nodos) conectados entre sí por enlaces (aristas). Las redes se consideran complejas cuando tienen características que las distinguen de modelos generadores sencillos, por ejemplo, el modelo de Erdos-Rényi. La forma en que están conectados los nodos  en la red (o su topología) puede ser estudiada a través de distintas métricas. En este trabajo se utilizaron las siguientes métricas:
 \begin{itemize}
     \item \textbf{Densidad}: es la fracción de enlaces que existen en la red respecto de la cantidad de enlaces que podrían existir en la red. Se calcula como:
     \begin{equation}
@@ -84,7 +84,7 @@ Una red es un conjunto de elementos (nodos) conectados entre sí por enlaces (ar
     \item  \textbf{Modularidad}: es una medida de fuerza de división de la red en grupos de nodos o comunidades. Se calcula como:
     \begin{equation}
         Q = \sum_{c=1}^{n}
-        \left[ \frac{L_c}{m} - \gamma\left( \frac{k_c}{2m} \right) ^2 \right]
+        \left[ \frac{L_c}{m} - \gamma\left( \frac{k_c}{2m} \right) ^2 \right],
     \end{equation}
     donde $L_c$ es la cantidad de enlaces que conectan nodos de la comunidad $c$, $k_c$ es la cantidad de enlaces que conectan nodos de la comunidad $c$ con nodos de otras comunidades, $m$ es la cantidad de enlaces en la red y $\gamma$ es un parámetro que depende de la red. En este trabajo se utilizó $\gamma = 1$. Las comunidades en la red se identificaron a través de un método de propagación de etiquetas semi-síncrono \cite{cordasco2010community}.
     \item \textbf{Coeficiente de agrupamiento}: es una medida de la densidad de enlaces entre los vecinos de un nodo. Se calcula como:
@@ -108,6 +108,9 @@ En los siguientes capítulos se analizarán los datos obtenidos, a través de la
 %%% mode: latex
 %%% TeX-master: "template"
 %%% End:
+ 
+ 
+ 
  
  
  
