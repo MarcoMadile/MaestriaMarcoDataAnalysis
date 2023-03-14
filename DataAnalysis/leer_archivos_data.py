@@ -1,10 +1,9 @@
 import pandas as pd 
 import glob
 import pickle
-import ipdb
 import datetime
-from datetime import timedelta
-import numpy as np
+## This file contains functions to read the data from the different sources and return a list of dataframes in one unique format. 
+## this unique format is: in each df columns are lat,lon, dateTime, t_name and sex of the tortoise
 
 
 # from folder returns list of csv with unified format
