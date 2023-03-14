@@ -17,11 +17,13 @@ def get_N_files(folder_Ns="DataAnalysis/Datos_CampanaSaoFeb/Ns",sex_dict_pickle=
         df_["lat"] = df["Latitude"]
         df_["lon"] = df["Longitude"]
         df_["dateTime"] =  pd.to_datetime(df["dateTime"].apply(lambda x: x[:19]))
-        t_name = f.split("/")[-1].split("_")[0]
-        df_["t_name"] = t_name
+        tort=f.replace(folder_Ns,"")
+        tort =tort[1:]
+        tort =tort.split("_")[0]
+        df_["t_name"] = tort
         with open(sex_dict_pickle,"rb") as f:
             sex_dict = pickle.load(f)       
-        df_["sex"] = sex_dict[t_name]
+        df_["sex"] = sex_dict[tort]
         dfs_list.append(df_)
     return dfs_list
 
@@ -35,7 +37,7 @@ def get_igo_old_files(igo_folder = "DataAnalysis/DatosIgoto2022Todos",sex_dict_p
         df.append(pd.read_excel(a))
         tort=a.replace(".xls","")
         tort=tort.replace(igo_folder,"")
-        tort=tort.replace("","")
+        tort=tort[1:]
         tort=tort.replace("x","")
         if tort[1]=="0":
             tort=tort[0]+tort[2:]
@@ -58,6 +60,60 @@ def get_igo_old_files(igo_folder = "DataAnalysis/DatosIgoto2022Todos",sex_dict_p
     return dfs_list_new_f
 
 
+
+#getting all files in folder 
+def get_files_tortus(folder="DataAnalysis/todaslascampanas", sex_dict_pickle= "sex_dict_tortoises.pickle" ):
+    files=glob.glob(folder+"/*.csv")
+    df=[]
+    tnames=[]
+    for a in files:
+        df.append(pd.read_csv(a,sep=";",encoding='latin-1'))
+        tort=a.replace(".csv","")
+        tort=tort.replace(folder,"")
+        tort=tort[1:]
+        tort=tort.split("_", 1)[0]
+        if tort[1]=="0":
+            tort=tort[0]+tort[2:]
+        tnames.append(str(tort))
+    for j in range(len(df)):
+        df[j]["timeGMT"]=df[j]["timeGMT"].apply(fixing_time_tortus)
+        df[j]["date"]=df[j]["date"].apply(fixing_dates_tortus)
+    dfs_list_new_f = []
+    with open(sex_dict_pickle,"rb") as f:
+            sex_dict = pickle.load(f)   
+    for i in range(len(df)):
+        df_nf = pd.DataFrame()
+        df_nf["lat"] = df[i]["lat"]
+        df_nf["lon"] = df[i]["lon"]
+        df_nf["dateTime"] = pd.to_datetime(df[i]["date"]+" "+df[i]["timeGMT"],format="%d/%m/%Y %H%M")
+        df_nf["t_name"] = tnames[i]
+        df_nf["sex"] = sex_dict[tnames[i]]
+        dfs_list_new_f.append(df_nf)
+    return dfs_list_new_f
+
+
+#fixing time because some files have time=8 when i want time= 0008 (so then i have it in same format)
+def fixing_time_tortus(x):
+    x=str(x)
+    if len(x)==4:
+        return x
+    elif len(x)==2:
+        return "00"+x
+    else:
+        return "0"+x
+
+#some files have dates like: "2022-01-21" and I want all dates in same format: "21/01/2022"
+def fixing_dates_tortus(x):
+    x=str(x)
+    if "-" in x:
+        aux=x.split("-")
+        return aux[2]+"/"+aux[1]+"/"+aux[0]
+    else:
+        return x
+
+
+
+
 #some files have dates like: "21:01:2022" (type datetime) and I want all dates in same format: "2022/01/21" type str
 def fixing_dates_igos(x):
     if isinstance(x, datetime.date):
@@ -76,6 +132,10 @@ def fixing_time_igos(x):
         return x+":00"
     else:
         return x
+
+
+
+
 
 
 
@@ -104,8 +164,3 @@ def save_sex_dict(file_for_sex="DataAnalysis/encuentros_csv/encuentroscompleto_o
     if return_dict:
         return dict_sexs
 
-
-folder_N = "DataAnalysis/Datos_CampanaSaoFeb/Ns"
-dfs_list = get_N_files(folder_N)
-dfs_v_list = get_igo_old_files()
-ipdb.set_trace()
